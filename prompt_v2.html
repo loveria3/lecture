@@ -97,6 +97,26 @@
   .fade-in.visible{opacity:1;transform:none;}
 
   @media(max-width:720px){.prompt-grid{grid-template-columns:1fr;}.tips-grid{grid-template-columns:1fr;}.toc{display:none;}.cat-tab{padding:12px 10px;font-size:13px;}}
+
+  /* ── 버전 배지 (업로드 확인용) ── */
+  .ver-badge{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.28);border-radius:6px;padding:1px 7px;margin-right:10px;letter-spacing:.04em;}
+
+  /* ── PDF 다운받기 버튼 ── */
+  .pdf-dl-btn{margin-left:auto;background:#FCC419;color:#1a1a2e;border:none;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:background .2s;}
+  .pdf-dl-btn:hover{background:#f0b800;}
+
+  /* ── PDF / 인쇄 전용 설정 ── */
+  @media print{
+    @page{size:A4;margin:12mm;}
+    *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
+    html,body{background:#fff !important;}
+    body{padding-top:0 !important;margin-top:0 !important;}
+    .top-nav,.progress-bar,.scroll-hint,.copy-btn,.pdf-dl-btn,#toc,.toc,.toc-dot{display:none !important;}
+    .fade-in{opacity:1 !important;transform:none !important;}
+    .hero{min-height:auto !important;}
+    section,.card,.prompt-card,.prompt-box,.prompt-grid,.cat-header,.tips-grid,.tip-card{page-break-inside:avoid;break-inside:avoid;}
+    a{text-decoration:none !important;}
+  }
 </style>
 </head>
 <body>
@@ -108,10 +128,12 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-1</span>
     <a href="index.html" class="top-nav-btn">홈</a>
-    <a href="one.html" class="top-nav-btn">1일차 교육</a>
-    <a href="two.html" class="top-nav-btn">2일차 교육</a>
+    <a href="one_v2.html" class="top-nav-btn">1일차 교육</a>
+    <a href="two_v2.html" class="top-nav-btn">2일차 교육</a>
     <a href="prompt_v2.html" class="top-nav-btn active">참고 프롬프트</a>
+    <button class="pdf-dl-btn" onclick="window.print()" title="브라우저 인쇄창에서 'PDF로 저장'을 선택하세요">PDF 저장</button>
   </div>
 </nav>
 
@@ -1244,6 +1266,51 @@ A4 3매 이내, 객관적이고 간결한 문체로 작성해 줘.</pre>
 </div>
 
 </div></div></section>
+
+<!-- ══════════════════ 심화 · 반 단위 일괄 생성 ══════════════════ -->
+<section class="section" id="sec-batch" style="background:var(--white);">
+<div class="container">
+<div class="cat-header fade-in">
+  <div class="cat-icon" style="background:var(--purple);">심</div>
+  <div><div class="cat-title" style="color:var(--purple);">심화 활용 — 반 단위 행동특성 일괄 생성</div><div class="cat-desc">엑셀에 정리한 특성 표 → 반 전체 행동특성을 한 번에 (실습용 샘플: 행동특성_실습_샘플.xlsx)</div></div>
+</div>
+<div class="fade-in">
+<div class="prompt-card">
+  <div class="card-header" style="background:#F5F3FF;">
+    <span class="card-cat-badge" style="background:var(--purple);">평가·기록 · 심화</span>
+    <div class="card-title">반 전체 행동특성 및 종합의견 한 번에 작성</div>
+  </div>
+  <div class="card-body">
+    <p style="font-size:13.5px;color:var(--gray);line-height:1.7;margin-bottom:10px;">엑셀에서 <strong>번호 + 특성 칸만</strong> 복사해(이름 제외) claude.ai에 붙여넣고 아래 프롬프트를 함께 보냅니다. 결과를 "번호 | 행동특성" 표로 받아 엑셀에 붙여넣습니다. 학생이 많으면 <strong>10명씩 끊어서</strong> 진행합니다.</p>
+    <a href="행동특성_실습_샘플.xlsx" download style="display:inline-flex;align-items:center;gap:7px;background:#FCC419;color:#1a1a2e;font-weight:800;font-size:13.5px;text-decoration:none;padding:10px 18px;border-radius:9px;margin-bottom:14px;">↓ 실습용 샘플 엑셀 내려받기 (행동특성_실습_샘플.xlsx)</a>
+    <div class="prompt-box">
+      <pre id="p-batch">다음은 우리 반 학생들의 활동 키워드입니다. 각 학생의 행동특성 및 종합의견을 작성해 줘.
+
+[형식]
+- 학생마다 3~4문장, 300~500자, 모든 문장 '~함' 종결, 공식적·객관적 어투
+- 학습태도 → 교우관계 → 특기 순서
+[조건]
+- 구체적 관찰 사례 포함, 부정적 내용은 발전 가능성과 함께 서술
+- 학생마다 표현과 어휘를 다르게 하여 문구가 겹치지 않게
+- 결과를 "번호 | 행동특성 및 종합의견" 표로 정리해 줘
+
+[학생 데이터]
+1 | 수업 집중도 높고 과제 성실 | 친구들과 두루 원만 | 수학 경시 입상
+2 | 끈기 있게 끝까지 | 협동 활동 적극 | 농구 등 체육 특기
+(번호·특성 칸을 끝까지 붙여넣기)</pre>
+      <button class="copy-btn" onclick="copyP('p-batch',this)">복사</button>
+    </div>
+    <button class="result-toggle" onclick="toggleResult('r-batch',this)">결과 예시 보기 <span class="arrow">▼</span></button>
+    <div class="result-box" id="r-batch">
+      <div class="result-label">생성 결과 예시</div>
+      <pre>1 | 평소 수업에 성실히 참여하며 맡은 과제를 끝까지 책임지는 태도가 돋보임. 수학 교과에서 우수한 문제 해결력을 보이며 교내 경시대회에서 성과를 거둠. 친구들과 두루 원만하게 지내며 또래를 돕는 배려심이 있음.
+2 | 어떤 활동이든 끈기 있게 끝까지 해결하려는 자세가 인상적임. 모둠 활동에서 협동적으로 참여하며 분위기를 이끎. 농구 등 체육 활동에 특기를 보여 체육대회에서 반을 대표함.</pre>
+    </div>
+  </div>
+  <div class="point-box"><div class="point-label" style="color:var(--purple);">POINT</div>이름 대신 번호만 입력(개인정보) · 10명씩 분할 · 생기부 기재 전 교사 검토 필수. 교육부도 생성형 AI를 '윤문 등 보조 수단'으로 허용하되 최종 책임은 교사에게 있습니다(소속 교육청 지침 확인).</div>
+</div>
+</div>
+</div></section>
 
 <!-- ══════════════════ S7. 활용 꿀팁 ══════════════════ -->
 <section class="tips-section" id="sec7">
