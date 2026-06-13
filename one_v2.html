@@ -631,6 +631,30 @@
   }
   .top-nav-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
   .top-nav-btn.active { background: var(--accent); color: var(--dark); }
+
+  /* ── PDF 다운받기 버튼 ── */
+  .pdf-dl-btn {
+    margin-left: auto;
+    background: #FCC419; color: #1a1a2e; border: none;
+    padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 800;
+    cursor: pointer; font-family: inherit; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px; transition: background .2s;
+  }
+  .pdf-dl-btn:hover { background: #f0b800; }
+
+  /* ── PDF / 인쇄 전용 설정 ── */
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    html, body { background: #fff !important; }
+    body { padding-top: 0 !important; margin-top: 0 !important; }
+    .top-nav, .progress-bar, .scroll-hint, .copy-btn, .pdf-dl-btn, #toc, .toc-dot { display: none !important; }
+    .fade-in { opacity: 1 !important; transform: none !important; }
+    .hero { min-height: auto !important; }
+    section, .card, .prompt-card, .prompt-box, .practice-card, .timetable,
+    .step, .interface-card, .elem-card, .cat-header, .prompt-grid, .four-card { page-break-inside: avoid; break-inside: avoid; }
+    a { text-decoration: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -643,6 +667,7 @@
     <a href="one_v2.html" class="top-nav-btn active">1일차 교육</a>
     <a href="two_v2.html" class="top-nav-btn">2일차 교육</a>
     <a href="prompt_v2.html" class="top-nav-btn">참고 프롬프트</a>
+    <button class="pdf-dl-btn" onclick="window.print()" title="브라우저 인쇄창에서 'PDF로 저장'을 선택하세요">PDF 저장</button>
   </div>
 </nav>
 
@@ -803,6 +828,23 @@
     <div class="info-box">
       <strong style="display:block;margin-bottom:6px;">지금 바로 만들어 봅니다!</strong>
       claude.ai 좌측 사이드바에서 <strong>[+ 프로젝트 만들기]</strong>를 클릭해 <strong>[담임업무]</strong> 프로젝트를 만듭니다. 프로젝트 지침에 "당신은 고등학교 [학년] [반] 담임 교사입니다."를 입력하고 저장합니다. 이후 실습은 이 프로젝트 안에서 진행합니다.
+    </div>
+
+    <h3 class="section-title" style="font-size:1.25rem;margin-top:32px;margin-bottom:6px;">실습 전 꼭 — 교원을 위한 AI 사용 3원칙</h3>
+    <p class="section-desc" style="margin-bottom:16px;">생활기록부·공문처럼 책임이 따르는 업무에 쓰기 전에, 아래 세 가지를 먼저 약속합니다.</p>
+    <div class="card-grid-3">
+      <div class="card" style="padding:22px 20px;border-top:4px solid #DC2626;">
+        <h3 style="margin-bottom:8px;color:#DC2626;font-size:1.05rem;">1. 개인정보 보호</h3>
+        <p style="font-size:14px;color:var(--gray);line-height:1.7;">학생 실명·학번·민감정보(건강·가정사)는 입력하지 않습니다. <strong>관찰 가능한 활동 키워드만</strong> 사용합니다. Claude Pro는 설정에서 대화를 학습에 사용하지 않도록 둘 수 있습니다.</p>
+      </div>
+      <div class="card" style="padding:22px 20px;border-top:4px solid #3B5BDB;">
+        <h3 style="margin-bottom:8px;color:#3B5BDB;font-size:1.05rem;">2. 검토는 교사 책임</h3>
+        <p style="font-size:14px;color:var(--gray);line-height:1.7;">AI 결과물은 <strong>초안</strong>입니다. 생기부 기재·공문 제출 전 반드시 교사가 사실과 표현을 검토·수정합니다. 무검토 사용은 하지 않습니다.</p>
+      </div>
+      <div class="card" style="padding:22px 20px;border-top:4px solid #B45309;">
+        <h3 style="margin-bottom:8px;color:#B45309;font-size:1.05rem;">3. 한계 인지</h3>
+        <p style="font-size:14px;color:var(--gray);line-height:1.7;">AI는 사실·수치·인용을 그럴듯하게 지어낼 수 있습니다(환각). 성취기준 코드, 법령, 통계 등 <strong>정확성이 중요한 내용은 교차 확인</strong>합니다.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1055,7 +1097,17 @@
       </div>
     </div>
 
-    <div class="tip-box" style="margin-top:20px;">
+    <div class="info-box" style="margin-top:20px;border-left:5px solid var(--green);background:#F0FDF4;">
+      <strong style="display:block;margin-bottom:10px;color:var(--green);">산출물 셀프 체크 — 이렇게 나왔으면 성공입니다</strong>
+      <div style="line-height:2;font-size:14px;color:#334155;">
+        □ 행동특성이 모든 문장 '~함'으로 끝나고 300~500자 안에 들어왔다.<br>
+        □ 학생 키워드만 바꿔 두 번째 학생도 만들어 봤다.<br>
+        □ 사업 계획서가 800자 이내·예산 200만 원 이내로 나왔다.<br>
+        □ [담임업무] 프로젝트 안에서 [역할] 줄을 빼도 같은 품질이 나오는지 확인했다.
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-top:16px;">
       2교시에는 담임 교무 실전 프롬프트를 3가지 직접 완성합니다. 지금 바로 시작합니다.
     </div>
   </div>
@@ -1279,6 +1331,16 @@
         <div class="tip-box" style="margin-top:12px;">
           [교과], [수행평가 주제], [평가 요소]만 바꾸면 모든 수행평가에 재사용할 수 있습니다.
         </div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:24px;border-left:5px solid var(--green);background:#F0FDF4;">
+      <strong style="display:block;margin-bottom:10px;color:var(--green);">산출물 셀프 체크 — 2교시 마무리 전 확인</strong>
+      <div style="line-height:2;font-size:14px;color:#334155;">
+        □ 행동특성을 학생 키워드만 바꿔 두 명 이상 만들어 봤다.<br>
+        □ 시험 안내 가정통신문에 일정표가 표로 들어가고 A4 1장 이내로 나왔다.<br>
+        □ 결과가 아쉬울 때 '이어서 수정 지시'로 직접 고쳐 봤다.<br>
+        □ (시간 여유 시) 루블릭이 4단계 표로 나오는 것을 확인했다.
       </div>
     </div>
 

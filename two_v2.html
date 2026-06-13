@@ -180,6 +180,30 @@
   .top-nav-btn { padding: 6px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; color: rgba(255,255,255,.55); text-decoration: none; transition: all .2s; white-space: nowrap; }
   .top-nav-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
   .top-nav-btn.active { background: #FCC419; color: #1E293B; }
+
+  /* ── PDF 다운받기 버튼 ── */
+  .pdf-dl-btn {
+    margin-left: auto;
+    background: #FCC419; color: #1a1a2e; border: none;
+    padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 800;
+    cursor: pointer; font-family: inherit; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px; transition: background .2s;
+  }
+  .pdf-dl-btn:hover { background: #f0b800; }
+
+  /* ── PDF / 인쇄 전용 설정 ── */
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    html, body { background: #fff !important; }
+    body { padding-top: 0 !important; margin-top: 0 !important; }
+    .top-nav, .progress-bar, .scroll-hint, .copy-btn, .pdf-dl-btn, #toc, .toc-dot { display: none !important; }
+    .fade-in { opacity: 1 !important; transform: none !important; }
+    .hero { min-height: auto !important; }
+    section, .card, .prompt-card, .prompt-box, .practice-card, .timetable,
+    .step, .interface-card, .elem-card, .cat-header, .prompt-grid, .four-card { page-break-inside: avoid; break-inside: avoid; }
+    a { text-decoration: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -192,6 +216,7 @@
     <a href="one_v2.html" class="top-nav-btn">1일차 교육</a>
     <a href="two_v2.html" class="top-nav-btn active">2일차 교육</a>
     <a href="prompt_v2.html" class="top-nav-btn">참고 프롬프트</a>
+    <button class="pdf-dl-btn" onclick="window.print()" title="브라우저 인쇄창에서 'PDF로 저장'을 선택하세요">PDF 저장</button>
   </div>
 </nav>
 
@@ -495,7 +520,7 @@
     <p class="section-label label-practice">3교시 실습 3 ★ · 10분</p>
     <h2 class="section-title">Skills 실습 — HWPX 공문서 자동 작성</h2>
     <div class="warn-box" style="margin-bottom:20px;">
-      ★ 이 실습은 클로드 데스크탑 앱 + HWPX Skill이 필요합니다. 시간이 부족하거나 앱 설치가 되지 않은 경우 생략합니다.
+      ★ 이 실습은 클로드 데스크탑 앱 + HWPX Skill이 필요합니다. 시간이 부족하거나 앱 설치가 되지 않은 경우 직접 실습은 생략할 수 있습니다. 다만 <strong>강사가 화면으로 최소 1회 시연</strong>하여 Skills의 핵심(텍스트가 아니라 실제 파일이 생성된다는 점)은 반드시 함께 확인합니다. 앱 미설치자는 <strong>웹에서 같은 프롬프트로 텍스트를 생성한 뒤 한글에 붙여넣는 방식</strong>으로 대체합니다.
     </div>
     <p class="section-desc">HWPX Skill을 활용해 교육청 제출용 사업 결과보고서를 한글 파일(.hwpx)로 자동 생성합니다.</p>
 
@@ -725,6 +750,18 @@
         </div>
       </div>
     </div>
+
+    <div class="info-box" style="margin-top:24px;border-left:5px solid #06B6D4;background:#ECFEFF;">
+      <strong style="display:block;margin-bottom:10px;color:#0891B2;">산출물 셀프 체크 — 2일차 마무리 전 확인</strong>
+      <div style="line-height:2;font-size:14px;color:#334155;">
+        □ 민원 대응 메시지가 학생 실명·민감정보 없이 정중하게 나왔다.<br>
+        □ 안내 문자가 100자 이내로, 날짜·조치 사항·문의처를 모두 포함했다.<br>
+        □ HWPX 파일 생성(또는 강사 시연)으로 "실제 파일이 만들어지는 것"을 확인했다.<br>
+        □ PPT 개선 제안을 받아 슬라이드에 직접 반영해 봤다.<br>
+        □ Excel 분석 결과(평균·구간별 인원·평균 이하 명단)를 확인했다.
+      </div>
+    </div>
+
   </div>
 </section>
 
