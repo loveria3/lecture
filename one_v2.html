@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>클로드(Claude) AI 실무 마스터 과정 — 1일차 v2</title>
+<style>
+  /* ── 토큰 ─────────────────────────────── */
+  :root {
+    --navy:    #1E2761;
+    --indigo:  #2D3A8C;
+    --blue:    #3B5BDB;
+    --sky:     #4DABF7;
+    --purple:  #7C3AED;
+    --teal:    #0891B2;
+    --green:   #059669;
+    --orange:  #EA580C;
+    --red:     #DC2626;
+    --accent:  #FCC419;
+    --dark:    #1E293B;
+    --gray:    #64748B;
+    --lgray:   #F1F5F9;
+    --white:   #FFFFFF;
+    --mint:    #D0EBFF;
+    --border:  #E2E8F0;
+    --body-bg: #F8FAFC;
+  }
+
+  /* ── 리셋 & 기반 ──────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: var(--body-bg);
+    color: var(--dark);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ── 목차 사이드바 ────────────────────── */
+  .toc {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 100;
+  }
+  .toc-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: all .25s;
+    border: 2px solid var(--border);
+  }
+  .toc-dot:hover, .toc-dot.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    transform: scale(1.3);
+  }
+  .toc-dot[title]::after {
+    content: attr(title);
+    position: absolute;
+    right: 18px;
+    background: var(--dark);
+    color: var(--white);
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+    transform: translateY(-50%);
+    top: 50%;
+  }
+  .toc-dot:hover[title]::after { opacity: 1; }
+
+  /* ── 공통 섹션 ────────────────────────── */
+  .section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 0;
+  }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 28px;
+    width: 100%;
+  }
+
+  /* ── 섹션 구분 라벨 ───────────────────── */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .label-lecture { background: #EDE9FE; color: var(--purple); }
+  .label-practice { background: #FEF3C7; color: var(--orange); }
+  .label-tip { background: #D1FAE5; color: var(--green); }
+  .label-wrap { background: #E0F2FE; color: var(--teal); }
+
+  /* ── 헤딩 ────────────────────────────── */
+  h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.2; }
+  h2 { font-size: 1.75rem; font-weight: 700; line-height: 1.3; }
+  h3 { font-size: 1.15rem; font-weight: 700; }
+  h4 { font-size: 0.95rem; font-weight: 700; }
+
+  /* ── 카드 ────────────────────────────── */
+  .card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.07);
+    border: 1px solid var(--border);
+  }
+  .card-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .card-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+
+  /* ── 태그 배지 ────────────────────────── */
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 6px;
+    color: var(--white);
+    vertical-align: middle;
+  }
+
+  /* ── 시간 배지 ────────────────────────── */
+  .time-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--accent);
+    color: var(--dark);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* ── 프롬프트 복사 박스 ─────────────────── */
+  .prompt-box {
+    position: relative;
+    background: #0F172A;
+    border-radius: 12px;
+    padding: 20px 20px 20px 20px;
+    margin-top: 12px;
+  }
+  .prompt-box pre {
+    color: #E2E8F0;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+    padding-right: 50px;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: #334155;
+    color: #94A3B8;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .copy-btn:hover { background: #475569; color: var(--white); }
+  .copy-btn.copied { background: var(--green); color: var(--white); }
+
+  /* ── 팁 / 경고 / 정보 박스 ──────────────── */
+  .tip-box {
+    background: #F0FDF4;
+    border-left: 4px solid var(--green);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    color: #166534;
+    margin-top: 10px;
+  }
+  .warn-box {
+    background: #FEF9C3;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    color: #92400E;
+    margin-top: 10px;
+  }
+  .info-box {
+    background: #EFF6FF;
+    border-left: 4px solid var(--blue);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    color: #1E40AF;
+    margin-top: 10px;
+  }
+
+  /* ── 체크리스트 ──────────────────────── */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .checklist li::before {
+    content: '';
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    background: var(--green) url("data:image/svg+xml,%3Csvg viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L4.5 7.5L11 1' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat;
+  }
+  .checklist.bad li::before { background: var(--red) url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L9 9M9 1L1 9' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/10px no-repeat; }
+
+  /* ── GEAR 카드 ────────────────────────── */
+  .gear-card {
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.07);
+    border: 1px solid var(--border);
+  }
+  .gear-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .gear-circle {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: 800;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .gear-body { padding: 0 20px 20px; }
+  .gear-example {
+    background: var(--lgray);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    color: var(--gray);
+    margin-top: 10px;
+  }
+  .gear-example strong { display: block; font-size: 12px; margin-bottom: 4px; }
+
+  /* ── 4요소 카드 ──────────────────────── */
+  .elem-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.07);
+  }
+  .elem-header {
+    padding: 20px 16px 16px;
+    text-align: center;
+    color: var(--white);
+  }
+  .elem-icon { font-size: 29px; margin-bottom: 6px; }
+  .elem-header h3 { font-size: 1.1rem; }
+  .elem-korean { font-size: 13px; opacity: .85; margin-top: 2px; }
+  .elem-body {
+    background: var(--lgray);
+    padding: 14px;
+    font-size: 13px;
+    color: var(--dark);
+  }
+  .elem-what { margin-bottom: 8px; line-height: 1.55; }
+  .elem-example-box {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.6;
+    border: 1px solid var(--border);
+  }
+  .elem-example-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 5px;
+  }
+
+  /* ── 시간표 ──────────────────────────── */
+  .timetable-row {
+    display: grid;
+    grid-template-columns: 96px 96px 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .timetable-row:last-child { border-bottom: none; }
+  .tt-label {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    color: var(--white);
+    text-align: center;
+  }
+  .tt-time { color: var(--gray); font-size: 14px; }
+
+  /* ── 실습 카드 ───────────────────────── */
+  .practice-card {
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .practice-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .practice-num {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .practice-body { padding: 16px 20px 20px; }
+
+  /* ── Before / After ─────────────────── */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .ba-card { border-radius: 12px; overflow: hidden; }
+  .ba-header {
+    padding: 14px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .ba-body { padding: 16px 18px; background: var(--lgray); }
+  .ba-quote {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── 태그 라인 ─────────────────────── */
+  .tag-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14.5px;
+  }
+  .tag-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--white);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── 인터페이스 패널 ─────────────────── */
+  .interface-panel {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+  .interface-header {
+    padding: 14px 20px;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .interface-body {
+    background: var(--lgray);
+    padding: 18px;
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+  .interface-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .interface-item::before {
+    content: '▸';
+    color: var(--blue);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .interface-tip {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    color: var(--indigo);
+    margin-top: 12px;
+    border: 1px solid var(--border);
+  }
+  .interface-tip strong { display: block; font-size: 12px; color: var(--blue); margin-bottom: 3px; text-transform: uppercase; letter-spacing:.04em; }
+
+  /* ── 스텝 박스 (따라하기 단계) ──────────── */
+  .step-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 6px rgba(0,0,0,.05);
+  }
+  .step-num {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+  .step-content strong { display: block; font-size: 15px; margin-bottom: 4px; }
+  .step-content span { font-size: 14px; color: var(--gray); }
+
+  /* ── 마무리 섹션 ─────────────────────── */
+  .closing {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--indigo) 100%);
+    color: var(--white);
+    text-align: center;
+    padding: 80px 28px;
+  }
+  .closing h2 { font-size: 2rem; margin-bottom: 12px; }
+  .closing p { color: #A5B4FC; font-size: 1rem; margin-bottom: 32px; }
+  .summary-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .summary-chip {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    color: var(--white);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+
+  /* ── 히어로 (표지) ───────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--indigo) 60%, #3D2B8E 100%);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 70%, rgba(76,171,247,.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 20%, rgba(124,58,237,.2) 0%, transparent 50%);
+  }
+  .hero-inner { position: relative; padding: 40px 28px; }
+  .hero-kicker {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .hero-kicker::before, .hero-kicker::after {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--sky);
+  }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 12px; }
+  .hero-sub { font-size: 1.05rem; color: #A5B4FC; margin-bottom: 32px; }
+  .hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .hero-badge {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    color: var(--white);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,.4);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint svg { width: 16px; height: 16px; fill: currentColor; }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── 섹션 헤더 ───────────────────────── */
+  .section-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--gray);
+    margin-bottom: 28px;
+  }
+
+  /* ── 반응형 ──────────────────────────── */
+  @media(max-width:720px) {
+    .card-grid-2, .card-grid-4, .before-after { grid-template-columns: 1fr; }
+    .card-grid-3 { grid-template-columns: 1fr 1fr; }
+    .timetable-row { grid-template-columns: 84px 84px 1fr; }
+    .toc { display: none; }
+    h1 { font-size: 2rem; }
+  }
+  @media(max-width:500px) {
+    .card-grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ── 스크롤 애니메이션 ─────────────────── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── 진행 바 ─────────────────────────── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    z-index: 300;
+    transition: width .1s;
+  }
+
+  /* ── 상단 내비게이션 ─────────────────── */
+  .top-nav {
+    position: fixed; top: 3px; left: 0; right: 0;
+    background: rgba(14, 18, 60, 0.97);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    z-index: 200;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .top-nav-inner {
+    max-width: 920px; margin: 0 auto; padding: 0 28px;
+    display: flex; align-items: center; height: 48px; gap: 2px;
+  }
+  .top-nav-logo {
+    font-size: 12px; font-weight: 800; color: rgba(255,255,255,.35);
+    margin-right: 14px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+  }
+  .top-nav-btn {
+    padding: 6px 16px; border-radius: 8px; font-size: 14px; font-weight: 700;
+    color: rgba(255,255,255,.55); text-decoration: none; transition: all .2s; white-space: nowrap;
+  }
+  .top-nav-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+  .top-nav-btn.active { background: var(--accent); color: var(--dark); }
+</style>
+</head>
+<body>
+
+<!-- 상단 내비게이션 -->
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <span class="top-nav-logo">Claude AI 연수</span>
+    <a href="index.html" class="top-nav-btn">홈</a>
+    <a href="one_v2.html" class="top-nav-btn active">1일차 교육</a>
+    <a href="two_v2.html" class="top-nav-btn">2일차 교육</a>
+    <a href="prompt_v2.html" class="top-nav-btn">참고 프롬프트</a>
+  </div>
+</nav>
+
+<!-- 진행 바 -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- 목차 도트 -->
+<nav class="toc" id="toc">
+  <div class="toc-dot" title="소개" onclick="scrollTo(0)"></div>
+  <div class="toc-dot" title="시간표" onclick="scrollTo(1)"></div>
+  <div class="toc-dot" title="인터페이스" onclick="scrollTo(2)"></div>
+  <div class="toc-dot" title="첫 실습 체험" onclick="scrollTo(3)"></div>
+  <div class="toc-dot" title="4가지 요소" onclick="scrollTo(4)"></div>
+  <div class="toc-dot" title="사업계획서 실습" onclick="scrollTo(5)"></div>
+  <div class="toc-dot" title="1교시 정리" onclick="scrollTo(6)"></div>
+  <div class="toc-dot" title="GEAR 질문법" onclick="scrollTo(7)"></div>
+  <div class="toc-dot" title="실전 실습 3가지" onclick="scrollTo(8)"></div>
+  <div class="toc-dot" title="마무리" onclick="scrollTo(9)"></div>
+</nav>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S0. 히어로 (표지)                       -->
+<!-- ══════════════════════════════════════ -->
+<section class="hero" id="sec0">
+  <div class="hero-inner container">
+    <p class="hero-kicker">고등학교 교사를 위한</p>
+    <h1>클로드(Claude) AI<br>실무 마스터 과정</h1>
+    <p class="hero-sub">1일차 · 2차시 &nbsp;—&nbsp; 직접 써보면서 배우는 프롬프트 엔지니어링</p>
+    <div class="hero-badges">
+      <span class="hero-badge">1일차 2차시</span>
+      <span class="hero-badge">총 100분</span>
+      <span class="hero-badge">claude.ai 웹 브라우저</span>
+      <span class="hero-badge">실습 비중 70%+</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>스크롤하여 내용 보기</span>
+    <svg viewBox="0 0 24 24"><path d="M12 16l-6-6h12z"/></svg>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S1. 시간표                              -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec1" style="background:var(--white);">
+  <div class="container fade-in">
+    <p class="section-label label-lecture">오늘의 일정</p>
+    <h2 class="section-title">1일차 시간표</h2>
+    <p class="section-desc">이론을 최소화하고 실습 중심으로 진행합니다. ★ 표시 항목은 시간이 부족할 경우 생략 가능합니다.</p>
+
+    <div class="card-grid-2">
+      <!-- 1교시 -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <span class="badge" style="background:var(--blue);font-size:15px;padding:5px 14px;">1교시</span>
+          <span style="color:var(--gray);font-size:14px;">0 ~ 50분</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:var(--blue);">강의</span>
+          <span class="tt-time">0~10분</span>
+          <span>클로드 인터페이스 — 화면 구성 빠르게 파악</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:var(--purple);">실습 1</span>
+          <span class="tt-time">10~25분</span>
+          <span>첫 프롬프트 체험 — 행동특성 Before / After</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:var(--orange);">실습 2</span>
+          <span class="tt-time">25~45분</span>
+          <span>4요소 공식 익히기 + 사업 계획서 직접 작성</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:#93C5FD;color:var(--dark);">정리</span>
+          <span class="tt-time">45~50분</span>
+          <span>Q&amp;A 및 핵심 내용 정리</span>
+        </div>
+      </div>
+
+      <!-- 2교시 -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <span class="badge" style="background:var(--teal);font-size:15px;padding:5px 14px;">2교시</span>
+          <span style="color:var(--gray);font-size:14px;">50 ~ 100분</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:var(--teal);">강의</span>
+          <span class="tt-time">0~5분</span>
+          <span>GEAR 질문법 — 교원 업무 프롬프트 패턴 소개</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:#0D9488;">실습 1</span>
+          <span class="tt-time">5~25분</span>
+          <span>행동특성 및 종합의견 초안 자동 작성</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:#14B8A6;">실습 2</span>
+          <span class="tt-time">25~40분</span>
+          <span>시험 안내 가정통신문 자동 작성</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:#5EEAD4;color:var(--dark);">실습 3 ★</span>
+          <span class="tt-time">40~45분</span>
+          <span>루블릭 / 수준별 활동지 ★ 시간 여유 시 진행</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:#93C5FD;color:var(--dark);">정리</span>
+          <span class="tt-time">45~50분</span>
+          <span>2일차 예고 및 마무리</span>
+        </div>
+      </div>
+    </div>
+    <div class="warn-box" style="margin-top:16px;">
+      ★ 표시 슬라이드는 시간 부족 시 생략 가능합니다.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S2. 인터페이스 화면 구성 (10분)          -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec2" style="background:var(--lgray);">
+  <div class="container fade-in">
+    <p class="section-label label-lecture">1교시 강의 · 10분</p>
+    <h2 class="section-title">클로드 인터페이스 — 10분 만에 파악하기</h2>
+    <p class="section-desc">바로 실습에 들어갈 수 있도록 꼭 필요한 화면 구성만 빠르게 살펴봅니다.</p>
+
+    <div class="card-grid-2" style="margin-bottom:16px;">
+      <div class="interface-panel">
+        <div class="interface-header" style="background:var(--blue);">① 대화창 — 가장 자주 쓰는 영역</div>
+        <div class="interface-body">
+          <div class="interface-item">새 대화(+) 버튼으로 대화를 시작합니다.</div>
+          <div class="interface-item">텍스트 입력 후 Enter 또는 전송 버튼으로 메시지를 보냅니다.</div>
+          <div class="interface-item">파일 첨부: PDF · 이미지 · 문서 파일을 첨부하여 분석을 요청합니다.</div>
+          <div class="interface-item">답변 재생성: 결과물이 마음에 들지 않으면 재생성 버튼을 클릭합니다.</div>
+          <div class="interface-tip">
+            <strong>편집 기능</strong>
+            답변 아래 [편집] 버튼을 클릭하면 이전 프롬프트를 수정해 재시도할 수 있습니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="interface-panel">
+        <div class="interface-header" style="background:var(--purple);">② Projects + 프로젝트 지침 — 내 업무 맥락 저장</div>
+        <div class="interface-body">
+          <div class="interface-item">좌측 사이드바 [+ 프로젝트 만들기]로 업무 유형별 프로젝트를 만듭니다.</div>
+          <div class="interface-item">예) <strong>[담임업무]</strong>, [수업자료], [행정] 프로젝트로 구분합니다.</div>
+          <div class="interface-item"><strong>프로젝트 지침</strong>: 프로젝트마다 고정 맥락(담임 정보 등)을 한 번만 설정합니다.</div>
+          <div class="interface-item">지침 예시 — "당신은 고등학교 1학년 3반 담임 교사입니다. 학생 수 28명."</div>
+          <div class="interface-tip">
+            <strong>핵심 효과</strong>
+            [담임업무] 프로젝트 안에서는 담임 정보를 매번 입력하지 않아도 됩니다. 학생 키워드만 바꾸면 행동특성 30명을 빠르게 완성할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong style="display:block;margin-bottom:6px;">지금 바로 만들어 봅니다!</strong>
+      claude.ai 좌측 사이드바에서 <strong>[+ 프로젝트 만들기]</strong>를 클릭해 <strong>[담임업무]</strong> 프로젝트를 만듭니다. 프로젝트 지침에 "당신은 고등학교 [학년] [반] 담임 교사입니다."를 입력하고 저장합니다. 이후 실습은 이 프로젝트 안에서 진행합니다.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S3. 첫 실습 체험 — 행동특성 Before/After  -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec3" style="background:var(--white);">
+  <div class="container fade-in">
+    <p class="section-label label-practice">1교시 실습 1 · 15분</p>
+    <h2 class="section-title">첫 실습 체험 — 같은 요청, 다른 결과</h2>
+    <p class="section-desc">프롬프트 작성 방식이 결과물의 완성도를 어떻게 바꾸는지 직접 체험합니다.</p>
+
+    <div class="before-after" style="margin-bottom:24px;">
+      <!-- Before -->
+      <div class="ba-card">
+        <div class="ba-header" style="background:var(--red);">X Before — 막연한 요청</div>
+        <div class="ba-body">
+          <div class="ba-quote">"행동특성 써줘."</div>
+          <ul class="checklist bad">
+            <li>어떤 학생인지 몰라서 일반적인 내용만 나옵니다.</li>
+            <li>학년 / 담임 상황 등 맥락이 없어 실제 생활기록부에 쓸 수 없습니다.</li>
+            <li>형식이 지정되지 않아 어체와 분량이 제각각입니다.</li>
+          </ul>
+          <div style="background:#FEE2E2;border-radius:8px;padding:12px 14px;margin-top:14px;font-size:14px;color:var(--red);font-weight:700;">
+            결과: 처음부터 다시 설명해야 하는 반복 수정 지옥이 시작됩니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- After -->
+      <div class="ba-card">
+        <div class="ba-header" style="background:var(--green);">O After — 4요소 프롬프트 (책 p.10 예시)</div>
+        <div class="ba-body">
+          <div style="margin-bottom:14px;">
+            <div class="tag-line"><span class="tag-pill" style="background:var(--purple);">역할</span> 당신은 [학교급] [학년] 담임 교사입니다.</div>
+            <div class="tag-line"><span class="tag-pill" style="background:var(--blue);">목적</span> 다음 학생의 행동특성 및 종합의견을 작성해 줘.</div>
+            <div class="tag-line"><span class="tag-pill" style="background:var(--teal);">형식</span> 3~4문장, 300~500자. 모든 문장을 '~함'으로 종결.</div>
+            <div class="tag-line"><span class="tag-pill" style="background:var(--green);">조건</span> 학습태도 → 교우관계 → 특기 순서로 작성해 줘.</div>
+          </div>
+          <ul class="checklist">
+            <li>담임 역할이 명확해 공식적이고 객관적인 어투로 작성됩니다.</li>
+            <li>'~함' 어체와 분량이 자동으로 맞춰집니다.</li>
+            <li>학생 키워드만 바꾸면 30명 행동특성을 빠르게 완성할 수 있습니다.</li>
+          </ul>
+          <div style="background:#D1FAE5;border-radius:8px;padding:12px 14px;margin-top:14px;font-size:14px;color:var(--green);font-weight:700;">
+            결과: 첫 시도에 생활기록부에 바로 쓸 수 있는 문구가 완성됩니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:14px;font-size:16px;">지금 바로 복사해 붙여넣어 봅니다 — 행동특성 및 종합의견</h3>
+      <div class="prompt-box">
+        <pre id="prompt-behavior">당신은 고등학교 1학년 담임 교사입니다.
+다음 학생의 행동특성 및 종합의견을 작성해 줘.
+
+[형식]
+- 3~4문장, 300~500자
+- 모든 문장을 '~함'으로 종결
+- 공식적이고 객관적인 어투
+
+[조건]
+- 구체적 관찰 사례를 포함해 줘.
+- 부정적 내용은 발전 가능성과 함께 서술해 줘.
+- 학습태도 → 교우관계 → 특기 순서로 작성해 줘.
+
+[학생 키워드]
+성실함, 조용하지만 리더십 있음, 수학 우수, 봉사 활동 적극 참여</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-behavior', this)">복사</button>
+      </div>
+
+      <div class="step-list" style="margin-top:16px;">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>복사 버튼을 클릭하고 claude.ai에 붙여넣어 전송합니다.</strong>
+            <span>결과물의 어체와 분량이 어떻게 나오는지 확인합니다.</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>[학생 키워드] 부분을 내 학생의 특징으로 직접 바꿔 재시도합니다.</strong>
+            <span>예) "활발함, 수업 참여도 높음, 미술 특기, 친구 관계 원만"</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>결과물이 마음에 들지 않으면 이어서 수정을 지시합니다.</strong>
+            <span>예) "3번 문장을 좀 더 구체적으로 고쳐 줘." / "분량을 400자로 줄여 줘."</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong>[담임업무] 프로젝트 안 새 대화에서 다시 시도합니다.</strong>
+            <span>프로젝트 지침에 담임 정보가 이미 설정되어 있어 [역할] 줄을 생략해도 됩니다. "학생 키워드: [특징1], [특징2], [특징3] 행동특성 써줘."만 입력해 결과를 비교합니다.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S4. 4가지 필수 요소                     -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec4" style="background:var(--lgray);">
+  <div class="container fade-in">
+    <p class="section-label label-lecture">1교시 실습 2 도입 · 5분</p>
+    <h2 class="section-title">4가지 프롬프트 필수 요소</h2>
+    <p class="section-desc">방금 써본 행동특성 프롬프트에도 이 4가지가 모두 들어 있었습니다. 공식을 기억해 두면 어떤 업무에도 바로 적용할 수 있습니다.</p>
+
+    <div class="card-grid-4">
+      <div class="elem-card">
+        <div class="elem-header" style="background:var(--purple);">
+          <div class="elem-icon">R</div>
+          <h3>Role</h3>
+          <div class="elem-korean">역할</div>
+        </div>
+        <div class="elem-body">
+          <p class="elem-what">클로드에게 어떤 전문가 역할을 부여할지 설정합니다.</p>
+          <div class="elem-example-box">
+            <div class="elem-example-label" style="color:var(--purple);">교원 예시</div>
+            "당신은 고등학교 1학년 담임 교사입니다."
+          </div>
+        </div>
+      </div>
+
+      <div class="elem-card">
+        <div class="elem-header" style="background:var(--blue);">
+          <div class="elem-icon">C</div>
+          <h3>Context</h3>
+          <div class="elem-korean">맥락</div>
+        </div>
+        <div class="elem-body">
+          <p class="elem-what">학교 상황, 사업 목적, 학년·교과 등 배경 정보를 제공합니다.</p>
+          <div class="elem-example-box">
+            <div class="elem-example-label" style="color:var(--blue);">교원 예시</div>
+            "우리 학교는 300명 규모의 일반고이며, 진로 교육을 강화하고 있습니다."
+          </div>
+        </div>
+      </div>
+
+      <div class="elem-card">
+        <div class="elem-header" style="background:var(--teal);">
+          <div class="elem-icon">F</div>
+          <h3>Format</h3>
+          <div class="elem-korean">출력 형식</div>
+        </div>
+        <div class="elem-body">
+          <p class="elem-what">결과물의 형식(표·목록·기안문 등)과 길이를 지정합니다.</p>
+          <div class="elem-example-box">
+            <div class="elem-example-label" style="color:var(--teal);">교원 예시</div>
+            "A4 1장 기안문 형식으로, 목적·일정·예산 항목을 포함해 줘."
+          </div>
+        </div>
+      </div>
+
+      <div class="elem-card">
+        <div class="elem-header" style="background:var(--green);">
+          <div class="elem-icon">C</div>
+          <h3>Constraints</h3>
+          <div class="elem-korean">제약 조건</div>
+        </div>
+        <div class="elem-body">
+          <p class="elem-what">예산·분량·언어 수준 등 반드시 지켜야 할 조건을 명시합니다.</p>
+          <div class="elem-example-box">
+            <div class="elem-example-label" style="color:var(--green);">교원 예시</div>
+            "예산 200만 원 이내, 분량 800자 이내로 제한해 줘."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-top:20px;">
+      방금 해본 행동특성 프롬프트에서 [역할] 담임교사 / [목적] 행동특성 작성 / [형식] 300~500자 / [조건] 학습태도 순서 — 4요소가 모두 들어 있었습니다.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S5. 실습 2 — 사업 계획서                 -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec5" style="background:var(--white);">
+  <div class="container fade-in">
+    <p class="section-label label-practice">1교시 실습 2 · 15분</p>
+    <h2 class="section-title">4요소 공식으로 사업 계획서 직접 작성하기</h2>
+    <p class="section-desc">4요소가 모두 포함된 프롬프트를 복사해 클로드에 붙여넣고 결과물을 확인합니다. 그런 다음 내 상황에 맞게 직접 수정해 봅니다.</p>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="margin-bottom:14px;font-size:16px;color:var(--gray);">4요소 프롬프트 — 학생 진로 탐방 사업 계획서</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+        <div class="tag-line"><span class="tag-pill" style="background:var(--purple);">역할</span> 당신은 10년 차 고등학교 기획부장 교사입니다.</div>
+        <div class="tag-line"><span class="tag-pill" style="background:var(--blue);">맥락</span> 우리 학교는 학생 300명 규모의 일반고이며, 내년도 학생 진로 탐방 사업을 기획 중입니다.</div>
+        <div class="tag-line"><span class="tag-pill" style="background:var(--teal);">형식</span> 사업 목적 / 대상 및 인원 / 추진 일정 / 예산 항목을 포함한 A4 1장 기안문 형식으로 작성해 줘.</div>
+        <div class="tag-line"><span class="tag-pill" style="background:var(--green);">제약</span> 예산은 200만 원 이내, 분량은 800자 이내로 제한해 줘.</div>
+      </div>
+
+      <div class="prompt-box">
+        <pre id="prompt-plan">당신은 10년 차 고등학교 기획부장 교사입니다.
+
+우리 학교는 학생 300명 규모의 일반고이며, 내년도 학생 진로 탐방 사업을 기획 중입니다.
+
+사업 목적 / 대상 및 인원 / 추진 일정 / 예산 항목을 포함한 A4 1장 기안문 형식으로 작성해 줘.
+
+예산은 200만 원 이내, 분량은 800자 이내로 제한해 줘.</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-plan', this)">복사</button>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong style="display:block;margin-bottom:6px;">추가 도전 과제</strong>
+      <ol style="padding-left:20px;font-size:14.5px;line-height:2.1;">
+        <li>결과물을 확인하고 부족한 부분을 추가 지시합니다. 예) <code style="background:rgba(0,0,0,.08);padding:1px 5px;border-radius:3px;">'3번 항목을 더 구체적으로 써 줘.'</code></li>
+        <li>[맥락] 항목을 내 학교 실제 상황으로 바꿔 다시 시도합니다.</li>
+        <li>시간이 남으면 [역할]을 '학부장 교사'로 바꿔 다른 결과물과 비교해 봅니다.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S6. 1교시 정리                          -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec6" style="background:var(--lgray);">
+  <div class="container fade-in">
+    <p class="section-label label-wrap">1교시 정리 · 5분</p>
+    <h2 class="section-title">1교시 핵심 3가지 — 지금 바로 기억합니다</h2>
+    <p class="section-desc">오늘 1교시에 직접 체험한 내용을 정리합니다.</p>
+
+    <div class="card-grid-3">
+      <div class="card" style="text-align:center;padding:28px 20px;">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;margin:0 auto 14px;">1</div>
+        <h3 style="margin-bottom:8px;color:var(--navy);">인터페이스 + Projects</h3>
+        <p style="font-size:14px;color:var(--gray);line-height:1.7;">[담임업무] 프로젝트를 만들고 <strong>프로젝트 지침</strong>에 담임 정보를 저장합니다. 이후 모든 대화에 자동 적용됩니다.</p>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 20px;">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;margin:0 auto 14px;">2</div>
+        <h3 style="margin-bottom:8px;color:var(--navy);">4요소 공식</h3>
+        <p style="font-size:14px;color:var(--gray);line-height:1.7;">역할 + 맥락 + 형식 + 제약 조건 — 이 4가지를 넣으면 결과물이 달라집니다.</p>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 20px;">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;margin:0 auto 14px;">3</div>
+        <h3 style="margin-bottom:8px;color:var(--navy);">수정 지시</h3>
+        <p style="font-size:14px;color:var(--gray);line-height:1.7;">마음에 들지 않으면 이어서 수정 지시합니다. 처음부터 다시 쓰지 않아도 됩니다.</p>
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-top:20px;">
+      2교시에는 담임 교무 실전 프롬프트를 3가지 직접 완성합니다. 지금 바로 시작합니다.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S7. 2교시 + GEAR 질문법                  -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec7" style="background:var(--white);">
+  <div class="container fade-in">
+    <p class="section-label label-lecture">2교시 강의 · 5분</p>
+    <h2 class="section-title">GEAR 질문법 — 프롬프트 설계 패턴</h2>
+    <p class="section-desc">4요소를 단계별로 구성하는 실전 패턴입니다. 외울 필요 없이 실습하면서 자연스럽게 익힙니다.</p>
+
+    <div class="card-grid-4" style="margin-bottom:20px;">
+      <div class="gear-card">
+        <div class="gear-header" style="background:#F3F0FF;">
+          <div class="gear-circle" style="background:var(--purple);">G</div>
+          <div>
+            <h3 style="color:var(--purple);">Goal</h3>
+            <p style="font-size:13px;color:var(--gray);">달성할 목표를 명확히 제시합니다.</p>
+          </div>
+        </div>
+        <div class="gear-body">
+          <div class="gear-example">
+            <strong style="color:var(--purple);">담임 업무 예시</strong>
+            행동특성 초안 작성<br>가정통신문 작성
+          </div>
+        </div>
+      </div>
+
+      <div class="gear-card">
+        <div class="gear-header" style="background:#EFF6FF;">
+          <div class="gear-circle" style="background:var(--blue);">E</div>
+          <div>
+            <h3 style="color:var(--blue);">Explain</h3>
+            <p style="font-size:13px;color:var(--gray);">배경·상황을 충분히 설명합니다.</p>
+          </div>
+        </div>
+        <div class="gear-body">
+          <div class="gear-example">
+            <strong style="color:var(--blue);">담임 업무 예시</strong>
+            학년·반·학생 특징<br>학교급 / 시험 일정
+          </div>
+        </div>
+      </div>
+
+      <div class="gear-card">
+        <div class="gear-header" style="background:#F0FDFA;">
+          <div class="gear-circle" style="background:var(--teal);">A</div>
+          <div>
+            <h3 style="color:var(--teal);">Ask</h3>
+            <p style="font-size:13px;color:var(--gray);">원하는 결과물 형식을 요청합니다.</p>
+          </div>
+        </div>
+        <div class="gear-body">
+          <div class="gear-example">
+            <strong style="color:var(--teal);">담임 업무 예시</strong>
+            '~함 어체로 300~500자'<br>'A4 1장 이내로'
+          </div>
+        </div>
+      </div>
+
+      <div class="gear-card">
+        <div class="gear-header" style="background:#F0FDF4;">
+          <div class="gear-circle" style="background:var(--green);">R</div>
+          <div>
+            <h3 style="color:var(--green);">Review</h3>
+            <p style="font-size:13px;color:var(--gray);">답변 검토 후 추가 수정을 지시합니다.</p>
+          </div>
+        </div>
+        <div class="gear-body">
+          <div class="gear-example">
+            <strong style="color:var(--green);">담임 업무 예시</strong>
+            '3번 항목을 더 구체적으로 써 줘.'<br>'분량을 400자로 줄여 줘.'
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      지금부터 GEAR 패턴이 자연스럽게 녹아있는 실전 프롬프트 3가지를 직접 써봅니다. 패턴을 외우는 것보다 직접 해보는 것이 훨씬 빠릅니다.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S8. 실전 실습 3가지                     -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec8" style="background:var(--lgray);">
+  <div class="container fade-in">
+    <p class="section-label label-practice">2교시 실습 · 35분</p>
+    <h2 class="section-title">담임 교무 실전 프롬프트 3가지</h2>
+    <p class="section-desc">각 프롬프트를 복사해 클로드에 붙여넣고, [대괄호] 항목만 내 상황에 맞게 바꿔 사용합니다.</p>
+
+    <!-- 실습 01: 행동특성 및 종합의견 (p10) -->
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-num" style="background:var(--purple);">01</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span class="badge" style="background:var(--purple);">담임 업무</span>
+            <span class="time-badge" style="font-size:12px;padding:3px 10px;">20분</span>
+          </div>
+          <h3>행동특성 및 종합의견 초안 자동 작성</h3>
+        </div>
+      </div>
+      <div class="practice-body">
+        <p style="font-size:14.5px;color:var(--gray);margin-bottom:12px;">생활기록부 행동특성 및 종합의견을 학생 키워드 기반으로 자동 생성합니다. 학생별 키워드만 교체하면 30명 분량을 빠르게 완성할 수 있습니다.</p>
+
+        <div class="prompt-box">
+          <pre id="prompt-behavior2">[역할] 당신은 [학교급] [학년] 담임 교사입니다.
+[목적] 다음 학생의 행동특성 및 종합의견을 작성해 줘.
+
+[형식]
+- 3~4문장, 300~500자
+- 모든 문장을 '~함'으로 종결
+- 공식적이고 객관적인 어투
+
+[조건]
+- 구체적 관찰 사례를 포함해 줘.
+- 부정적 내용은 발전 가능성과 함께 서술해 줘.
+- 학습태도 → 교우관계 → 특기 순서로 작성해 줘.
+
+[학생 키워드]
+[특징 1], [특징 2], [특징 3], [특징 4]</pre>
+          <button class="copy-btn" onclick="copyPrompt('prompt-behavior2', this)">복사</button>
+        </div>
+
+        <div class="tip-box" style="margin-top:12px;">
+          [학교급], [학년], [학생 키워드]만 바꾸면 모든 학생에게 반복 사용할 수 있습니다. 결과물이 마음에 들지 않으면 '좀 더 구체적인 사례를 추가해 줘.'라고 이어서 지시합니다.
+        </div>
+
+        <div class="info-box" style="margin-top:10px;">
+          <strong style="display:block;margin-bottom:6px;">활용 예시 — 키워드 입력 방법</strong>
+          학생 A: 성실함, 수업 참여 적극적, 수학 우수, 체육 활동 열정적<br>
+          학생 B: 리더십, 친구 관계 원만, 미술 특기, 봉사 정신 강함<br>
+          학생 C: 내성적이지만 발표 능력 향상 중, 과학 탐구 관심, 독서량 많음
+        </div>
+      </div>
+    </div>
+
+    <!-- 실습 02: 시험 안내 가정통신문 (p17) -->
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-num" style="background:var(--blue);">02</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span class="badge" style="background:var(--blue);">가정통신</span>
+            <span class="time-badge" style="font-size:12px;padding:3px 10px;">15분</span>
+          </div>
+          <h3>시험 안내 가정통신문 자동 작성</h3>
+        </div>
+      </div>
+      <div class="practice-body">
+        <p style="font-size:14.5px;color:var(--gray);margin-bottom:12px;">시험 일정과 과목을 입력하면 학부모 가정통신문을 자동으로 작성합니다. 매 학기 반복되는 업무를 빠르게 처리할 수 있습니다.</p>
+
+        <div class="prompt-box">
+          <pre id="prompt-notice">[학교급] [학년]을 대상으로 [시험명] 안내 가정통신문을 작성해 줘.
+
+- 시험 기간: [시작일] ~ [종료일]
+- 시험 과목: [과목 목록]
+- 포함 내용: 시험 일정표, 학생 준비사항, 부정행위 방지 안내, 가정에서의 협조 요청
+
+공식적이고 따뜻한 문체로 A4 1장 이내로 작성해 줘.</pre>
+          <button class="copy-btn" onclick="copyPrompt('prompt-notice', this)">복사</button>
+        </div>
+
+        <div class="tip-box" style="margin-top:12px;">
+          [학년], [시험명], [시험 기간], [과목 목록]만 바꾸면 1학기·2학기·수행평가 안내문 모두에 재사용할 수 있습니다.
+        </div>
+
+        <div class="step-list" style="margin-top:12px;">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <strong>프롬프트를 복사해 클로드에 붙여넣고 [대괄호]를 실제 정보로 채웁니다.</strong>
+              <span>예) [고등학교 1학년] / [1학기 중간고사] / [4월 14일 ~ 4월 18일]</span>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <strong>결과물을 확인하고 추가 내용이 필요하면 이어서 지시합니다.</strong>
+              <span>예) "담임 교사 이름 서명란을 아래에 추가해 줘." / "인사말을 더 따뜻하게 고쳐 줘."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 실습 03: 루블릭 (★) -->
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-num" style="background:var(--green);">03</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span class="badge" style="background:var(--green);">평가 기준안</span>
+            <span class="time-badge" style="font-size:12px;padding:3px 10px;">5분 ★</span>
+          </div>
+          <h3>루블릭(평가 기준안) 제작 ★</h3>
+        </div>
+      </div>
+      <div class="practice-body">
+        <div class="warn-box" style="margin-bottom:12px;">
+          ★ 시간이 부족하면 생략하고 참고 프롬프트 페이지에서 확인합니다.
+        </div>
+        <p style="font-size:14.5px;color:var(--gray);margin-bottom:12px;">교과별 성취기준이 자동으로 반영되어 평가 기준의 일관성이 확보됩니다.</p>
+
+        <div class="prompt-box">
+          <pre id="prompt-rubric">[교과] [수행평가 주제] 루블릭을 다음 조건으로 만들어 줘.
+
+- 평가 과제: [과제명]
+- 평가 요소: [요소 1] / [요소 2] / [요소 3]
+- 성취 수준: 매우잘함 / 잘함 / 보통 / 노력요함 (4단계)
+
+각 수준별 기술어를 명확하고 구체적으로, 교사와 학생이 모두 이해할 수 있도록 표 형식으로 작성해 줘.</pre>
+          <button class="copy-btn" onclick="copyPrompt('prompt-rubric', this)">복사</button>
+        </div>
+
+        <div class="tip-box" style="margin-top:12px;">
+          [교과], [수행평가 주제], [평가 요소]만 바꾸면 모든 수행평가에 재사용할 수 있습니다.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S9. 마무리                              -->
+<!-- ══════════════════════════════════════ -->
+<section class="closing" id="sec9">
+  <div class="container">
+    <p style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--sky);margin-bottom:16px;">1일차 마무리</p>
+    <h2>오늘 배운 내용을<br>내일 업무에 바로 적용해 보세요!</h2>
+    <p>아래 4가지를 기억하면 업무 효율이 달라집니다.</p>
+
+    <div class="summary-chips">
+      <span class="summary-chip">클로드 인터페이스 — 대화창·파일 첨부·재생성·Projects 활용</span>
+      <span class="summary-chip">4요소 공식 — Role / Context / Format / Constraints</span>
+      <span class="summary-chip">GEAR 질문법 — 명확한 지시문 설계 패턴</span>
+      <span class="summary-chip">행동특성 / 가정통신문 — 실무 프롬프트 직접 완성</span>
+    </div>
+
+    <div style="margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="two_v2.html" style="min-width:200px;text-align:center;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);color:#fff;padding:12px 28px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">2일차 수업 보기 →</a>
+      <a href="prompt_v2.html" style="min-width:200px;text-align:center;background:#FCC419;color:#1E293B;padding:12px 28px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">프롬프트 예시집 →</a>
+    </div>
+  </div>
+</section>
+
+<script>
+function copyPrompt(id, btn) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = '복사됨!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = '복사';
+    }, 2000);
+  });
+}
+
+const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9'];
+const dots = document.querySelectorAll('.toc-dot');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = sections.indexOf(entry.target.id);
+      dots.forEach((d,i) => d.classList.toggle('active', i === idx));
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+function scrollTo(idx) {
+  document.getElementById(sections[idx]).scrollIntoView({ behavior: 'smooth' });
+}
+
+window.addEventListener('scroll', () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = (window.scrollY / total) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+});
+
+const fadeEls = document.querySelectorAll('.fade-in');
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+fadeEls.forEach(el => fadeObs.observe(el));
+</script>
+</body>
+</html>
