@@ -8,6 +8,18 @@
 <link rel="apple-touch-icon" href="assets/daisy.png">
 <meta name="apple-mobile-web-app-title" content="강지애">
 <meta name="theme-color" content="#f4ede2">
+<meta name="description" content="강지애 · 제주 기반 디지털 강사·에듀테크 컨설턴트. 전산통계학 전공, Google 공인 교육자 L1·L2, 초·중·고교 및 공공기관 에듀테크 강의 전문.">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="강지애 · 디지털 강사 — 사람과 기술을 잇는 배움의 설계">
+<meta property="og:description" content="제주 기반 디지털 강사·에듀테크 컨설턴트. AI·SW·에듀테크 전문 강의, 전 세대 소통, 현장 검증된 커리큘럼.">
+<meta property="og:image" content="https://loveria3.github.io/profile/assets/portrait.png">
+<meta property="og:image:alt" content="강지애 디지털 강사 프로필 사진">
+<meta property="og:url" content="https://loveria3.github.io/profile/">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="강지애 · 디지털 강사">
+<meta name="twitter:description" content="제주 기반 디지털 강사·에듀테크 컨설턴트. AI·SW·에듀테크 전문 강의.">
+<meta name="twitter:image" content="https://loveria3.github.io/profile/assets/portrait.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -15,6 +27,8 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body data-screen-label="01 Profile Home">
+
+<a class="skip-link" href="#main-content">본문 바로가기</a>
 
 <!-- ──────────────── TOPBAR ──────────────── -->
 <header class="topbar">
@@ -62,7 +76,8 @@
 </nav>
 
 <!-- ──────────────── HERO ──────────────── -->
-<section class="hero wrap">
+<main id="main-content">
+<section class="hero wrap" id="about" aria-label="소개">
   <div class="hero-grid">
     <div class="hero-copy">
       <span class="hero-eyebrow"><span class="dot"></span> Now teaching · 2025–2026 School Year</span>
@@ -157,7 +172,11 @@
 <section class="stats">
   <div class="wrap">
     <div class="stats-grid" id="statsGrid">
-      <!-- stats.json에서 자동으로 채워집니다 -->
+      <!-- 스켈레톤 (fetch 완료 전 표시) -->
+      <div class="stat-skeleton" aria-hidden="true"><div class="sk-line sk-num"></div><div class="sk-line sk-label"></div><div class="sk-line sk-desc"></div></div>
+      <div class="stat-skeleton" aria-hidden="true"><div class="sk-line sk-num"></div><div class="sk-line sk-label"></div><div class="sk-line sk-desc"></div></div>
+      <div class="stat-skeleton" aria-hidden="true"><div class="sk-line sk-num"></div><div class="sk-line sk-label"></div><div class="sk-line sk-desc"></div></div>
+      <div class="stat-skeleton" aria-hidden="true"><div class="sk-line sk-num"></div><div class="sk-line sk-label"></div><div class="sk-line sk-desc"></div></div>
     </div>
   </div>
 </section>
@@ -396,7 +415,7 @@
         <div class="tl-content">
           <h4>남원중학교 방과후학교 강사 <span style="color:var(--accent-warm); font-size:14px; font-family:'Pretendard'">· 활동 중</span></h4>
           <span class="org">Namwon Middle School · Jeju</span>
-          <p>방과후학교 강사로 중학생들의 컴퓨터 활용 능력을 키우는 수업을 진행하고 있습니다.</p>
+          <p>2026년 4월부터 방과후학교 강사로 중학생들의 컴퓨터 활용 능력을 키우는 수업을 진행하고 있습니다.</p>
         </div>
       </div>
     </div>
@@ -584,6 +603,7 @@
 <div class="flower-bar-wrap">
   <img src="assets/flower-bar.png" alt="제주의 봄" class="flower-bar" />
 </div>
+</main>
 
 <!-- ──────────────── FOOTER ──────────────── -->
 <footer>
@@ -613,8 +633,8 @@
         <h5>CONTACT</h5>
         <ul>
           <li><a href="mailto:loveria2@nate.com">loveria2@nate.com</a></li>
-          <li><a href="#">강의 의뢰 / 컨설팅</a></li>
-          <li><a href="#">제주 기반 · 도내 전역 출강</a></li>
+          <li><a href="https://forms.gle/cj2aMSnTbU6cQA1M8" target="_blank" rel="noopener">강의 의뢰 / 컨설팅</a></li>
+          <li><a href="https://forms.gle/cj2aMSnTbU6cQA1M8" target="_blank" rel="noopener">제주 기반 · 도내 전역 출강</a></li>
         </ul>
       </div>
     </div>
@@ -950,6 +970,25 @@
       navToggle.classList.remove('open');
       document.body.style.overflow = '';
     });
+  });
+
+  // ── 스크롤스파이 (IntersectionObserver) ──
+  const spySections = ['about', 'competency', 'certificates', 'experience'];
+  const navLinks    = document.querySelectorAll('.nav a[href^="#"], .nav-mobile a[href^="#"]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => {
+          const active = a.getAttribute('href') === '#' + id;
+          a.setAttribute('aria-current', active ? 'true' : 'false');
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+  spySections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
   });
 </script>
 
