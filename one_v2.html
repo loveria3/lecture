@@ -192,6 +192,75 @@
   .copy-btn:hover { background: #475569; color: var(--white); }
   .copy-btn.copied { background: var(--green); color: var(--white); }
 
+  /* ── 직접 작성 빈칸 골격 ─────────────── */
+  .fill-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--lgray);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  .fill-row .tag-pill { margin-top: 0; }
+  .fill-blank {
+    flex: 1;
+    color: var(--gray);
+    border-bottom: 2px dashed #CBD5E1;
+    padding-bottom: 5px;
+  }
+  .fill-blank b { color: var(--indigo); font-weight: 700; }
+  .write-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #EEF2FF;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14.5px;
+    color: var(--indigo);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ── 모범 프롬프트 펼쳐보기 토글 ───────── */
+  .reveal-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #EEF2FF;
+    color: var(--indigo);
+    border: 1px solid #C7D2FE;
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all .2s;
+  }
+  .reveal-toggle:hover { background: #E0E7FF; }
+  .reveal-toggle .arrow { transition: transform .25s; font-size: 12px; }
+  .reveal-toggle.open .arrow { transform: rotate(180deg); }
+  .reveal-box { display: none; margin-top: 14px; }
+  .reveal-box.open { display: block; }
+
+  /* ── 직접 수정 안내 배너 ─────────────── */
+  .edit-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    background: #FEF9C3;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+    font-size: 14.5px;
+    color: #92400E;
+    margin: 14px 0;
+  }
+  .edit-note b { color: #B45309; }
+
   /* ── 팁 / 경고 / 정보 박스 ──────────────── */
   .tip-box {
     background: #F0FDF4;
@@ -670,7 +739,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-1</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-2</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v2.html" class="top-nav-btn active">1일차 교육</a>
     <a href="two_v2.html" class="top-nav-btn">2일차 교육</a>
@@ -926,6 +995,11 @@
         <button class="copy-btn" onclick="copyPrompt('prompt-behavior', this)">복사</button>
       </div>
 
+      <div class="edit-note">
+        <span>✏️</span>
+        <span>복사는 하되, <b>[학생 키워드]는 반드시 내 학생 특징으로 직접 바꿔</b> 전송하세요. 직접 바꿔보는 그 순간에 4요소가 손에 익습니다.</span>
+      </div>
+
       <div class="step-list" style="margin-top:16px;">
         <div class="step-item">
           <div class="step-num">1</div>
@@ -1042,19 +1116,35 @@
 <!-- ══════════════════════════════════════ -->
 <section class="section" id="sec5" style="background:var(--white);">
   <div class="container fade-in">
-    <p class="section-label label-practice">1교시 실습 2 · 15분</p>
+    <p class="section-label label-practice">1교시 실습 2 · 15분 · 직접 작성</p>
     <h2 class="section-title">4요소 공식으로 사업 계획서 직접 작성하기</h2>
-    <p class="section-desc">4요소가 모두 포함된 프롬프트를 복사해 클로드에 붙여넣고 결과물을 확인합니다. 그런 다음 내 상황에 맞게 직접 수정해 봅니다.</p>
+    <p class="section-desc">이번에는 <strong>복사하지 않고 직접 써봅니다.</strong> 아래 4요소 빈칸을 내 상황으로 채워 한 문단으로 이어, claude.ai에 직접 입력해 보세요. 막히면 맨 아래에서 모범 프롬프트를 펼쳐 확인할 수 있습니다.</p>
 
-    <div class="card" style="margin-bottom:20px;">
-      <h3 style="margin-bottom:14px;font-size:16px;color:var(--gray);">4요소 프롬프트 — 학생 진로 탐방 사업 계획서</h3>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
-        <div class="tag-line"><span class="tag-pill" style="background:var(--purple);">역할</span> 당신은 10년 차 고등학교 기획부장 교사입니다.</div>
-        <div class="tag-line"><span class="tag-pill" style="background:var(--blue);">맥락</span> 우리 학교는 학생 300명 규모의 일반고이며, 내년도 학생 진로 탐방 사업을 기획 중입니다.</div>
-        <div class="tag-line"><span class="tag-pill" style="background:var(--teal);">형식</span> 사업 목적 / 대상 및 인원 / 추진 일정 / 예산 항목을 포함한 A4 1장 기안문 형식으로 작성해 줘.</div>
-        <div class="tag-line"><span class="tag-pill" style="background:var(--green);">제약</span> 예산은 200만 원 이내, 분량은 800자 이내로 제한해 줘.</div>
+    <div class="card" style="margin-bottom:18px;">
+      <h3 style="margin-bottom:16px;font-size:16px;color:var(--dark);">빈칸을 채워 직접 작성 — 학생 진로 탐방 사업 계획서</h3>
+
+      <div class="fill-row">
+        <span class="tag-pill" style="background:var(--purple);">역할</span>
+        <span class="fill-blank">누구로서 쓸지 적습니다 — 예) <b>당신은 10년 차 고등학교 기획부장 교사입니다.</b></span>
+      </div>
+      <div class="fill-row">
+        <span class="tag-pill" style="background:var(--blue);">맥락</span>
+        <span class="fill-blank">우리 학교 상황·사업을 적습니다 — 예) <b>학생 300명 규모 일반고, 내년 진로 탐방 사업 기획 중.</b></span>
+      </div>
+      <div class="fill-row">
+        <span class="tag-pill" style="background:var(--teal);">형식</span>
+        <span class="fill-blank">원하는 형식·항목을 적습니다 — 예) <b>목적·대상·일정·예산 포함 A4 1장 기안문.</b></span>
+      </div>
+      <div class="fill-row" style="margin-bottom:14px;">
+        <span class="tag-pill" style="background:var(--green);">제약</span>
+        <span class="fill-blank">지켜야 할 조건을 적습니다 — 예) <b>예산 200만 원 이내, 800자 이내.</b></span>
       </div>
 
+      <div class="write-hint">위 4줄을 한 문단으로 이어 claude.ai에 직접 입력하면 됩니다. 예시 문구를 그대로 써도 좋고, 내 학교 상황으로 바꿔도 좋습니다.</div>
+    </div>
+
+    <button class="reveal-toggle" onclick="toggleReveal('reveal-plan', this)">막히면 모범 프롬프트 펼쳐보기 <span class="arrow">▼</span></button>
+    <div class="reveal-box" id="reveal-plan">
       <div class="prompt-box">
         <pre id="prompt-plan">당신은 10년 차 고등학교 기획부장 교사입니다.
 
@@ -1067,8 +1157,8 @@
       </div>
     </div>
 
-    <div class="info-box">
-      <strong style="display:block;margin-bottom:6px;">추가 도전 과제</strong>
+    <div class="info-box" style="margin-top:18px;">
+      <strong style="display:block;margin-bottom:6px;">다 썼다면 — 추가 도전 과제</strong>
       <ol style="padding-left:20px;font-size:14.5px;line-height:2.1;">
         <li>결과물을 확인하고 부족한 부분을 추가 지시합니다. 예) <code style="background:rgba(0,0,0,.08);padding:1px 5px;border-radius:3px;">'3번 항목을 더 구체적으로 써 줘.'</code></li>
         <li>[맥락] 항목을 내 학교 실제 상황으로 바꿔 다시 시도합니다.</li>
@@ -1209,7 +1299,11 @@
   <div class="container fade-in">
     <p class="section-label label-practice">2교시 실습 · 35분</p>
     <h2 class="section-title">담임 교무 실전 프롬프트 3가지</h2>
-    <p class="section-desc">각 프롬프트를 복사해 클로드에 붙여넣고, [대괄호] 항목만 내 상황에 맞게 바꿔 사용합니다.</p>
+    <p class="section-desc">아래는 반복 재사용하는 <strong>템플릿</strong>입니다. 복사해서 쓰되, 핵심은 대괄호 교체입니다.</p>
+    <div class="edit-note">
+      <span>✏️</span>
+      <span>세 프롬프트 모두 복사 후 <b>[대괄호] 항목만 내 상황에 맞게 직접 바꿔</b> 전송하세요. 대괄호만 바꾸면 모든 학생·학기·교과에 그대로 재사용됩니다.</span>
+    </div>
 
     <!-- 실습 01: 행동특성 및 종합의견 (p10) -->
     <div class="practice-card">
@@ -1389,6 +1483,12 @@ function copyPrompt(id, btn) {
       btn.textContent = '복사';
     }, 2000);
   });
+}
+
+function toggleReveal(id, btn) {
+  const box = document.getElementById(id);
+  const open = box.classList.toggle('open');
+  btn.classList.toggle('open', open);
 }
 
 const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9'];
