@@ -237,9 +237,9 @@
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
     <a href="index.html" class="top-nav-btn active">홈</a>
-    <a href="one_v2.html" class="top-nav-btn">1일차 교육</a>
-    <a href="two_v2.html" class="top-nav-btn">2일차 교육</a>
-    <a href="prompt_v2.html" class="top-nav-btn">참고 프롬프트</a>
+    <a href="one_v3.html" class="top-nav-btn">1일차 교육</a>
+    <a href="two_v3.html" class="top-nav-btn">2일차 교육</a>
+    <a href="prompt_v3.html" class="top-nav-btn">참고 프롬프트</a>
   </div>
 </nav>
 
@@ -272,7 +272,7 @@
     </div>
 
     <!-- 1교시 -->
-    <a href="one_v2.html" class="session-card card-day1-1">
+    <a href="one_v3.html" class="session-card card-day1-1">
       <div class="card-top">
         <span class="period-badge" style="background:var(--blue);">1교시</span>
         <span class="env-badge">claude.ai 웹</span>
@@ -310,7 +310,7 @@
     </a>
 
     <!-- 2교시 -->
-    <a href="one_v2.html#sec7" class="session-card card-day1-2">
+    <a href="one_v3.html#sec8" class="session-card card-day1-2">
       <div class="card-top">
         <span class="period-badge" style="background:var(--teal);">2교시</span>
         <span class="env-badge">claude.ai 웹</span>
@@ -358,10 +358,10 @@
     </div>
 
     <!-- 3교시 -->
-    <a href="two_v2.html" class="session-card card-day2-1">
+    <a href="two_v3.html" class="session-card card-day2-1">
       <div class="card-top">
         <span class="period-badge" style="background:var(--purple);">3교시</span>
-        <span class="env-badge">웹 + 데스크탑 앱</span>
+        <span class="env-badge">데스크탑 앱</span>
       </div>
       <div>
         <div class="card-title">클로드 Skills &amp;<br>담임 업무 자동화</div>
@@ -374,19 +374,14 @@
           <span>Skills 개념 이해 · 데스크탑 앱 활성화</span>
         </div>
         <div class="item-row">
-          <span class="item-time">10~25분</span>
+          <span class="item-time">10~30분</span>
           <span class="item-dot" style="background:var(--accent);"></span>
-          <span>학부모 민원 대응 메시지 작성 (웹)</span>
+          <span>학부모 안내 문자 작성 — 협조·긴급 공지</span>
         </div>
         <div class="item-row">
-          <span class="item-time">25~35분</span>
+          <span class="item-time">30~45분</span>
           <span class="item-dot" style="background:var(--accent);"></span>
-          <span>학부모 안내 문자 — 협조·긴급 공지 (웹)</span>
-        </div>
-        <div class="item-row item-skip">
-          <span class="item-time">35~45분★</span>
-          <span class="item-dot" style="background:var(--accent);"></span>
-          <span>HWPX 공문서 자동 작성 (데스크탑 앱)</span>
+          <span>실제 교무 문서 파일 만들기 (Skills 실습)</span>
         </div>
         <div class="item-row">
           <span class="item-time">45~50분</span>
@@ -395,13 +390,13 @@
         </div>
       </div>
       <div class="card-footer">
-        <span>민원대응 · 협조문자 · HWPX★</span>
+        <span>학부모 문자 · 교무 문서 · Skills 실습</span>
         <span class="card-link-hint">바로가기 →</span>
       </div>
     </a>
 
     <!-- 4교시 -->
-    <a href="two_v2.html#sec6" class="session-card card-day2-2">
+    <a href="two_v3.html#sec7" class="session-card card-day2-2">
       <div class="card-top">
         <span class="period-badge" style="background:#EA580C;">4교시</span>
         <span class="env-badge">MS Office 애드인</span>
@@ -437,9 +432,9 @@
 
   <!-- 하단 버튼 -->
   <div class="btn-row fade-up">
-    <a href="one_v2.html" class="btn btn-day1">1일차 교육 자료 →</a>
-    <a href="two_v2.html" class="btn btn-day2">2일차 교육 자료 →</a>
-    <a href="prompt_v2.html" class="btn btn-prompt">참고 프롬프트 예시집</a>
+    <a href="one_v3.html" class="btn btn-day1">1일차 교육 자료 →</a>
+    <a href="two_v3.html" class="btn btn-day2">2일차 교육 자료 →</a>
+    <a href="prompt_v3.html" class="btn btn-prompt">참고 프롬프트 예시집</a>
     <a href="https://support.claude.com/ko/" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);">Claude 공식 지원 →</a>
   </div>
 
@@ -450,10 +445,12 @@ window.addEventListener('scroll', () => {
   const total = document.documentElement.scrollHeight - window.innerHeight;
   document.getElementById('progressBar').style.width = (total > 0 ? (window.scrollY/total)*100 : 0) + '%';
 });
-const fadeObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
+
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
 document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
 </script>
 </body>
 </html>
+const fadeObs = new IntersectionObserver
