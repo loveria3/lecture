@@ -739,7 +739,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-3</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-4</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v2.html" class="top-nav-btn active">1일차 교육</a>
     <a href="two_v2.html" class="top-nav-btn">2일차 교육</a>
@@ -761,7 +761,7 @@
   <div class="toc-dot" title="사업계획서 실습" onclick="scrollTo(5)"></div>
   <div class="toc-dot" title="1교시 정리" onclick="scrollTo(6)"></div>
   <div class="toc-dot" title="GEAR 질문법" onclick="scrollTo(7)"></div>
-  <div class="toc-dot" title="실전 실습 3가지" onclick="scrollTo(8)"></div>
+  <div class="toc-dot" title="담임 실전 실습 3가지" onclick="scrollTo(8)"></div>
   <div class="toc-dot" title="마무리" onclick="scrollTo(9)"></div>
 </nav>
 
@@ -948,6 +948,29 @@
           </ul>
           <div style="background:#FEE2E2;border-radius:8px;padding:12px 14px;margin-top:14px;font-size:14px;color:var(--red);font-weight:700;">
             결과: 처음부터 다시 설명해야 하는 반복 수정 지옥이 시작됩니다.
+          </div>
+          <!-- 제미나이 결과 토글 -->
+          <div style="margin-top:12px;">
+            <button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.gem-arrow').textContent=this.nextElementSibling.style.display==='block'?'▲':'▼';" style="width:100%;text-align:left;background:#F3F4F6;border:1px solid #D1D5DB;border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;color:#374151;font-weight:600;display:flex;align-items:center;gap:8px;">
+              <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" style="width:16px;height:16px;" onerror="this.style.display='none'">
+              제미나이 결과 보기
+              <span class="gem-arrow" style="margin-left:auto;">▼</span>
+            </button>
+            <div style="display:none;background:#F9FAFB;border:1px solid #E5E7EB;border-top:none;border-radius:0 0 8px 8px;padding:14px;font-size:13px;line-height:1.8;color:#374151;">
+              <div style="font-size:11px;color:#9CA3AF;margin-bottom:10px;font-weight:600;">🤖 Gemini — "행동특성 써줘." 입력 결과</div>
+              <p style="margin:0 0 10px;font-weight:600;">담임교사 · 사용자설정 Gem</p>
+              <p style="margin:0 0 12px;">선생님, 디지털튜터로서 학생들의 디지털 기기 활용 역량과 수업 태도를 관찰하여 학생기록부(생활기록부)에 바로 활용하실 수 있도록 유형별 <strong>행동특성 및 종합의견(행특)</strong> 예시를 정리해 드렸습니다.</p>
+              <p style="margin:0 0 12px;">필요한 항목을 복사하여 학생의 이름이나 세부 기기명만 수정해 사용하세요.</p>
+              <p style="margin:0 0 8px;font-weight:700;">1. 디지털 기기 활용 역량 우수형</p>
+              <p style="margin:0 0 6px;"><strong>예시 1:</strong> 스마트패드 및 노트북 등의 디지털 기기 활용 능력이 매우 뛰어남. 수업 중 기기 오류나 연결 문제가 발생했을 때 당황하지 않고 스스로 해결 방법을 찾아내며, 주변 친구들이 기기 조작에 어려움을 겪을 때 적극적으로 도와주는 등 디지털 리더십이 돋보임.</p>
+              <p style="margin:0 0 6px;"><strong>예시 2:</strong> 학습 앱 및 웹 도구의 기능을 빠르게 습득하고 활용함. 교사의 안내에 따라 디지털 과제를 정확하고 신속하게 수행하며, 기기의 유용한 기능을 스스로 탐색하여 학습 효과를 극대화하는 태도를 보임.</p>
+              <p style="margin:0 0 8px;font-weight:700;margin-top:10px;">2. 수업 참여 및 집중도 우수형</p>
+              <p style="margin:0 0 6px;"><strong>예시 1:</strong> 디지털 기기를 활용한 수업에서 높은 흥미와 집중력을 보임. 기기를 학습 목적 외에 다른 용도로 사용하지 않고, 교사의 지시와 안내에 따라 디지털 학습 활동에 성실하게 참여하며 매 수업 시간 적극적인 태도로 임함.</p>
+              <p style="margin:0 0 6px;"><strong>예시 2:</strong> 디지털 협업 도구를 활용한 모둠 활동에서 중심적인 역할을 수행함. 자신의 의견을 디지털 패널에 일목요연하게 정리하고, 모둠원들의 의견을 수렴하여 결과물을 도출해내는 등 소통 및 협업 능력이 우수함.</p>
+              <div style="margin-top:10px;padding:8px 12px;background:#FEE2E2;border-radius:6px;font-size:12px;color:#DC2626;">
+                ⚠️ 이 결과는 "담임교사" Gem(맞춤 설정된 제미나이)이 사전 학교 맥락을 알고 있어서 나온 것입니다. 일반 프롬프트와는 다릅니다.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1305,7 +1328,7 @@
       <span>세 프롬프트 모두 복사 후 <b>[대괄호] 항목만 내 상황에 맞게 직접 바꿔</b> 전송하세요. 대괄호만 바꾸면 모든 학생·학기·교과에 그대로 재사용됩니다.</span>
     </div>
 
-    <!-- 실습 01: 행동특성 및 종합의견 (p10) -->
+    <!-- 실습 01: 학급 규칙/생활 안내문 -->
     <div class="practice-card">
       <div class="practice-header">
         <div class="practice-num" style="background:var(--purple);">01</div>
@@ -1314,40 +1337,60 @@
             <span class="badge" style="background:var(--purple);">담임 업무</span>
             <span class="time-badge" style="font-size:12px;padding:3px 10px;">20분</span>
           </div>
-          <h3>행동특성 및 종합의견 초안 자동 작성</h3>
+          <h3>학기 초 학급 규칙 &amp; 생활 안내문 작성</h3>
         </div>
       </div>
       <div class="practice-body">
-        <p style="font-size:14.5px;color:var(--gray);margin-bottom:12px;">생활기록부 행동특성 및 종합의견을 학생 키워드 기반으로 자동 생성합니다. 학생별 키워드만 교체하면 30명 분량을 빠르게 완성할 수 있습니다.</p>
+        <p style="font-size:14.5px;color:var(--gray);margin-bottom:12px;">학기 초 학생들에게 배포하는 학급 규칙과 생활 안내문을 자동으로 작성합니다. 학급 특성만 입력하면 학생이 읽기 쉬운 안내문이 즉시 완성됩니다.</p>
 
         <div class="prompt-box">
-          <pre id="prompt-behavior2">[역할] 당신은 [학교급] [학년] 담임 교사입니다.
-[목적] 다음 학생의 행동특성 및 종합의견을 작성해 줘.
+          <pre id="prompt-classroom-rule">[역할] 당신은 [학교급] [학년] [반] 담임 교사입니다.
+
+[목적] 학기 초 학생들에게 배포할 학급 규칙 및 생활 안내문을 작성해 줘.
+
+[포함 내용]
+- 등·하교 시간 및 지각 기준
+- 휴대폰 사용 규칙
+- 모둠 활동 및 청소 당번 운영 방식
+- 담임 교사 연락 방법
+- 학생에게 기대하는 한 가지 가치 ([예: 배려 / 성실 / 책임감])
 
 [형식]
-- 3~4문장, 300~500자
-- 모든 문장을 '~함'으로 종결
-- 공식적이고 객관적인 어투
+- A4 1장 이내, 항목별 번호 목록
+- 학생이 쉽게 읽을 수 있는 친근한 문체
+- 제목 포함</pre>
+          <button class="copy-btn" onclick="copyPrompt('prompt-classroom-rule', this)">복사</button>
+        </div>
 
-[조건]
-- 구체적 관찰 사례를 포함해 줘.
-- 부정적 내용은 발전 가능성과 함께 서술해 줘.
-- 학습태도 → 교우관계 → 특기 순서로 작성해 줘.
+        <div class="edit-note" style="margin-top:12px;">
+          <span>✏️</span>
+          <span>복사 후 <b>[학교급], [학년], [반], [기대 가치]만 내 상황으로 바꿔</b> 전송하세요. 등·하교 시간 등 세부 사항은 결과물을 받은 뒤 이어서 수정 지시하면 됩니다.</span>
+        </div>
 
-[학생 키워드]
-[특징 1], [특징 2], [특징 3], [특징 4]</pre>
-          <button class="copy-btn" onclick="copyPrompt('prompt-behavior2', this)">복사</button>
+        <div class="card" style="margin-top:14px;background:var(--lgray);">
+          <h4 style="margin-bottom:10px;font-size:14px;color:var(--navy);">✅ 채워진 예시 — 이렇게 입력합니다</h4>
+          <div class="prompt-box" style="margin-top:0;">
+            <pre style="font-size:13px;">[역할] 당신은 고등학교 1학년 3반 담임 교사입니다.
+
+[목적] 학기 초 학생들에게 배포할 학급 규칙 및 생활 안내문을 작성해 줘.
+
+[포함 내용]
+- 등·하교 시간 및 지각 기준
+- 휴대폰 사용 규칙
+- 모둠 활동 및 청소 당번 운영 방식
+- 담임 교사 연락 방법 (카카오톡 오픈채팅)
+- 학생에게 기대하는 한 가지 가치 (배려)
+
+[형식]
+- A4 1장 이내, 항목별 번호 목록
+- 학생이 쉽게 읽을 수 있는 친근한 문체
+- 제목 포함</pre>
+          </div>
+          <p style="font-size:13px;color:var(--gray);margin-top:10px;">→ [대괄호] 6곳만 바꾸면 완성. 결과가 나오면 "연락 방법을 카카오톡 오픈채팅으로 바꿔 줘." 등 이어서 수정 지시합니다.</p>
         </div>
 
         <div class="tip-box" style="margin-top:12px;">
-          [학교급], [학년], [학생 키워드]만 바꾸면 모든 학생에게 반복 사용할 수 있습니다. 결과물이 마음에 들지 않으면 '좀 더 구체적인 사례를 추가해 줘.'라고 이어서 지시합니다.
-        </div>
-
-        <div class="info-box" style="margin-top:10px;">
-          <strong style="display:block;margin-bottom:6px;">활용 예시 — 키워드 입력 방법</strong>
-          학생 A: 성실함, 수업 참여 적극적, 수학 우수, 체육 활동 열정적<br>
-          학생 B: 리더십, 친구 관계 원만, 미술 특기, 봉사 정신 강함<br>
-          학생 C: 내성적이지만 발표 능력 향상 중, 과학 탐구 관심, 독서량 많음
+          [학년], [반], [기대 가치]만 바꾸면 매 학기, 다른 반에도 재사용할 수 있습니다. 학교 규정 변경 시에는 "휴대폰 규칙을 수정해 줘."라고 이어서 지시합니다.
         </div>
       </div>
     </div>
@@ -1376,6 +1419,20 @@
 
 공식적이고 따뜻한 문체로 A4 1장 이내로 작성해 줘.</pre>
           <button class="copy-btn" onclick="copyPrompt('prompt-notice', this)">복사</button>
+        </div>
+
+        <div class="card" style="margin-top:14px;background:var(--lgray);">
+          <h4 style="margin-bottom:10px;font-size:14px;color:var(--navy);">✅ 채워진 예시 — 이렇게 입력합니다</h4>
+          <div class="prompt-box" style="margin-top:0;">
+            <pre style="font-size:13px;">고등학교 1학년을 대상으로 1학기 중간고사 안내 가정통신문을 작성해 줘.
+
+- 시험 기간: 4월 14일(월) ~ 4월 18일(금)
+- 시험 과목: 국어, 수학, 영어, 한국사, 통합사회, 통합과학
+- 포함 내용: 시험 일정표, 학생 준비사항, 부정행위 방지 안내, 가정에서의 협조 요청
+
+공식적이고 따뜻한 문체로 A4 1장 이내로 작성해 줘.</pre>
+          </div>
+          <p style="font-size:13px;color:var(--gray);margin-top:10px;">→ 결과를 받은 뒤 "담임 교사 서명란 추가해 줘." / "인사말을 더 따뜻하게 고쳐 줘." 등 이어서 수정 지시합니다.</p>
         </div>
 
         <div class="tip-box" style="margin-top:12px;">
@@ -1430,6 +1487,20 @@
           <button class="copy-btn" onclick="copyPrompt('prompt-rubric', this)">복사</button>
         </div>
 
+        <div class="card" style="margin-top:14px;background:var(--lgray);">
+          <h4 style="margin-bottom:10px;font-size:14px;color:var(--navy);">✅ 채워진 예시 — 이렇게 입력합니다</h4>
+          <div class="prompt-box" style="margin-top:0;">
+            <pre style="font-size:13px;">국어 독서 토론 발표 루블릭을 다음 조건으로 만들어 줘.
+
+- 평가 과제: 책 1권을 읽고 모둠 토론 후 3분 발표
+- 평가 요소: 내용 이해 / 논리적 표현 / 토론 참여도
+- 성취 수준: 매우잘함 / 잘함 / 보통 / 노력요함 (4단계)
+
+각 수준별 기술어를 명확하고 구체적으로, 교사와 학생이 모두 이해할 수 있도록 표 형식으로 작성해 줘.</pre>
+          </div>
+          <p style="font-size:13px;color:var(--gray);margin-top:10px;">→ [교과], [과제명], [평가 요소] 3곳만 바꾸면 모든 교과·수행평가에 재사용 가능합니다.</p>
+        </div>
+
         <div class="tip-box" style="margin-top:12px;">
           [교과], [수행평가 주제], [평가 요소]만 바꾸면 모든 수행평가에 재사용할 수 있습니다.
         </div>
@@ -1439,7 +1510,7 @@
     <div class="info-box" style="margin-top:24px;border-left:5px solid var(--green);background:#F0FDF4;">
       <strong style="display:block;margin-bottom:10px;color:var(--green);">산출물 셀프 체크 — 2교시 마무리 전 확인</strong>
       <div style="line-height:2;font-size:14px;color:#334155;">
-        □ 행동특성을 학생 키워드만 바꿔 두 명 이상 만들어 봤다.<br>
+        □ 학급 규칙·생활 안내문이 A4 1장 이내 번호 목록 형태로 나왔다.<br>
         □ 시험 안내 가정통신문에 일정표가 표로 들어가고 A4 1장 이내로 나왔다.<br>
         □ 결과가 아쉬울 때 '이어서 수정 지시'로 직접 고쳐 봤다.<br>
         □ (시간 여유 시) 루블릭이 4단계 표로 나오는 것을 확인했다.

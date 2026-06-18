@@ -128,7 +128,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-2</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-4</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v2.html" class="top-nav-btn">1일차 교육</a>
     <a href="two_v2.html" class="top-nav-btn">2일차 교육</a>
@@ -154,7 +154,7 @@
   <div class="hero-inner">
     <p class="hero-kicker">클로드 AI 실무 마스터 과정</p>
     <h1>교원용 프롬프트 예시집</h1>
-    <p class="hero-sub">6개 업무 영역 × 4개 = 총 24가지 &nbsp;—&nbsp; [ ] 안만 바꿔 바로 사용하세요 &nbsp;·&nbsp; 결과 예시 포함</p>
+    <p class="hero-sub">6개 업무 영역 × 25가지 &nbsp;—&nbsp; [ ] 안만 바꿔 바로 사용하세요 &nbsp;·&nbsp; 결과 예시 포함</p>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
       <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 14px;border-radius:18px;font-size:13.5px;">행정 업무</span>
       <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 14px;border-radius:18px;font-size:13.5px;">수업 준비</span>
@@ -733,7 +733,7 @@ I know the man. He wrote this book.
 <div class="container">
 <div class="cat-header fade-in">
   <div class="cat-icon" style="background:var(--orange);">생</div>
-  <div><div class="cat-title" style="color:var(--orange);">학생 생활</div><div class="cat-desc">상담 기록 · 학부모 민원 대응 · 진로 탐색 자료 · 생활지도 안내문</div></div>
+  <div><div class="cat-title" style="color:var(--orange);">학생 생활</div><div class="cat-desc">상담 기록 · 학부모 민원 대응 · 진로 탐색 자료 · 생활지도 안내문 · 학급 규칙 안내문</div></div>
 </div>
 <div class="prompt-grid fade-in">
 
@@ -905,6 +905,63 @@ A4 1장 이내 안내문 형식으로 작성해 줘.</pre>
     </div>
   </div>
   <div class="point-box"><div class="point-label" style="color:var(--orange);">POINT</div>규정 내용과 시행일만 바꾸면 다양한 생활지도 안내문에 즉시 적용됩니다.</div>
+
+<!-- 카드 16-2: 학급 규칙·생활 안내문 -->
+<div class="prompt-card">
+  <div class="card-header" style="background:#FFF7ED;">
+    <span class="card-cat-badge" style="background:var(--orange);">학생 생활</span>
+    <div class="card-title">학기 초 학급 규칙 &amp; 생활 안내문</div>
+  </div>
+  <div class="card-body">
+    <div class="prompt-box">
+      <pre id="p16b">[역할] 당신은 [학교급] [학년] [반] 담임 교사입니다.
+
+[목적] 학기 초 학생들에게 배포할 학급 규칙 및 생활 안내문을 작성해 줘.
+
+[포함 내용]
+- 등·하교 시간 및 지각 기준
+- 휴대폰 사용 규칙
+- 모둠 활동 및 청소 당번 운영 방식
+- 담임 교사 연락 방법
+- 학생에게 기대하는 한 가지 가치 ([예: 배려 / 성실 / 책임감])
+
+[형식]
+- A4 1장 이내, 항목별 번호 목록
+- 학생이 쉽게 읽을 수 있는 친근한 문체
+- 제목 포함</pre>
+      <button class="copy-btn" onclick="copyP('p16b',this)">복사</button>
+    </div>
+    <button class="result-toggle" onclick="toggleResult('r16b',this)">결과 예시 보기 <span class="arrow">▼</span></button>
+    <div class="result-box" id="r16b">
+      <div class="result-label">생성 결과 예시 (고등학교 1학년 3반 / 기대 가치: 배려)</div>
+      <pre>🏫 1학년 3반 학급 규칙 & 생활 안내문
+
+안녕하세요! 올해 함께할 1학년 3반 담임 ○○○입니다.
+즐겁고 안전한 학급을 만들기 위해 다음 규칙을 함께 지켜 주세요.
+
+1. 등·하교 시간
+   - 등교: 오전 8시 20분까지 교실 착석
+   - 지각 기준: 8시 30분 이후 교실 입장 시 지각 처리
+
+2. 휴대폰 사용 규칙
+   - 수업 시간: 전원 끄고 개인 가방 안에 보관
+   - 쉬는 시간·점심: 자유롭게 사용 가능
+
+3. 모둠 활동 & 청소 당번
+   - 모둠 구성: 월별 순환, 모둠장이 출결 보고
+   - 청소 당번: 주간 로테이션, 당번표 교실 게시
+
+4. 담임 교사 연락 방법
+   - 학교 포털 쪽지 또는 학급 카카오톡 채널 이용
+   - 긴급 상황: 교무실 직통 000-0000
+
+우리 반이 함께 지키고 싶은 가치 — 배려 💛
+작은 말 한마디, 행동 하나가 우리 반을 따뜻하게 만듭니다.
+
+✔ 항목별 번호 목록  ✔ 친근한 문체  ✔ A4 1장 이내</pre>
+    </div>
+  </div>
+  <div class="point-box"><div class="point-label" style="color:var(--orange);">POINT</div>[학년], [반], [기대 가치]만 바꾸면 매 학기·다른 반에 재사용할 수 있습니다.</div>
 </div>
 
 </div></div></section>
