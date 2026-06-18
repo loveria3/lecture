@@ -739,7 +739,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-4</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v2-6</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v2.html" class="top-nav-btn active">1일차 교육</a>
     <a href="two_v2.html" class="top-nav-btn">2일차 교육</a>
@@ -761,7 +761,7 @@
   <div class="toc-dot" title="사업계획서 실습" onclick="scrollTo(5)"></div>
   <div class="toc-dot" title="1교시 정리" onclick="scrollTo(6)"></div>
   <div class="toc-dot" title="GEAR 질문법" onclick="scrollTo(7)"></div>
-  <div class="toc-dot" title="담임 실전 실습 3가지" onclick="scrollTo(8)"></div>
+  <div class="toc-dot" title="담임 실전 실습 4가지" onclick="scrollTo(8)"></div>
   <div class="toc-dot" title="마무리" onclick="scrollTo(9)"></div>
 </nav>
 
@@ -837,18 +837,23 @@
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:#0D9488;">실습 1</span>
-          <span class="tt-time">5~25분</span>
-          <span>행동특성 및 종합의견 초안 자동 작성</span>
+          <span class="tt-time">5~20분</span>
+          <span>학부모 민원 대응 메시지 작성 ← 가장 임팩트 큰 실습</span>
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:#14B8A6;">실습 2</span>
-          <span class="tt-time">25~40분</span>
+          <span class="tt-time">20~30분</span>
+          <span>학급 규칙·생활 안내문 작성</span>
+        </div>
+        <div class="timetable-row">
+          <span class="tt-label" style="background:#2DD4BF;">실습 3</span>
+          <span class="tt-time">30~40분</span>
           <span>시험 안내 가정통신문 자동 작성</span>
         </div>
         <div class="timetable-row">
-          <span class="tt-label" style="background:#5EEAD4;color:var(--dark);">실습 3 ★</span>
+          <span class="tt-label" style="background:#5EEAD4;color:var(--dark);">실습 4 ★</span>
           <span class="tt-time">40~45분</span>
-          <span>루블릭 / 수준별 활동지 ★ 시간 여유 시 진행</span>
+          <span>루블릭 / 수준별 활동지 ★ 3분이면 체험 가능</span>
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:#93C5FD;color:var(--dark);">정리</span>
@@ -1320,22 +1325,74 @@
 <!-- ══════════════════════════════════════ -->
 <section class="section" id="sec8" style="background:var(--lgray);">
   <div class="container fade-in">
-    <p class="section-label label-practice">2교시 실습 · 35분</p>
-    <h2 class="section-title">담임 교무 실전 프롬프트 3가지</h2>
+    <p class="section-label label-practice">2교시 실습 · 45분</p>
+    <h2 class="section-title">담임 교무 실전 프롬프트 4가지</h2>
     <p class="section-desc">아래는 반복 재사용하는 <strong>템플릿</strong>입니다. 복사해서 쓰되, 핵심은 대괄호 교체입니다.</p>
     <div class="edit-note">
       <span>✏️</span>
-      <span>세 프롬프트 모두 복사 후 <b>[대괄호] 항목만 내 상황에 맞게 직접 바꿔</b> 전송하세요. 대괄호만 바꾸면 모든 학생·학기·교과에 그대로 재사용됩니다.</span>
+      <span>프롬프트 복사 후 <b>[대괄호] 항목만 내 상황에 맞게 직접 바꿔</b> 전송하세요. 대괄호만 바꾸면 모든 학생·학기·교과에 그대로 재사용됩니다.</span>
     </div>
 
-    <!-- 실습 01: 학급 규칙/생활 안내문 -->
+    <!-- 실습 01: 학부모 민원 대응 ← 첫 번째로 전면 배치 -->
     <div class="practice-card">
       <div class="practice-header">
-        <div class="practice-num" style="background:var(--purple);">01</div>
+        <div class="practice-num" style="background:var(--orange);">01</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span class="badge" style="background:var(--orange);">학생 생활</span>
+            <span class="time-badge" style="font-size:12px;padding:3px 10px;">15분</span>
+          </div>
+          <h3>학부모 민원 대응 메시지 작성</h3>
+        </div>
+      </div>
+      <div class="practice-body">
+        <p style="font-size:14.5px;color:var(--gray);margin-bottom:12px;">민원 내용과 실제 상황만 입력하면 개인 정보를 보호하면서 학부모를 안심시키는 답변 메시지가 자동으로 작성됩니다. <strong>선생님들이 가장 "이게 된다고?" 반응하는 실습입니다.</strong></p>
+
+        <div class="prompt-box">
+          <pre id="prompt-complaint">다음 학부모 민원 상황에 맞는 답변 메시지를 작성해 줘.
+
+민원 내용: [학부모의 민원 또는 문의 내용]
+실제 상황: [실제 사실 관계 설명]
+
+조건:
+- 학생 개인 정보(건강·가정 상황 등)는 노출하지 않아 줘.
+- 사실 기반으로 정중하게 작성해 줘.
+- '상담 중'/'확인 중' 프레임으로 학부모를 안심시켜 줘.
+- 추후 안내 일정을 포함해 줘.</pre>
+          <button class="copy-btn" onclick="copyPrompt('prompt-complaint', this)">복사</button>
+        </div>
+
+        <div class="card" style="margin-top:14px;background:var(--lgray);">
+          <h4 style="margin-bottom:10px;font-size:14px;color:var(--navy);">✅ 채워진 예시 — 이렇게 입력합니다</h4>
+          <div class="prompt-box" style="margin-top:0;">
+            <pre style="font-size:13px;">다음 학부모 민원 상황에 맞는 답변 메시지를 작성해 줘.
+
+민원 내용: "우리 아이가 친구에게 따돌림을 당하고 있다고 합니다. 선생님은 알고 계셨나요?"
+실제 상황: 담임이 최근 3주간 학급 내 관계를 관찰해 왔으며, 이번 주 해당 학생과 면담을 이미 진행했음. 특정 그룹 간 갈등이 있으나 심각한 따돌림 정황은 파악되지 않은 상태.
+
+조건:
+- 학생 개인 정보(건강·가정 상황 등)는 노출하지 않아 줘.
+- 사실 기반으로 정중하게 작성해 줘.
+- '상담 중'/'확인 중' 프레임으로 학부모를 안심시켜 줘.
+- 추후 안내 일정을 포함해 줘.</pre>
+          </div>
+          <p style="font-size:13px;color:var(--gray);margin-top:10px;">→ [민원 내용]과 [실제 상황] 2곳만 바꾸면 어떤 민원에도 재사용됩니다. 결과가 나오면 "마지막 문장을 더 따뜻하게 고쳐 줘." / "연락 일정을 이번 주 목요일로 구체화해 줘." 등 이어서 수정 지시합니다.</p>
+        </div>
+
+        <div class="tip-box" style="margin-top:12px;">
+          [민원 내용]과 [실제 상황]만 교체하면 어떤 민원 유형에도 재사용할 수 있습니다. 개인 정보가 포함될 경우 반드시 입력 전에 실명·구체적 사건명을 지워서 넣으세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- 실습 02: 학급 규칙/생활 안내문 -->
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-num" style="background:var(--purple);">02</div>
         <div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
             <span class="badge" style="background:var(--purple);">담임 업무</span>
-            <span class="time-badge" style="font-size:12px;padding:3px 10px;">20분</span>
+            <span class="time-badge" style="font-size:12px;padding:3px 10px;">10분</span>
           </div>
           <h3>학기 초 학급 규칙 &amp; 생활 안내문 작성</h3>
         </div>
@@ -1395,14 +1452,14 @@
       </div>
     </div>
 
-    <!-- 실습 02: 시험 안내 가정통신문 (p17) -->
+    <!-- 실습 03: 시험 안내 가정통신문 -->
     <div class="practice-card">
       <div class="practice-header">
-        <div class="practice-num" style="background:var(--blue);">02</div>
+        <div class="practice-num" style="background:var(--blue);">03</div>
         <div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
             <span class="badge" style="background:var(--blue);">가정통신</span>
-            <span class="time-badge" style="font-size:12px;padding:3px 10px;">15분</span>
+            <span class="time-badge" style="font-size:12px;padding:3px 10px;">10분</span>
           </div>
           <h3>시험 안내 가정통신문 자동 작성</h3>
         </div>
@@ -1458,10 +1515,10 @@
       </div>
     </div>
 
-    <!-- 실습 03: 루블릭 (★) -->
+    <!-- 실습 04: 루블릭 (★) -->
     <div class="practice-card">
       <div class="practice-header">
-        <div class="practice-num" style="background:var(--green);">03</div>
+        <div class="practice-num" style="background:var(--green);">04</div>
         <div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
             <span class="badge" style="background:var(--green);">평가 기준안</span>
@@ -1472,7 +1529,7 @@
       </div>
       <div class="practice-body">
         <div class="warn-box" style="margin-bottom:12px;">
-          ★ 시간이 부족하면 생략하고 참고 프롬프트 페이지에서 확인합니다.
+          ★ 채워진 예시를 복사해 붙여넣으면 <strong>약 3분이면 결과 확인 가능</strong>합니다. 시간이 부족해도 꼭 한 번 체험해 보세요.
         </div>
         <p style="font-size:14.5px;color:var(--gray);margin-bottom:12px;">교과별 성취기준이 자동으로 반영되어 평가 기준의 일관성이 확보됩니다.</p>
 
@@ -1510,10 +1567,11 @@
     <div class="info-box" style="margin-top:24px;border-left:5px solid var(--green);background:#F0FDF4;">
       <strong style="display:block;margin-bottom:10px;color:var(--green);">산출물 셀프 체크 — 2교시 마무리 전 확인</strong>
       <div style="line-height:2;font-size:14px;color:#334155;">
+        □ 민원 대응 메시지에 학생 실명·민감정보 없이 정중하게 작성됐다.<br>
         □ 학급 규칙·생활 안내문이 A4 1장 이내 번호 목록 형태로 나왔다.<br>
         □ 시험 안내 가정통신문에 일정표가 표로 들어가고 A4 1장 이내로 나왔다.<br>
         □ 결과가 아쉬울 때 '이어서 수정 지시'로 직접 고쳐 봤다.<br>
-        □ (시간 여유 시) 루블릭이 4단계 표로 나오는 것을 확인했다.
+        □ 루블릭이 4단계 표로 나오는 것을 확인했다. (3분이면 충분!)
       </div>
     </div>
 
