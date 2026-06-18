@@ -198,9 +198,6 @@
     display: inline-flex; align-items: center; gap: 6px; transition: background .2s;
   }
   .pdf-dl-btn:hover { background: #f0b800; }
-  .pptx-dl-btn { margin-left:8px; background:#7C3AED;color:#fff;border:none;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:background .2s; }
-  .pptx-dl-btn:hover { background:#6D28D9; }
-  .pptx-dl-btn:disabled { opacity:.65;cursor:wait; }
 
   /* ── PDF / 인쇄 전용 설정 ── */
   @media print {
@@ -216,8 +213,6 @@
     a { text-decoration: none !important; }
   }
 </style>
-  <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundled.js"></script>
 </head>
 <body>
 
@@ -225,13 +220,12 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v3-11</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v3-12</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v3.html" class="top-nav-btn">1일차 교육</a>
     <a href="two_v3.html" class="top-nav-btn active">2일차 교육</a>
     <a href="prompt_v3.html" class="top-nav-btn">참고 프롬프트</a>
     <button class="pdf-dl-btn" onclick="window.print()" title="브라우저 인쇄창에서 'PDF로 저장'을 선택하세요">PDF 저장</button>
-    <button id="pptxDlBtn" class="pptx-dl-btn" onclick="generatePptx()">PPTX 저장</button>
   </div>
 </nav>
 
@@ -1245,75 +1239,6 @@ const fadeObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 fadeEls.forEach(el => fadeObs.observe(el));
 
-/* ── PPTX 생성 ── */
-function loadLib(src) {
-  return new Promise((res, rej) => {
-    if (document.querySelector(`script[src="${src}"]`)) { res(); return; }
-    const s = document.createElement('script');
-    s.src = src; s.onload = res; s.onerror = rej;
-    document.head.appendChild(s);
-  });
-}
-
-async function generatePptx() {
-  const btn = document.getElementById('pptxDlBtn1') || document.getElementById('pptxDlBtn');
-  if (!btn) return;
-  const orig = btn.innerHTML;
-  btn.innerHTML = '⏳ 생성 중...'; btn.disabled = true;
-  try {
-    if (typeof html2canvas === 'undefined') throw new Error('html2canvas 로드 실패 — 인터넷 연결을 확인하세요');
-    if (typeof PptxGenJS === 'undefined') throw new Error('PptxGenJS 로드 실패 — 인터넷 연결을 확인하세요');
-    const pptx = new PptxGenJS();
-    pptx.layout = 'LAYOUT_WIDE';
-    
-    pptx.title = '2일차 교육 — 클로드 AI 교원 연수';
-    const secs = Array.from(document.querySelectorAll('section[id]'));
-    for (const sec of secs) {
-      const canvas = await html2canvas(sec, {
-        scale: 1.8, backgroundColor: '#0A0F2E', useCORS: true, logging: false,
-        ignoreElements: el => el.classList && (el.classList.contains('copy-btn') || el.classList.contains('scroll-hint'))
-      });
-      const imgData = canvas.toDataURL('image/jpeg', 0.9);
-      const slide = pptx.addSlide();
-      slide.addImage({ data: imgData, x: 0, y: 0, w: '100%', h: '100%' });
-      const pres = sec.querySelectorAll('pre[id]');
-      if (pres.length) {
-        let notes = '';
-        pres.forEach(p => { notes += '[프롬프트: ' + p.id + ']\n' + p.textContent.trim() + '\n\n'; });
-        slide.addNotes(notes);
-      }
-    }
-    const allPres = Array.from(document.querySelectorAll('pre[id]'));
-    if (allPres.length) {
-      const divSlide = pptx.addSlide();
-      divSlide.background = { color: '1E293B' };
-      divSlide.addText('✏️ 편집 가능 프롬프트', { x: 0.5, y: 2.8, w: 12.33, h: 1, fontSize: 30, bold: true, color: 'FCC419', align: 'center' });
-      divSlide.addText('아래 슬라이드의 텍스트를 클릭해 자유롭게 수정하세요', { x: 0.5, y: 3.9, w: 12.33, h: 0.6, fontSize: 16, color: 'CBD5E1', align: 'center' });
-      allPres.forEach(pre => {
-        const slide = pptx.addSlide();
-        slide.background = { color: '0F172A' };
-        const parent = pre.closest('[class*="card"], section');
-        const titleEl = parent ? parent.querySelector('h2,h3,h4') : null;
-        const title = titleEl ? titleEl.textContent.trim() : pre.id;
-        slide.addText(title, { x: 0.4, y: 0.25, w: 12.53, h: 0.55, fontSize: 15, bold: true, color: 'FCC419' });
-        slide.addText(pre.textContent.trim(), {
-          x: 0.4, y: 0.9, w: 12.53, h: 6.3,
-          fontSize: 12.5, color: 'E2E8F0', fontFace: 'Courier New',
-          wrap: true, valign: 'top',
-          fill: { color: '1E293B' }, line: { color: '334155', pt: 1 }
-        });
-      });
-    }
-    await pptx.writeFile({ fileName: '2일차_클로드AI연수.pptx' });
-  } catch (e) {
-    console.error(e);
-    alert('PPTX 생성 중 오류가 발생했습니다.\n' + (e.message || String(e)));
-  }
-  btn.innerHTML = orig; btn.disabled = false;
-}
-
 </script>
 </body>
 </html>
-t fadeObs = new IntersectionObserver((entries) => {
-  entries.f                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
