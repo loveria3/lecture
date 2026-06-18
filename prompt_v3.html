@@ -104,7 +104,7 @@
   /* ── PDF 다운받기 버튼 ── */
   .pdf-dl-btn{margin-left:auto;background:#FCC419;color:#1a1a2e;border:none;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:background .2s;}
   .pdf-dl-btn:hover{background:#f0b800;}
-  .pptx-dl-btn { background:#7C3AED;color:#fff;border:none;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:background .2s; }
+  .pptx-dl-btn { margin-left:8px; background:#7C3AED;color:#fff;border:none;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:background .2s; }
   .pptx-dl-btn:hover{background:#6D28D9;}
   .pptx-dl-btn:disabled{opacity:.65;cursor:wait;}
 
@@ -1422,8 +1422,7 @@ async function generatePptx() {
     if (typeof PptxGenJS === 'undefined') throw new Error('PptxGenJS 로드 실패 — 인터넷 연결을 확인하세요');
     const pptx = new PptxGenJS();
     pptx.layout = 'LAYOUT_WIDE';
-    const pptx = new PptxGenJS();
-    pptx.layout = 'LAYOUT_WIDE';
+    
     pptx.title = '참고 프롬프트 예시집 — 클로드 AI 교원 연수';
 
     const secs = Array.from(document.querySelectorAll('section[id]'));
