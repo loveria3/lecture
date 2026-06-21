@@ -284,7 +284,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v3-23</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v3-25</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v3.html" class="top-nav-btn">1일차 교육</a>
     <a href="two_v3.html" class="top-nav-btn active">2일차 교육</a>
@@ -465,20 +465,24 @@
   <div class="container fade-in">
     <p class="section-label label-lecture">강의</p>
     <h2 class="section-title">강의 — Skills, 클로드 데스크탑이 달라지는 이유</h2>
-    <p class="section-desc">Skills는 클로드 데스크탑 앱에 탑재된 확장 기능입니다. 웹에서는 텍스트만 나왔다면, Skills가 켜진 데스크탑 앱에서는 실제 파일(.docx .xlsx .pptx .pdf)이 직접 만들어집니다.</p>
+    <p class="section-desc">Skills는 클로드 데스크탑 앱에 탑재된 확장 기능입니다. 웹에서도 파일 생성이 가능하지만 여러 단계를 거쳐야 합니다. Skills가 켜진 데스크탑 앱에서는 요청 한 번으로 실제 파일(.docx .xlsx .pptx .pdf)이 내 컴퓨터 폴더에 바로 저장됩니다.</p>
 
     <!-- 웹 vs 데스크탑 비교 -->
     <div class="card" style="margin-bottom:24px;padding:0;overflow:hidden;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
         <div style="padding:24px;border-right:2px solid var(--border);">
           <div style="font-size:13px;font-weight:700;color:var(--gray);letter-spacing:.08em;margin-bottom:12px;">🌐 웹 (claude.ai)</div>
-          <div style="font-size:22px;font-weight:800;color:var(--dark);margin-bottom:16px;">"텍스트로 답변"</div>
+          <div style="font-size:22px;font-weight:800;color:var(--dark);margin-bottom:16px;">"텍스트로 답변" (기본)</div>
           <ul style="font-size:14px;line-height:2.1;color:var(--dark);padding-left:18px;">
             <li>결과물이 화면에 텍스트로 표시됨</li>
             <li>복사 → 직접 Word/Excel에 붙여넣기 필요</li>
             <li>프롬프트 연습에 최적</li>
           </ul>
-          <div style="margin-top:16px;background:#FEF9C3;border-radius:8px;padding:12px;font-size:13.5px;color:#92400E;">
+          <div style="margin-top:12px;background:#FEE2E2;border-radius:8px;padding:10px 12px;font-size:13px;color:#991B1B;line-height:1.7;">
+            ⚠️ 파일 생성도 가능하지만 여러 단계 필요<br>
+            <span style="font-size:12px;opacity:.85;">요청 → 코드 실행 → 임시 저장 → 수동 다운로드</span>
+          </div>
+          <div style="margin-top:10px;background:#FEF9C3;border-radius:8px;padding:12px;font-size:13.5px;color:#92400E;">
             예: "가정통신문 써줘" → 화면에 텍스트가 나옴
           </div>
         </div>
@@ -951,6 +955,18 @@ Excel로 만들어 줘.
         □ 학부모 안내 문자를 직접 작성해 봤다. (실습 1)<br>
         □ Word 또는 Excel Skill로 실제 파일이 생성되는 것을 확인했다. (실습 2)
       </div>
+    </div>
+
+    <!-- HWPX 보너스 링크 -->
+    <div style="margin-top:24px;background:linear-gradient(135deg,#4C1D95,#5B21B6);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#C4B5FD;letter-spacing:.06em;margin-bottom:6px;">⏰ 시간이 남는다면</div>
+        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:4px;">📄 한글(HWPX) 스킬로 공문서 작성해보기</div>
+        <div style="font-size:13.5px;color:#DDD6FE;">HWPX 스킬을 설치하고 보고서 · 행사계획서 샘플로 직접 실습해 보세요.</div>
+      </div>
+      <a href="hwpx.html" target="_blank" style="flex-shrink:0;background:white;color:#5B21B6;font-size:14px;font-weight:700;padding:12px 22px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='#EDE9FE'" onmouseout="this.style.background='white'">
+        한글 실습 페이지 열기 →
+      </a>
     </div>
   </div>
 </section>
