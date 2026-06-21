@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제주고 클로드 교육 — 2026. 07. 01 ~ 07. 02</title>
+<style>
+  :root {
+    --navy:#1E2761; --blue:#3B5BDB; --purple:#7C3AED;
+    --teal:#0891B2; --cyan:#06B6D4; --accent:#FCC419;
+    --dark:#1E293B; --gray:#64748B; --lgray:#F1F5F9;
+    --white:#FFFFFF; --border:#E2E8F0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 배경 */
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background: linear-gradient(135deg, #0A0F2E 0%, #1E1B4B 45%, #0F172A 100%);
+  }
+  .bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 25%, rgba(59,91,219,.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 70%, rgba(124,58,237,.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 55% 10%, rgba(8,145,178,.12) 0%, transparent 40%);
+  }
+
+  /* 상단 내비게이션 */
+  .top-nav {
+    position: fixed; top: 3px; left: 0; right: 0;
+    background: rgba(10,15,46,0.96);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    z-index: 200; border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .top-nav-inner {
+    max-width: 960px; margin: 0 auto; padding: 0 28px;
+    display: flex; align-items: center; height: 48px; gap: 2px;
+  }
+  .top-nav-logo {
+    font-size: 12px; font-weight: 800; color: rgba(255,255,255,.35);
+    margin-right: 14px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+  }
+  .top-nav-btn {
+    padding: 6px 16px; border-radius: 8px; font-size: 14px; font-weight: 700;
+    color: rgba(255,255,255,.55); text-decoration: none; transition: all .2s; white-space: nowrap;
+  }
+  .top-nav-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+  .top-nav-btn.active { background: var(--accent); color: var(--dark); }
+
+  /* 진행 바 */
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    z-index: 300; transition: width .1s;
+  }
+
+  /* 메인 래퍼 */
+  .page {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 80px 28px 60px;
+  }
+
+  /* 헤더 영역 */
+  .header { text-align: center; margin-bottom: 56px; }
+  .school-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(252,196,25,.15); border: 1px solid rgba(252,196,25,.4);
+    color: var(--accent); padding: 6px 18px; border-radius: 20px;
+    font-size: 14px; font-weight: 700; letter-spacing: .04em;
+    margin-bottom: 20px;
+  }
+  .school-badge::before { content: ''; display:block; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .main-title {
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #FFFFFF 0%, #C4B5FD 60%, #93C5FD 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .date-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+    padding: 10px 24px; border-radius: 30px;
+    font-size: 16px; font-weight: 700; color: rgba(255,255,255,.85);
+    margin-top: 8px;
+  }
+  .date-sep { width: 1px; height: 14px; background: rgba(255,255,255,.3); }
+
+  /* 개요 칩 */
+  .meta-row {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .meta-chip {
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+    color: rgba(255,255,255,.7); padding: 5px 14px; border-radius: 16px;
+    font-size: 13.5px; font-weight: 600;
+  }
+
+  /* 4교시 카드 그리드 */
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 880px;
+    width: 100%;
+    margin-bottom: 44px;
+  }
+
+  /* 일차 구분 */
+  .day-label {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+    margin-top: 10px;
+  }
+  .day-label::after { content:''; flex:1; height:1px; background:rgba(255,255,255,.1); }
+
+  .session-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 18px;
+    padding: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all .25s;
+    display: flex; flex-direction: column; gap: 14px;
+    position: relative; overflow: hidden;
+  }
+  .session-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    opacity: 0; transition: opacity .25s;
+  }
+  .session-card:hover {
+    background: rgba(255,255,255,.09);
+    border-color: rgba(255,255,255,.2);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.3);
+  }
+  .session-card:hover::before { opacity: 1; }
+
+  .card-day1-1::before { background: linear-gradient(90deg, #3B5BDB, #7C3AED); }
+  .card-day1-2::before { background: linear-gradient(90deg, #0891B2, #059669); }
+  .card-day2-1::before { background: linear-gradient(90deg, #7C3AED, #06B6D4); }
+  .card-day2-2::before { background: linear-gradient(90deg, #EA580C, #FCC419); }
+
+  .card-top { display: flex; align-items: center; justify-content: space-between; }
+  .period-badge {
+    font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 6px; color: #fff;
+  }
+  .env-badge {
+    font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 6px;
+    background: rgba(255,255,255,.1); color: rgba(255,255,255,.6);
+  }
+
+  .card-title { font-size: 1.05rem; font-weight: 800; line-height: 1.35; }
+  .card-subtitle { font-size: 13.5px; color: rgba(255,255,255,.5); margin-top: -2px; }
+
+  .item-list { display: flex; flex-direction: column; gap: 7px; }
+  .item-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13.5px; color: rgba(255,255,255,.7); line-height: 1.5;
+  }
+  .item-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
+  }
+  .item-time {
+    font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 4px;
+    background: rgba(255,255,255,.1); color: rgba(255,255,255,.5); white-space: nowrap; flex-shrink: 0;
+  }
+  .item-skip { color: rgba(252,196,25,.7); }
+
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,.07);
+    font-size: 13px; font-weight: 700; color: rgba(255,255,255,.35);
+  }
+  .card-link-hint {
+    font-size: 12px; font-weight: 700; color: rgba(255,255,255,.25);
+    display: flex; align-items: center; gap: 4px;
+  }
+  .session-card:hover .card-link-hint { color: rgba(255,255,255,.6); }
+
+  /* 하단 버튼 */
+  .btn-row {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    max-width: 880px; width: 100%;
+  }
+  .btn {
+    padding: 13px 28px; border-radius: 26px; font-size: 15px; font-weight: 700;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: all .2s; white-space: nowrap;
+  }
+  .btn-day1 { background: linear-gradient(135deg, #3B5BDB, #7C3AED); color: #fff; }
+  .btn-day2 { background: linear-gradient(135deg, #7C3AED, #06B6D4); color: #fff; }
+  .btn-prompt { background: var(--accent); color: var(--dark); }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+
+  /* 반응형 */
+  @media(max-width:680px) {
+    .sessions-grid { grid-template-columns: 1fr; }
+    .day-label { grid-column: 1; }
+    .main-title { font-size: 2rem; }
+    .btn-row { flex-direction: column; align-items: center; }
+  }
+
+  /* 스크롤 페이드 */
+  .fade-up { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
+  .fade-up.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="progress-bar" id="progressBar"></div>
+
+
+<main class="page">
+
+  <!-- 헤더 -->
+  <div class="header fade-up">
+    <div class="school-badge">제주고등학교</div>
+    <h1 class="main-title">클로드(Claude) AI<br>교원 실무 연수</h1>
+    <div class="date-badge">
+      <span>2026. 07. 01 (화)</span>
+      <span class="date-sep"></span>
+      <span>2026. 07. 02 (수)</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-chip">총 2일 과정</span>
+      <span class="meta-chip">1일 2차시</span>
+      <span class="meta-chip">총 4교시 · 200분</span>
+      <span class="meta-chip">실습 비중 70% 이상</span>
+      <span class="meta-chip">Claude Pro 사전 가입 필수</span>
+    </div>
+  </div>
+
+  <!-- 교시 카드 그리드 -->
+  <div class="sessions-grid fade-up">
+
+    <!-- 1일차 레이블 -->
+    <div class="day-label">
+      <span>1일차 · 2026. 07. 01 (화) · 웹 브라우저</span>
+    </div>
+
+    <!-- 1교시 -->
+    <a href="one_v3.html" class="session-card card-day1-1">
+      <div class="card-top">
+        <span class="period-badge" style="background:var(--blue);">1교시</span>
+        <span class="env-badge">claude.ai 웹</span>
+      </div>
+      <div>
+        <div class="card-title">클로드 인터페이스 &amp;<br>프롬프트 엔지니어링 기초</div>
+        <div class="card-subtitle">강의 10분 + 실습 35분 + 정리 5분</div>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <span class="item-time">0~10분</span>
+          <span class="item-dot" style="background:#93C5FD;"></span>
+          <span>클로드 인터페이스 화면 파악 · Projects 활용</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">10~25분</span>
+          <span class="item-dot" style="background:#A78BFA;"></span>
+          <span>첫 실습 체험 — 행동특성 Before/After</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">25~45분</span>
+          <span class="item-dot" style="background:var(--accent);"></span>
+          <span>4요소 공식 + 사업 계획서 직접 작성</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">45~50분</span>
+          <span class="item-dot" style="background:#86EFAC;"></span>
+          <span>1교시 정리 · Q&amp;A</span>
+        </div>
+      </div>
+  
+    </a>
+
+    <!-- 2교시 -->
+    <a href="one_v3.html#sec8" class="session-card card-day1-2">
+      <div class="card-top">
+        <span class="period-badge" style="background:var(--teal);">2교시</span>
+        <span class="env-badge">claude.ai 웹</span>
+      </div>
+      <div>
+        <div class="card-title">GEAR 질문법 &amp;<br>교원 실무 프롬프트 실습 3종</div>
+        <div class="card-subtitle">강의 5분 + 실습 40분 + 정리 5분</div>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <span class="item-time">0~5분</span>
+          <span class="item-dot" style="background:#5EEAD4;"></span>
+          <span>GEAR 질문법 — 교원 업무 프롬프트 패턴</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">5~25분</span>
+          <span class="item-dot" style="background:var(--accent);"></span>
+          <span>행동특성 및 종합의견 자동 작성</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">25~40분</span>
+          <span class="item-dot" style="background:var(--accent);"></span>
+          <span>시험 안내 가정통신문 자동 작성</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">40~45분</span>
+          <span class="item-dot" style="background:var(--accent);"></span>
+          <span>루블릭 제작</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">45~50분</span>
+          <span class="item-dot" style="background:#86EFAC;"></span>
+          <span>마무리 정리 · Q&amp;A</span>
+        </div>
+      </div>
+
+    </a>
+
+    <!-- 2일차 레이블 -->
+    <div class="day-label">
+      <span>2일차 · 2026. 07. 02 (수) · 데스크탑 앱 필수</span>
+    </div>
+
+    <!-- 3교시 -->
+    <a href="two_v3.html" class="session-card card-day2-1">
+      <div class="card-top">
+        <span class="period-badge" style="background:var(--purple);">3교시</span>
+        <span class="env-badge">데스크탑 앱</span>
+      </div>
+      <div>
+        <div class="card-title">클로드 Skills &amp;<br>담임 업무 자동화</div>
+        <div class="card-subtitle">강의 10분 + 실습 35분 + 정리 5분</div>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <span class="item-time">0~10분</span>
+          <span class="item-dot" style="background:#C4B5FD;"></span>
+          <span>Skills 개념 이해 · 데스크탑 앱 활성화</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">10~30분</span>
+          <span class="item-dot" style="background:var(--accent);"></span>
+          <span>학부모 안내 문자 작성 — 협조·긴급 공지</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">30~45분</span>
+          <span class="item-dot" style="background:var(--accent);"></span>
+          <span>실제 교무 문서 파일 만들기 (Skills 실습)</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">45~50분</span>
+          <span class="item-dot" style="background:#86EFAC;"></span>
+          <span>4교시 정리 · Q&amp;A</span>
+        </div>
+      </div>
+  
+    </a>
+
+    <!-- 4교시 -->
+    <a href="two_v3.html#sec7" class="session-card card-day2-2">
+      <div class="card-top">
+        <span class="period-badge" style="background:#EA580C;">4교시</span>
+        <span class="env-badge">MS Office 애드인</span>
+      </div>
+      <div>
+        <div class="card-title">Claude MS-Office 애드인 &amp;<br>PPT·Excel 데이터 처리</div>
+        <div class="card-subtitle">강의 10분 + 실습 35분 + 정리 5분</div>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <span class="item-time">0~10분</span>
+          <span class="item-dot" style="background:#FDBA74;"></span>
+          <span>Claude 애드인 설치 · 통합 컨텍스트 활용</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">10~30분</span>
+          <span class="item-dot" style="background:var(--accent);"></span>
+          <span>PPT 플러그인 — 교육 자료 작성·수정·시각화</span>
+        </div>
+        <div class="item-row">
+          <span class="item-time">30~45분</span>
+          <span class="item-dot" style="background:var(--accent);"></span>
+          <span>Excel 플러그인 — 성적·출결 데이터 처리</span>
+        </div>
+<div class="item-row">
+          <span class="item-time">45~50분</span>
+          <span class="item-dot" style="background:#86EFAC;"></span>
+          <span>4교시 정리 · Q&amp;A</span>
+        </div>
+
+      </div>
+      
+      
+    </a>
+
+  </div>
+
+
+
+</main>
+
+<script>
+window.addEventListener('scroll', () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('progressBar').style.width = (total > 0 ? (window.scrollY/total)*100 : 0) + '%';
+});
+
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+</script>
+</body>
+</html>
+const fadeObs = new IntersectionObserver

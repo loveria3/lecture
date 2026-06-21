@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>클로드(Claude) AI 실무 마스터 과정 — 1일차 v3</title>
+<title>클로드(Claude) AI 실무 마스터 과정 — 1일차 v4</title>
 <style>
   /* ── 토큰 ─────────────────────────────── */
   :root {
@@ -440,7 +440,7 @@
     gap: 16px;
     margin-top: 16px;
   }
-  .ba-card { border-radius: 12px; overflow: hidden; }
+  .ba-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 2px 12px rgba(0,0,0,.07); }
   .ba-header {
     padding: 14px 18px;
     font-size: 15px;
@@ -724,13 +724,81 @@
   @media print {
     @page { size: A4; margin: 12mm; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    html, body { background: #fff !important; }
+    html, body { background: #fff !important; font-size: 13px !important; }
     body { padding-top: 0 !important; margin-top: 0 !important; }
-    .top-nav, .progress-bar, .scroll-hint, .copy-btn, .pdf-dl-btn, #toc, .toc-dot { display: none !important; }
+    .top-nav, .progress-bar, .scroll-hint, .copy-btn, .pdf-dl-btn, #toc, .toc-dot {
+      display: none !important;
+      position: static !important;
+      height: 0 !important;
+      width: 0 !important;
+      overflow: hidden !important;
+    }
     .fade-in { opacity: 1 !important; transform: none !important; }
-    .hero { min-height: auto !important; }
-    section, .card, .prompt-card, .prompt-box, .practice-card, .timetable,
-    .step, .interface-card, .elem-card, .cat-header, .prompt-grid, .four-card { page-break-inside: avoid; break-inside: avoid; }
+
+    /* 히어로·마무리 섹션 — PDF에서 숨김 */
+    .hero, #sec11, .closing {
+      display: none !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* 첫 섹션 — 페이지 앞 여백 없이 시작 */
+    #sec1 { break-before: avoid !important; page-break-before: avoid !important; margin-top: 0 !important; }
+
+    /* 마지막 섹션 — 뒤 빈 페이지 방지 */
+    #sec10 {
+      break-after: avoid !important;
+      page-break-after: avoid !important;
+      padding-bottom: 0 !important;
+    }
+    #sec10 .tip-box:last-of-type,
+    #sec10 .practice-card:last-of-type,
+    #sec10 .container > *:last-child { margin-bottom: 0 !important; padding-bottom: 0 !important; }
+
+    /* 섹션 높이·여백 초기화 — 빈 공간 제거 핵심 */
+    .section {
+      min-height: auto !important;
+      padding: 28px 0 !important;
+      justify-content: flex-start !important;
+    }
+
+    /* 카드·컨테이너 여백 축소 */
+    .container { padding: 0 16px !important; }
+    .card { padding: 14px 16px !important; }
+    .card-grid-2, .card-grid-3, .card-grid-4 { gap: 10px !important; }
+
+    /* sec4 3열 카드 → 인쇄 시 세로 배열 */
+    .card[style*="grid-template-columns:56px 1fr auto"],
+    .card[style*="grid-template-columns: 56px 1fr auto"] {
+      display: block !important;
+    }
+    .card[style*="grid-template-columns:56px 1fr auto"] > div:last-child,
+    .card[style*="grid-template-columns: 56px 1fr auto"] > div:last-child {
+      min-width: auto !important;
+      margin-top: 8px !important;
+    }
+
+    /* 페이지 나눔 제어 */
+    .section { break-before: auto; }
+    /* sec4 이후 각 섹션 — 새 페이지에서 시작 */
+    #sec4, #sec5, #sec6, #sec8, #sec9, #sec10 {
+      break-before: page !important;
+      page-break-before: always !important;
+    }
+    /* sec7: sec6과 같은 페이지에 이어서 출력 */
+    #sec7 { break-before: auto !important; page-break-before: auto !important; }
+    .card, .prompt-card, .prompt-box, .practice-card, .timetable,
+    .step, .interface-card, .elem-card, .cat-header, .prompt-grid,
+    .four-card, .fill-row, .gear-example, .tip-box, .warn-box, .info-box,
+    .before-after, .ba-card { break-inside: avoid; page-break-inside: avoid; }
+
+    /* 텍스트 크기 소폭 조정 */
+    h2 { font-size: 1.3rem !important; margin-bottom: 8px !important; }
+    h3 { font-size: 1rem !important; }
+    .section-desc { margin-bottom: 16px !important; font-size: 13px !important; }
+
     a { text-decoration: none !important; }
   }
 </style>
@@ -741,11 +809,11 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v3-11</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-2</span>
     <a href="index.html" class="top-nav-btn">홈</a>
-    <a href="one_v3.html" class="top-nav-btn active">1일차 교육</a>
-    <a href="two_v3.html" class="top-nav-btn">2일차 교육</a>
-    <a href="prompt_v3.html" class="top-nav-btn">참고 프롬프트</a>
+    <a href="one_v4.html" class="top-nav-btn active">1일차 교육</a>
+    <a href="two_v4.html" class="top-nav-btn">2일차 교육</a>
+    <a href="prompt_v4.html" class="top-nav-btn">참고 프롬프트</a>
     <button class="pdf-dl-btn" onclick="window.print()" title="브라우저 인쇄창에서 'PDF로 저장'을 선택하세요">PDF 저장</button>
   </div>
 </nav>
@@ -759,13 +827,14 @@
   <div class="toc-dot" title="시간표" onclick="scrollTo(1)"></div>
   <div class="toc-dot" title="웹 인터페이스" onclick="scrollTo(2)"></div>
   <div class="toc-dot" title="인터페이스" onclick="scrollTo(3)"></div>
-  <div class="toc-dot" title="첫 실습 체험" onclick="scrollTo(4)"></div>
-  <div class="toc-dot" title="4가지 요소" onclick="scrollTo(5)"></div>
-  <div class="toc-dot" title="사업계획서 실습" onclick="scrollTo(6)"></div>
-  <div class="toc-dot" title="1교시 정리" onclick="scrollTo(7)"></div>
-  <div class="toc-dot" title="GEAR 질문법" onclick="scrollTo(8)"></div>
-  <div class="toc-dot" title="담임 실전 실습 4가지" onclick="scrollTo(9)"></div>
-  <div class="toc-dot" title="마무리" onclick="scrollTo(10)"></div>
+  <div class="toc-dot" title="핵심 기능 3가지" onclick="scrollTo(4)"></div>
+  <div class="toc-dot" title="프롬프트 이유" onclick="scrollTo(5)"></div>
+  <div class="toc-dot" title="4가지 요소" onclick="scrollTo(6)"></div>
+  <div class="toc-dot" title="학부모 문자 실습" onclick="scrollTo(7)"></div>
+  <div class="toc-dot" title="사업계획서 실습" onclick="scrollTo(8)"></div>
+  <div class="toc-dot" title="GEAR 질문법" onclick="scrollTo(9)"></div>
+  <div class="toc-dot" title="실전 실습 3가지" onclick="scrollTo(10)"></div>
+  <div class="toc-dot" title="마무리" onclick="scrollTo(11)"></div>
 </nav>
 
 <!-- ══════════════════════════════════════ -->
@@ -807,18 +876,18 @@
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:var(--blue);">강의</span>
-          <span class="tt-time">0~10분</span>
-          <span>클로드 인터페이스 — 화면 구성 빠르게 파악</span>
+          <span class="tt-time">0~20분</span>
+          <span>인터페이스 · 핵심 기능 · 프롬프트가 중요한 이유 · 4가지 요소</span>
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:var(--purple);">실습 1</span>
-          <span class="tt-time">10~25분</span>
-          <span>첫 프롬프트 체험 — 행동특성 Before / After</span>
+          <span class="tt-time">20~30분</span>
+          <span>학부모 안내 문자 작성 — 4요소 바로 적용</span>
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:var(--orange);">실습 2</span>
-          <span class="tt-time">25~45분</span>
-          <span>4요소 공식 익히기 + 사업 계획서 직접 작성</span>
+          <span class="tt-time">30~45분</span>
+          <span>교내 사업 계획서 직접 작성</span>
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:#93C5FD;color:var(--dark);">정리</span>
@@ -841,31 +910,26 @@
         <div class="timetable-row">
           <span class="tt-label" style="background:#0D9488;">실습 1</span>
           <span class="tt-time">5~20분</span>
-          <span>학부모 민원 대응 메시지 작성 ← 가장 임팩트 큰 실습</span>
-        </div>
-        <div class="timetable-row">
-          <span class="tt-label" style="background:#14B8A6;">실습 2</span>
-          <span class="tt-time">20~30분</span>
           <span>학급 규칙·생활 안내문 작성</span>
         </div>
         <div class="timetable-row">
-          <span class="tt-label" style="background:#2DD4BF;">실습 3</span>
-          <span class="tt-time">30~40분</span>
+          <span class="tt-label" style="background:#14B8A6;">실습 2</span>
+          <span class="tt-time">20~35분</span>
           <span>시험 안내 가정통신문 자동 작성</span>
         </div>
         <div class="timetable-row">
-          <span class="tt-label" style="background:#5EEAD4;color:var(--dark);">실습 4 ★</span>
-          <span class="tt-time">40~45분</span>
-          <span>루블릭 / 수준별 활동지 ★ 3분이면 체험 가능</span>
+          <span class="tt-label" style="background:#2DD4BF;">실습 3</span>
+          <span class="tt-time">35~45분</span>
+          <span>루블릭 / 수준별 활동지 — 3분이면 체험 가능</span>
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:#93C5FD;color:var(--dark);">정리</span>
           <span class="tt-time">45~50분</span>
-          <span>2일차 예고 및 마무리</span>
+          <span>2교시 정리 · Q&amp;A</span>
         </div>
       </div>
     </div>
-    <div class="warn-box" style="margin-top:16px;">
+    <div class="warn-box" style="margin-top:16px;break-before:avoid;page-break-before:avoid;">
       ★ 표시 슬라이드는 시간 부족 시 생략 가능합니다.
     </div>
   </div>
@@ -1008,31 +1072,31 @@
 
     <div style="display:flex;flex-direction:column;gap:16px;">
 
-      <div class="card" style="display:grid;grid-template-columns:56px 1fr auto;gap:16px;align-items:start;">
+      <div class="card" style="display:grid;grid-template-columns:56px 1fr 200px;gap:16px;align-items:start;">
         <div style="width:52px;height:52px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:23px;">AI</div>
         <div>
           <h3 style="margin-bottom:6px;">모델 선택 &amp; 응답 품질 조절</h3>
           <p style="font-size:14.5px;color:var(--gray);line-height:1.65;">Claude Sonnet은 속도와 품질의 균형이 뛰어나 교원 업무에 적합합니다. 긴 공문이나 상세한 분석이 필요할 때는 Claude Opus를 활용하면 더 깊은 분석이 가능합니다.</p>
         </div>
-        <div class="tip-box" style="min-width:180px;margin-top:0;">모델을 바꿔도 이전 대화 맥락은 유지됩니다.</div>
+        <div class="tip-box" style="margin-top:0;">모델을 바꿔도 이전 대화 맥락은 유지됩니다.</div>
       </div>
 
-      <div class="card" style="display:grid;grid-template-columns:56px 1fr auto;gap:16px;align-items:start;">
+      <div class="card" style="display:grid;grid-template-columns:56px 1fr 200px;gap:16px;align-items:start;">
         <div style="width:52px;height:52px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:23px;">Re</div>
         <div>
           <h3 style="margin-bottom:6px;">답변 재생성 &amp; 이어쓰기</h3>
           <p style="font-size:14.5px;color:var(--gray);line-height:1.65;">마음에 들지 않는 답변은 재생성 버튼으로 즉시 재생성할 수 있습니다. <code style="background:var(--lgray);padding:1px 5px;border-radius:4px;">'계속 작성해 줘.'</code>를 입력하면 내용을 이어서 생성하며, <code style="background:var(--lgray);padding:1px 5px;border-radius:4px;">'3번 항목만 더 구체적으로 수정해 줘.'</code>처럼 부분 수정도 가능합니다.</p>
         </div>
-        <div class="tip-box" style="min-width:180px;margin-top:0;">'마음에 안 들면 재생성' 패턴을 습관화하면 완성도가 높아집니다.</div>
+        <div class="tip-box" style="margin-top:0;">'마음에 안 들면 재생성' 패턴을 습관화하면 완성도가 높아집니다.</div>
       </div>
 
-      <div class="card" style="display:grid;grid-template-columns:56px 1fr auto;gap:16px;align-items:start;">
+      <div class="card" style="display:grid;grid-template-columns:56px 1fr 200px;gap:16px;align-items:start;">
         <div style="width:52px;height:52px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:23px;">UP</div>
         <div>
           <h3 style="margin-bottom:6px;">파일 업로드 &amp; 문서 분석</h3>
           <p style="font-size:14.5px;color:var(--gray);line-height:1.65;">PDF, 이미지, Word 파일을 첨부하면 클로드가 내용을 읽고 분석합니다. 학교 규정집 PDF를 업로드하고 <code style="background:var(--lgray);padding:1px 5px;border-radius:4px;">'3장 내용을 요약해 줘.'</code>처럼 활용할 수 있습니다.</p>
         </div>
-        <div class="tip-box" style="min-width:180px;margin-top:0;">한 번에 최대 5개 파일 첨부가 가능합니다.</div>
+        <div class="tip-box" style="margin-top:0;">한 번에 최대 5개 파일 첨부가 가능합니다.</div>
       </div>
 
     </div>
@@ -1165,9 +1229,76 @@
 </section>
 
 <!-- ══════════════════════════════════════ -->
-<!-- S7. 실습 — 사업 계획서                   -->
+<!-- S7. 실습 — 학부모 안내 문자             -->
 <!-- ══════════════════════════════════════ -->
-<section class="section" id="sec7" style="background:var(--lgray);">
+<section class="section" id="sec7" style="background:var(--white);">
+  <div class="container fade-in">
+    <p class="section-label label-practice">선생님 실습</p>
+    <h2 class="section-title">선생님 실습 — 학부모 안내 문자 작성</h2>
+    <p class="section-desc">협조 요청, 긴급 공지, 일정 안내 상황에 맞는 100자 이내 문자 메시지를 빠르게 완성합니다. (claude.ai 웹 사용)</p>
+    <div style="display:flex;align-items:center;gap:10px;background:#FEF9C3;border-left:4px solid #FCC419;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:16px;font-size:14.5px;color:#92400E;">
+      <span style="font-size:18px;flex-shrink:0;">✏️</span>
+      <span>복사는 하되 <b style="color:#B45309;">[ ] 대괄호(상황 유형·내용·대상)는 직접 바꿔</b> 전송하세요. 대괄호만 교체하면 모든 안내 문자에 재사용됩니다.</span>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-num" style="background:#6D28D9;">01</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span class="badge" style="background:#6D28D9;">가정통신</span>
+            <span class="time-badge" style="font-size:12px;padding:3px 10px;">10분</span>
+          </div>
+          <h3>학부모 안내 문자 — 협조 요청·긴급 공지·일정 안내</h3>
+        </div>
+      </div>
+      <div class="practice-body">
+        <p style="font-size:14.5px;color:var(--gray);margin-bottom:16px;">상황 유형과 내용만 입력하면 날짜·조치 사항·문의처가 포함된 간결한 안내 문자가 완성됩니다.</p>
+
+        <div class="prompt-box">
+          <pre id="prompt-sms">다음 상황에 맞는 학부모 안내 문자를 작성해 줘.
+
+상황 유형: [협조 요청 / 긴급 공지 / 일정 안내 중 선택]
+상황 내용: [예: 내일 방송부 학생 오전 8:30 조기 등교
+           / 태풍으로 내일 임시 휴업
+           / 급식 메뉴 변경 안내]
+수신 대상: [해당 학생 학부모 / 전교생 학부모]
+
+조건: 100자 이내, 날짜·조치 사항·문의처 포함, 공식적이고 간결하게 작성해 줘.</pre>
+          <button class="copy-btn" onclick="copyPrompt('prompt-sms', this)"><span>복사</span></button>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <h4 style="margin-bottom:14px;color:var(--purple);">결과 예시 — 유형별 완성 문자</h4>
+          <div class="card-grid-2">
+            <div style="background:var(--lgray);border-radius:10px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:8px;text-transform:uppercase;">협조 요청 예시 (94자)</div>
+              <p style="font-size:14px;line-height:1.8;">[방송부] 내일(6/14) 행사 준비로 방송부 학생은 오전 8:30까지 등교해 주시기 바랍니다. 문의: 담임 010-0000-0000</p>
+            </div>
+            <div style="background:var(--lgray);border-radius:10px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:#6D28D9;margin-bottom:8px;text-transform:uppercase;">긴급 공지 예시 (88자)</div>
+              <p style="font-size:14px;line-height:1.8;">[긴급] 태풍 영향으로 내일(6/15) 전교생 임시 휴업을 결정하였습니다. 가정 지도 부탁드립니다. 교무실 000-0000</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box" style="margin-top:12px;">
+          [상황 유형]과 [상황 내용]만 바꾸면 어떤 안내 문자 상황에도 바로 적용할 수 있습니다. 결과물이 100자를 넘으면 '100자 이내로 줄여 줘.'라고 이어서 지시합니다.
+        </div>
+
+        <div class="info-box" style="margin-top:10px;">
+          <strong style="display:block;margin-bottom:6px;">추가 도전 과제</strong>
+          상황 유형을 '일정 안내'로 바꿔 학교 행사 안내 문자를 직접 작성해 봅니다. 또는 다국어 번역을 요청해 봅니다. 예) "위 문자를 영어로도 번역해 줘."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S8. 실습 — 사업 계획서                   -->
+<!-- ══════════════════════════════════════ -->
+<section class="section" id="sec8" style="background:var(--lgray);">
   <div class="container fade-in">
     <p class="section-label label-practice">선생님 실습</p>
     <h2 class="section-title">선생님 실습 — 교내 사업 계획서 초안 작성</h2>
@@ -1208,9 +1339,9 @@
 </section>
 
 <!-- ══════════════════════════════════════ -->
-<!-- S8. 2교시 + GEAR 질문법                 -->
+<!-- S9. 2교시 + GEAR 질문법                 -->
 <!-- ══════════════════════════════════════ -->
-<section class="section" id="sec8" style="background:var(--white);">
+<section class="section" id="sec9" style="background:var(--white);">
   <div class="container fade-in">
     <p class="section-label label-lecture">강의</p>
     <h2 class="section-title">강의 — GEAR 질문법</h2>
@@ -1291,7 +1422,7 @@
 <!-- ══════════════════════════════════════ -->
 <!-- S9. 실전 실습 3가지                     -->
 <!-- ══════════════════════════════════════ -->
-<section class="section" id="sec9" style="background:var(--lgray);">
+<section class="section" id="sec10" style="background:var(--lgray);">
   <div class="container fade-in">
     <p class="section-label label-practice">선생님 실습</p>
     <h2 class="section-title">선생님 실습 — 실전 프롬프트 실습 3가지</h2>
@@ -1405,7 +1536,7 @@
 <!-- ══════════════════════════════════════ -->
 <!-- S10. 마무리                              -->
 <!-- ══════════════════════════════════════ -->
-<section class="closing" id="sec10">
+<section class="closing" id="sec11">
   <div class="container">
     <p style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--sky);margin-bottom:16px;">1일차 마무리</p>
     <h2>오늘 배운 내용을<br>실제 업무에 바로 적용해 보세요!</h2>
@@ -1419,8 +1550,8 @@
     </div>
 
     <div style="margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-      <a href="two_v3.html" style="min-width:200px;text-align:center;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);color:#fff;padding:12px 28px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">2일차 수업 보기 →</a>
-      <a href="prompt_v3.html" style="min-width:200px;text-align:center;background:#FCC419;color:#1E293B;padding:12px 28px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">프롬프트 예시집 →</a>
+      <a href="two_v4.html" style="min-width:200px;text-align:center;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);color:#fff;padding:12px 28px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">2일차 수업 보기 →</a>
+      <a href="prompt_v4.html" style="min-width:200px;text-align:center;background:#FCC419;color:#1E293B;padding:12px 28px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;">프롬프트 예시집 →</a>
     </div>
   </div>
 </section>
@@ -1438,7 +1569,7 @@ function copyPrompt(id, btn) {
   });
 }
 
-const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10'];
+const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','sec11'];
 const dots = document.querySelectorAll('.toc-dot');
 
 const observer = new IntersectionObserver((entries) => {
@@ -1471,4 +1602,4 @@ document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
 </script>
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
