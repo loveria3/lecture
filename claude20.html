@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude 활용법 20가지</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+    :root {
+      --primary: #1a1f3c;
+      --accent: #e85d26;
+      --accent2: #f5a623;
+      --bg: #f7f8fc;
+      --card: #ffffff;
+      --text: #1a1f3c;
+      --text-light: #6b7280;
+      --border: #e5e7eb;
+      --tag1: #dbeafe;
+      --tag1t: #1d4ed8;
+      --tag2: #fef3c7;
+      --tag2t: #92400e;
+      --tag3: #d1fae5;
+      --tag3t: #065f46;
+      --tag4: #ede9fe;
+      --tag4t: #5b21b6;
+      --tag5: #fce7f3;
+      --tag5t: #9d174d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1a1f3c 0%, #2d3561 60%, #1a1f3c 100%);
+      color: white;
+      padding: 60px 24px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(232,93,38,0.25) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 6vw, 42px);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .hero h1 span { color: var(--accent2); }
+    .hero p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      max-width: 500px;
+      margin: 0 auto 28px;
+    }
+    .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-pdf:hover { background: #cf4d1e; transform: translateY(-1px); }
+
+    /* ── FLOW ── */
+    .flow-section {
+      background: white;
+      padding: 36px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .flow-section h2 {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--primary);
+    }
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 100px;
+    }
+    .flow-num {
+      width: 36px; height: 36px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800;
+    }
+    .flow-step span {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+    .flow-step small {
+      font-size: 11px;
+      color: var(--text-light);
+      text-align: center;
+      line-height: 1.4;
+    }
+    .flow-arrow {
+      font-size: 18px;
+      color: var(--accent);
+      font-weight: 900;
+      margin-top: -10px;
+    }
+
+    /* ── GRID ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+    .group-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 36px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .group-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .card:hover {
+      box-shadow: 0 8px 24px rgba(26,31,60,0.1);
+      transform: translateY(-3px);
+    }
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .card-num {
+      min-width: 32px; height: 32px;
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+    .card-en {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #4b5563;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .card-examples {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 10px 12px;
+      border-left: 3px solid var(--accent2);
+    }
+    .card-examples p {
+      font-size: 12px;
+      color: #374151;
+      line-height: 1.6;
+    }
+    .card-examples p::before {
+      content: '"';
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .card-examples p::after {
+      content: '"';
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+
+    /* ── WARNING ── */
+    .warning-section {
+      background: #fff8f6;
+      border-top: 3px solid var(--accent);
+      padding: 36px 24px;
+    }
+    .warning-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .warning-section h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .warning-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .warning-card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      border: 1px solid #fcd9cc;
+    }
+    .warning-card h3 {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .warning-card p {
+      font-size: 12px;
+      color: #4b5563;
+      line-height: 1.6;
+    }
+
+    /* ── START ── */
+    .start-section {
+      background: linear-gradient(135deg, #1a1f3c, #2d3561);
+      color: white;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .start-section h2 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .start-section h2 span { color: var(--accent2); }
+    .start-section p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 24px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .start-quote {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 16px 24px;
+      font-size: 14px;
+      color: white;
+      font-weight: 500;
+      max-width: 480px;
+    }
+    .start-quote strong { color: var(--accent2); display: block; margin-bottom: 4px; font-size: 12px; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: var(--text-light);
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    @media print {
+      .btn-pdf { display: none; }
+      .card:hover { transform: none; box-shadow: none; }
+    }
+
+    @media (max-width: 600px) {
+      .flow-steps { gap: 4px; }
+      .flow-step { min-width: 70px; }
+      .flow-step small { font-size: 10px; }
+      .flow-arrow { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">✦ Claude 활용 가이드</div>
+  <h1>클로드를 제대로 쓰는<br><span>20가지 방법</span></h1>
+  <p>질문부터 자동화까지, 일상과 업무에서 Claude를 활용하는 핵심 방법을 한눈에</p>
+  <button class="btn-pdf" onclick="window.print()">
+    📄 PDF로 저장하기
+  </button>
+</header>
+
+<!-- FLOW -->
+<section class="flow-section">
+  <p class="section-label">Claude 활용 기본 흐름</p>
+  <h2>5단계로 시작하기</h2>
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <span>질문하기</span>
+      <small>목적을<br>구체적으로</small>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <span>초안 만들기</span>
+      <small>문서·이메일<br>초안 생성</small>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <span>자료 검토</span>
+      <small>내용과 근거<br>빠르게 확인</small>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <span>수정하기</span>
+      <small>상황에 맞게<br>다듬기</small>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <span>공유하기</span>
+      <small>바로<br>활용</small>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS -->
+<main class="container">
+
+  <!-- 그룹1 -->
+  <div class="group-title">
+    <div class="group-dot" style="background:#3b82f6"></div>
+    기본 활용
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">1</div>
+        <div>
+          <div class="card-title">질문하기</div>
+          <div class="card-en">Chat</div>
+        </div>
+      </div>
+      <p class="card-desc">가장 기본적인 방법. 단순히 "알려줘"보다 상황과 목적을 함께 적으면 훨씬 실용적인 답변이 나온다.</p>
+      <div class="card-examples">
+        <p>병원 가기 전에 확인해야 할 것들을 정리해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag1);color:var(--tag1t)">초급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">2</div>
+        <div>
+          <div class="card-title">아티팩트 만들기</div>
+          <div class="card-en">Render</div>
+        </div>
+      </div>
+      <p class="card-desc">답변을 문서·표·체크리스트·앱·시각화 자료로 별도 작업창에 생성. 읽고 끝나는 채팅과 달리 바로 수정·재사용 가능.</p>
+      <div class="card-examples">
+        <p>이 내용을 표로 깔끔하게 정리해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag1);color:var(--tag1t)">초급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">3</div>
+        <div>
+          <div class="card-title">연결하기</div>
+          <div class="card-en">Connect</div>
+        </div>
+      </div>
+      <p class="card-desc">Google Drive, Gmail, Calendar, Slack 등 외부 도구와 연결해 흩어진 정보를 찾아오고 정리한다.</p>
+      <div class="card-examples">
+        <p>Gmail에서 최근 받은 중요 메일을 요약해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag2);color:var(--tag2t)">중급</span>
+    </div>
+  </div>
+
+  <!-- 그룹2 -->
+  <div class="group-title">
+    <div class="group-dot" style="background:#f59e0b"></div>
+    자동화 · 지속
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">4</div>
+        <div>
+          <div class="card-title">자동화하기</div>
+          <div class="card-en">Automate</div>
+        </div>
+      </div>
+      <p class="card-desc">반복 업무를 정해진 주기마다 Claude가 실행. Claude Desktop의 Scheduled tasks 기능. Desktop이 켜져 있어야 작동.</p>
+      <div class="card-examples">
+        <p>매주 월요일 아침, 이번 주 할 일 목록을 정리해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag4);color:var(--tag4t)">고급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">5</div>
+        <div>
+          <div class="card-title">프로젝트 지속</div>
+          <div class="card-en">Persist</div>
+        </div>
+      </div>
+      <p class="card-desc">Projects로 주제별 공간을 나눠 관련 대화·문서·지식을 모아두고 맥락을 이어서 작업할 수 있다.</p>
+      <div class="card-examples">
+        <p>이전 대화 내용을 바탕으로 이어서 작성해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag2);color:var(--tag2t)">중급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">6</div>
+        <div>
+          <div class="card-title">플러그인 사용</div>
+          <div class="card-en">Stack</div>
+        </div>
+      </div>
+      <p class="card-desc">Skills + Connectors + Sub-agents를 묶은 패키지. 분야별로 필요한 도구와 절차를 한 번에 세팅해서 쓴다.</p>
+      <div class="card-examples">
+        <p>자료 조사·초안 작성·검토를 한 흐름으로 처리해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag4);color:var(--tag4t)">고급</span>
+    </div>
+  </div>
+
+  <!-- 그룹3 -->
+  <div class="group-title">
+    <div class="group-dot" style="background:#10b981"></div>
+    심화 기능
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">7</div>
+        <div>
+          <div class="card-title">스킬 트리거</div>
+          <div class="card-en">Trigger</div>
+        </div>
+      </div>
+      <p class="card-desc">특정 작업에 맞는 Skill을 자동 호출. 매번 긴 설명 없이도 일관된 결과물을 만들 수 있다.</p>
+      <div class="card-examples">
+        <p>우리 동아리 회의록 형식에 맞춰 정리해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag2);color:var(--tag2t)">중급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">8</div>
+        <div>
+          <div class="card-title">조사하기</div>
+          <div class="card-en">Investigate</div>
+        </div>
+      </div>
+      <p class="card-desc">Research 기능으로 여러 자료를 비교·심층 조사. 단순 검색과 달리 보고서 수준으로 정리해준다.</p>
+      <div class="card-examples">
+        <p>제주 관련 정책 변경 사항을 조사해서 정리해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag2);color:var(--tag2t)">중급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">9</div>
+        <div>
+          <div class="card-title">웹 검색</div>
+          <div class="card-en">Search</div>
+        </div>
+      </div>
+      <p class="card-desc">Web Search로 최신 정보 확인. 날짜·가격·정책 변경처럼 기본 지식만 믿으면 안 되는 내용에 사용.</p>
+      <div class="card-examples">
+        <p>오늘 기준으로 해당 공고가 아직 유효한지 확인해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag1);color:var(--tag1t)">초급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">10</div>
+        <div>
+          <div class="card-title">원격 작업</div>
+          <div class="card-en">Remote</div>
+        </div>
+      </div>
+      <p class="card-desc">모바일에서 요청하면 Claude Desktop이 내 컴퓨터의 파일·서비스·앱을 활용해 처리. 보안 주의 필요.</p>
+      <div class="card-examples">
+        <p>내 컴퓨터 폴더에서 자료를 찾아 요약해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag4);color:var(--tag4t)">고급</span>
+    </div>
+  </div>
+
+  <!-- 그룹4 -->
+  <div class="group-title">
+    <div class="group-dot" style="background:#8b5cf6"></div>
+    컴퓨터 · 브라우저
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">11</div>
+        <div>
+          <div class="card-title">컴퓨터 사용</div>
+          <div class="card-en">Click</div>
+        </div>
+      </div>
+      <p class="card-desc">화면을 보고 클릭·입력하는 작업을 처리. 반복 입력, 여러 사이트 가격 비교 등에 활용. 결제·삭제 등 중요 작업은 반드시 사람이 최종 확인.</p>
+      <div class="card-examples">
+        <p>여러 사이트에서 가격을 비교해서 정리해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag4);color:var(--tag4t)">고급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">12</div>
+        <div>
+          <div class="card-title">크롬 브라우징</div>
+          <div class="card-en">Browse</div>
+        </div>
+      </div>
+      <p class="card-desc">웹페이지를 직접 보면서 내용 분석. 공고·뉴스·홈페이지를 처음부터 끝까지 읽지 않아도 핵심만 빠르게 파악.</p>
+      <div class="card-examples">
+        <p>이 공고에서 신청 조건과 마감일만 정리해줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag2);color:var(--tag2t)">중급</span>
+    </div>
+  </div>
+
+  <!-- 그룹5 -->
+  <div class="group-title">
+    <div class="group-dot" style="background:#ef4444"></div>
+    사고 · 속도 · 협업
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">13</div>
+        <div>
+          <div class="card-title">깊이 있는 사고</div>
+          <div class="card-en">Think</div>
+        </div>
+      </div>
+      <p class="card-desc">OPUS 추론 모델로 논리 허점 찾기, 장단점 분석, 우선순위 판단 등 복잡한 판단이 필요한 업무에 활용.</p>
+      <div class="card-examples">
+        <p>이 계획서에서 빠진 부분이나 약한 논리를 찾아줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag2);color:var(--tag2t)">중급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">14</div>
+        <div>
+          <div class="card-title">속도 최적화</div>
+          <div class="card-en">Speed</div>
+        </div>
+      </div>
+      <p class="card-desc">SONNET 모델로 초안을 빠르게 생성. 처음부터 완벽하게 쓰려 하지 말고 초안 → 수정 방식으로 시간을 줄인다.</p>
+      <div class="card-examples">
+        <p>이웃에게 보낼 안내문 초안을 빠르게 써줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag1);color:var(--tag1t)">초급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">15</div>
+        <div>
+          <div class="card-title">확장 사고</div>
+          <div class="card-en">Reason</div>
+        </div>
+      </div>
+      <p class="card-desc">하나의 내용을 여러 형식으로 변환. 같은 내용을 매번 새로 쓰지 않아도 목적에 맞게 바꿔서 활용.</p>
+      <div class="card-examples">
+        <p>이 내용을 카카오톡용, 공문용, 포스터용으로 각각 써줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag1);color:var(--tag1t)">초급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">16</div>
+        <div>
+          <div class="card-title">공동 작업</div>
+          <div class="card-en">Build</div>
+        </div>
+      </div>
+      <p class="card-desc">회의나 모임 후 정리되지 않은 내용을 넣으면 결정사항·담당자·마감일 구분, 할 일 분리 등을 도와준다.</p>
+      <div class="card-examples">
+        <p>오늘 회의 내용에서 결정사항과 할 일을 나눠줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag1);color:var(--tag1t)">초급</span>
+    </div>
+  </div>
+
+  <!-- 그룹6 -->
+  <div class="group-title">
+    <div class="group-dot" style="background:#0ea5e9"></div>
+    개발 · 데이터 · 디자인
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">17</div>
+        <div>
+          <div class="card-title">클로드 코드</div>
+          <div class="card-en">Ship</div>
+        </div>
+      </div>
+      <p class="card-desc">Claude Code로 비개발자도 간단한 자동화 도구·스크립트를 만들고 실제로 배포 가능. 자연어로 시작.</p>
+      <div class="card-examples">
+        <p>이 반복 작업을 자동으로 처리하는 방법을 알려줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag4);color:var(--tag4t)">고급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">18</div>
+        <div>
+          <div class="card-title">엑셀 활용</div>
+          <div class="card-en">Model</div>
+        </div>
+      </div>
+      <p class="card-desc">표·데이터를 붙여넣으면 정리·분석·요약까지 해준다. 엑셀을 잘 몰라도 데이터를 해석하는 데 도움받을 수 있다.</p>
+      <div class="card-examples">
+        <p>이 표에서 가장 많이 나온 항목을 찾아줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag1);color:var(--tag1t)">초급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">19</div>
+        <div>
+          <div class="card-title">프레젠테이션</div>
+          <div class="card-en">Slides</div>
+        </div>
+      </div>
+      <p class="card-desc">발표자료 흐름 설계·슬라이드 목차·첫 문구 작성. PPT 만들기 전에 먼저 구성 초안을 잡는 데 특히 적합.</p>
+      <div class="card-examples">
+        <p>10분 발표용 슬라이드 목차를 만들어줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag1);color:var(--tag1t)">초급</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-num">20</div>
+        <div>
+          <div class="card-title">디자인 목업</div>
+          <div class="card-en">Mockup</div>
+        </div>
+      </div>
+      <p class="card-desc">웹페이지·배너·포스터·안내문 등 전체적인 레이아웃 구성을 Claude가 직접 기획하고 시각화해준다.</p>
+      <div class="card-examples">
+        <p>행사 안내 포스터에 들어갈 내용과 구성을 잡아줘</p>
+      </div>
+      <span class="tag" style="background:var(--tag2);color:var(--tag2t)">중급</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- WARNING -->
+<section class="warning-section">
+  <div class="warning-inner">
+    <h2>⚠️ Claude 사용 시 주의할 점</h2>
+    <div class="warning-grid">
+      <div class="warning-card">
+        <h3>🔒 개인정보 보호</h3>
+        <p>민감한 개인정보, 비공개 자료는 그대로 입력하지 않도록 주의한다.</p>
+      </div>
+      <div class="warning-card">
+        <h3>✅ 반드시 검토하기</h3>
+        <p>AI 답변은 최종본이 아니다. 문서·메일에 넣기 전에 반드시 사람이 확인한다.</p>
+      </div>
+      <div class="warning-card">
+        <h3>🔢 수치·날짜 직접 확인</h3>
+        <p>숫자, 날짜, 법률, 비용 관련 내용은 공식 자료에서 직접 확인한다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- START -->
+<section class="start-section">
+  <h2>처음 써볼 업무는?<br><span>회의록 정리</span>부터 시작하세요</h2>
+  <p>처음부터 모든 기능을 쓸 필요는 없습니다.<br>반복해서 시간이 걸리는 일, 그게 Claude를 써볼 자리입니다.</p>
+  <div class="start-quote">
+    <strong>💬 첫 번째 시도 예시</strong>
+    이 회의 내용을 결정사항, 할 일, 담당자, 마감일로 나눠서 정리해줘
+  </div>
+</section>
+
+<footer>
+  Claude 활용 가이드 · 출처: worpsense.com · 강지애 디지털 교육 자료
+</footer>
+
+</body>
+</html>
