@@ -736,7 +736,7 @@
     .fade-in { opacity: 1 !important; transform: none !important; }
 
     /* 히어로·마무리 섹션 — PDF에서 숨김 */
-    .hero, #sec11, .closing {
+    .hero, #sec12, .closing {
       display: none !important;
       height: 0 !important;
       overflow: hidden !important;
@@ -809,7 +809,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-2</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-8</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v4.html" class="top-nav-btn active">1일차 교육</a>
     <a href="two_v4.html" class="top-nav-btn">2일차 교육</a>
@@ -834,7 +834,8 @@
   <div class="toc-dot" title="사업계획서 실습" onclick="scrollTo(8)"></div>
   <div class="toc-dot" title="GEAR 질문법" onclick="scrollTo(9)"></div>
   <div class="toc-dot" title="실전 실습 3가지" onclick="scrollTo(10)"></div>
-  <div class="toc-dot" title="마무리" onclick="scrollTo(11)"></div>
+  <div class="toc-dot" title="카카오 커넥터" onclick="scrollTo(11)"></div>
+  <div class="toc-dot" title="마무리" onclick="scrollTo(12)"></div>
 </nav>
 
 <!-- ══════════════════════════════════════ -->
@@ -1534,9 +1535,96 @@
 </section>
 
 <!-- ══════════════════════════════════════ -->
-<!-- S10. 마무리                              -->
+<!-- S11. ★ 보너스 — 카카오톡 커넥터         -->
 <!-- ══════════════════════════════════════ -->
-<section class="closing" id="sec11">
+<section class="section" id="sec11">
+  <div class="container fade-in">
+    <p class="section-label label-practice">선생님 실습</p>
+    <h2 class="section-title">★ 보너스 실습 — 카카오톡 나와의 채팅 연결해 보기</h2>
+    <p class="section-desc">시간 여유가 있을 때 진행합니다. Claude가 만든 내용을 카카오톡으로 바로 받을 수 있습니다.</p>
+
+    <div class="info-box" style="margin-bottom:20px;">
+      <strong>카카오 PlayMCP</strong>를 Claude에 연결하면 "나와의 채팅에 보내줘"라는 한 마디로 작업 결과를 스마트폰으로 즉시 전송할 수 있습니다. <strong>Claude Pro 유료 플랜 필수</strong> — 수업 대상 교원 조건 충족 ✅
+    </div>
+
+    <!-- 연결 방법 -->
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:14px;">📋 연결 방법 (최초 1회)</h3>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:flex-start;">
+          <div style="background:var(--purple);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">1</div>
+          <div style="font-size:14.5px;"><strong>Claude.ai → 프로필 → 설정 → 커넥터</strong> → [커넥터 둘러보기] → <strong>"PlayMCP" 검색</strong> → [연결] → 카카오 계정 로그인 → OAuth 동의</div>
+        </div>
+        <div style="display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:flex-start;">
+          <div style="background:var(--purple);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">2</div>
+          <div style="font-size:14.5px;"><strong><a href="https://playmcp.kakao.com/toolbox" target="_blank" style="color:var(--blue);">playmcp.kakao.com/toolbox</a> 접속</strong> → <strong>+ MCP 추가하기</strong> → "카카오톡 나챗방" 검색 → 추가</div>
+        </div>
+        <div style="display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:flex-start;">
+          <div style="background:var(--purple);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">3</div>
+          <div style="font-size:14.5px;"><strong>Claude.ai로 돌아와</strong> 커넥터 설정에서 PlayMCP <strong>연결 해제 후 재연결</strong> (도구 목록 갱신)</div>
+        </div>
+        <div style="display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:flex-start;">
+          <div style="background:var(--green);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">4</div>
+          <div style="font-size:14.5px;"><strong>채팅창 좌하단 + 버튼</strong> → 커넥터 → PlayMCP 활성화 → 카카오톡 나와의 채팅 전송 가능!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 활용 예시 -->
+    <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">💬 교사 활용 예시 3가지</h3>
+    <div class="card-grid-2" style="gap:12px;margin-bottom:16px;">
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:var(--purple);letter-spacing:.05em;margin-bottom:6px;">작업 완료 후</div>
+        <div style="font-size:14px;color:var(--dark);">"오늘 만든 세특 문구 핵심만 요약해서 <strong>카카오톡 나와의 채팅에 보내줘.</strong>"</div>
+      </div>
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:var(--purple);letter-spacing:.05em;margin-bottom:6px;">이동 중 참고</div>
+        <div style="font-size:14px;color:var(--dark);">"지금 만든 가정통신문 내용 <strong>카카오톡 나와의 채팅으로 보내줘.</strong>"</div>
+      </div>
+      <div class="card" style="grid-column:1/-1;">
+        <div style="font-size:12px;font-weight:700;color:var(--purple);letter-spacing:.05em;margin-bottom:6px;">할 일 정리</div>
+        <div style="font-size:14px;color:var(--dark);">"내일 수업 준비 체크리스트 3가지 만들어서 <strong>나와의 채팅에 보내줘.</strong>"</div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      텍스트만 전송됩니다. 표·서식이 있는 결과물은 <strong>"요약해서"</strong> 또는 <strong>"텍스트로 정리해서"</strong>라고 요청하세요.
+    </div>
+
+    <!-- Gmail + PlayMCP 심화 활용 -->
+    <div style="margin-top:24px;">
+      <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">📬 심화 활용 — Gmail + 카카오톡 동시 연결</h3>
+      <div class="card" style="margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span class="badge" style="background:var(--blue);">Gmail</span>
+          <span style="font-size:13px;color:var(--gray);">+</span>
+          <span class="badge" style="background:var(--orange);">PlayMCP</span>
+          <span style="font-size:13px;color:var(--gray);margin-left:4px;">두 커넥터를 함께 활성화하면</span>
+        </div>
+        <p style="font-size:14.5px;color:var(--dark);margin-bottom:10px;">Claude가 Gmail을 직접 읽고 요약한 뒤, 카카오톡 나와의 채팅으로 바로 전송합니다. 출근 전·퇴근 후 빠르게 메일을 파악할 때 유용합니다.</p>
+        <div class="gear-example" style="margin-bottom:0;">
+          "오늘 받은 이메일 중 중요한 것만 요약해서 카카오톡 나와의 채팅에 보내줘."
+        </div>
+      </div>
+      <div class="info-box" style="font-size:13.5px;margin-bottom:16px;">
+        <strong>연결 방법:</strong> 채팅창 좌하단 <strong>+ 버튼 → 커넥터</strong>에서 <strong>Gmail</strong>과 <strong>PlayMCP</strong> 둘 다 켜기 → 위 프롬프트 입력
+      </div>
+      <!-- 결과 예시 이미지 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <p style="font-size:13px;font-weight:700;color:var(--gray);">📱 실제 전송 결과 예시</p>
+        <img src="kakao_result.png" alt="Gmail 요약 → 카카오톡 나와의 채팅 전송 결과"
+          style="max-width:260px;width:100%;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);border:1px solid var(--border);">
+        <p style="font-size:12px;color:var(--gray);">Gmail 메일 요약 → 카카오톡 나와의 채팅 자동 전송 결과</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- S12. 마무리                              -->
+<!-- ══════════════════════════════════════ -->
+<section class="closing" id="sec12">
   <div class="container">
     <p style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--sky);margin-bottom:16px;">1일차 마무리</p>
     <h2>오늘 배운 내용을<br>실제 업무에 바로 적용해 보세요!</h2>
@@ -1569,7 +1657,7 @@ function copyPrompt(id, btn) {
   });
 }
 
-const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','sec11'];
+const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','sec11','sec12'];
 const dots = document.querySelectorAll('.toc-dot');
 
 const observer = new IntersectionObserver((entries) => {
