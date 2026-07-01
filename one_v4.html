@@ -736,7 +736,7 @@
     .fade-in { opacity: 1 !important; transform: none !important; }
 
     /* 히어로·마무리 섹션 — PDF에서 숨김 */
-    .hero, #sec12, .closing {
+    .hero, #sec13, .closing {
       display: none !important;
       height: 0 !important;
       overflow: hidden !important;
@@ -801,6 +801,26 @@
 
     a { text-decoration: none !important; }
   }
+
+  /* ── 심화 섹션 (참고프롬프트 이식) ── */
+  .cat-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid var(--border);}
+  .cat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:800;color:#fff;flex-shrink:0;}
+  .cat-title{font-size:1.4rem;font-weight:800;}
+  .cat-desc{font-size:14px;color:var(--gray);margin-top:3px;}
+  .prompt-card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid var(--border);display:flex;flex-direction:column;}
+  .card-header{padding:14px 16px 10px;}
+  .card-cat-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;color:#fff;margin-bottom:7px;}
+  .card-title{font-size:15px;font-weight:700;color:var(--dark);line-height:1.5;}
+  .card-body{padding:0 16px 4px;flex:1;}
+  .result-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;padding:9px 13px;background:#F8FAFC;border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;color:var(--gray);cursor:pointer;text-align:left;margin:4px 0 8px;transition:all .2s;font-family:inherit;}
+  .result-toggle:hover,.result-toggle.open{background:#EFF6FF;color:var(--blue);border-color:#BFDBFE;}
+  .result-toggle .arrow{font-size:11px;transition:transform .2s;}
+  .result-toggle.open .arrow{transform:rotate(180deg);}
+  .result-box{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px 16px;margin-bottom:8px;display:none;}
+  .result-box pre{white-space:pre-wrap;word-break:break-word;font-family:'Noto Sans KR',sans-serif;font-size:13.5px;line-height:1.75;color:var(--dark);}
+  .result-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  .point-box{background:var(--lgray);border-radius:8px;padding:10px 13px;font-size:13.5px;color:var(--dark);margin:0 16px 16px;line-height:1.55;}
+  .point-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
 </style>
 </head>
 <body>
@@ -809,7 +829,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-12</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-15</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v4.html" class="top-nav-btn active">1일차 교육</a>
     <a href="two_v4.html" class="top-nav-btn">2일차 교육</a>
@@ -834,7 +854,8 @@
   <div class="toc-dot" title="학부모 문자 실습" onclick="scrollTo(8)"></div>
   <div class="toc-dot" title="사업계획서 실습" onclick="scrollTo(9)"></div>
   <div class="toc-dot" title="실전 실습 3가지" onclick="scrollTo(10)"></div>
-  <div class="toc-dot" title="카카오 커넥터" onclick="scrollTo(11)"></div>
+  <div class="toc-dot" title="심화 활용" onclick="scrollTo(11)"></div>
+  <div class="toc-dot" title="카카오 커넥터" onclick="scrollTo(13)"></div>
   <div class="toc-dot" title="마무리" onclick="scrollTo(12)"></div>
 </nav>
 
@@ -1540,13 +1561,60 @@
   </div>
 </section>
 
+
+<!-- ══════════════════ 심화 · 반 단위 일괄 생성 ══════════════════ -->
+<section class="section" id="sec11" style="background:var(--white);">
+<div class="container">
+<div class="cat-header fade-in">
+  <div class="cat-icon" style="background:var(--purple);">심</div>
+  <div><div class="cat-title" style="color:var(--purple);">11. 심화 활용 — 반 단위 행동특성 일괄 생성</div><div class="cat-desc">엑셀에 정리한 특성 표 → 반 전체 행동특성을 한 번에 (실습용 샘플: 행동특성_실습_샘플.xlsx)</div></div>
+</div>
+<div class="fade-in">
+<div class="prompt-card">
+  <div class="card-header" style="background:#F5F3FF;">
+    <span class="card-cat-badge" style="background:var(--purple);">평가·기록 · 심화</span>
+    <div class="card-title">반 전체 행동특성 및 종합의견 한 번에 작성</div>
+  </div>
+  <div class="card-body">
+    <p style="font-size:13.5px;color:var(--gray);line-height:1.7;margin-bottom:10px;">엑셀에서 <strong>번호 + 특성 칸만</strong> 복사해(이름 제외) claude.ai에 붙여넣고 아래 프롬프트를 함께 보냅니다. 결과를 "번호 | 행동특성" 표로 받아 엑셀에 붙여넣습니다. 학생이 많으면 <strong>10명씩 끊어서</strong> 진행합니다.</p>
+    <a href="행동특성_실습_샘플.xlsx" download style="display:inline-flex;align-items:center;gap:7px;background:#FCC419;color:#1a1a2e;font-weight:800;font-size:13.5px;text-decoration:none;padding:10px 18px;border-radius:9px;margin-bottom:14px;">↓ 실습용 샘플 엑셀 내려받기 (행동특성_실습_샘플.xlsx)</a>
+    <div class="prompt-box">
+      <pre id="p-batch">아래 데이터는 탭으로 구분된 학생별 정보입니다. 번호가 바뀌면 새 학생입니다.
+다음은 우리 반 학생들의 활동 키워드입니다. 각 학생의 행동특성 및 종합의견을 작성해 줘.
+
+[형식]
+- 학생마다 3~4문장, 300~500자, 모든 문장 '~함' 종결, 공식적·객관적 어투
+- 학습태도 → 교우관계 → 특기 순서
+[조건]
+- 구체적 관찰 사례 포함, 부정적 내용은 발전 가능성과 함께 서술
+- 학생마다 표현과 어휘를 다르게 하여 문구가 겹치지 않게
+- 결과를 "번호 | 행동특성 및 종합의견" 표로 정리해 줘
+
+[학생 데이터]
+1 | 수업 집중도 높고 과제 성실 | 친구들과 두루 원만 | 수학 경시 입상
+2 | 끈기 있게 끝까지 | 협동 활동 적극 | 농구 등 체육 특기
+(번호·특성 칸을 끝까지 붙여넣기)</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-batch',this)">복사</button>
+    </div>
+    <button class="result-toggle" onclick="toggleResult('r-batch',this)">결과 예시 보기 <span class="arrow">▼</span></button>
+    <div class="result-box" id="r-batch">
+      <div class="result-label">생성 결과 예시</div>
+      <pre>1 | 평소 수업에 성실히 참여하며 맡은 과제를 끝까지 책임지는 태도가 돋보임. 수학 교과에서 우수한 문제 해결력을 보이며 교내 경시대회에서 성과를 거둠. 친구들과 두루 원만하게 지내며 또래를 돕는 배려심이 있음.
+2 | 어떤 활동이든 끈기 있게 끝까지 해결하려는 자세가 인상적임. 모둠 활동에서 협동적으로 참여하며 분위기를 이끎. 농구 등 체육 활동에 특기를 보여 체육대회에서 반을 대표함.</pre>
+    </div>
+  </div>
+  <div class="point-box"><div class="point-label" style="color:var(--purple);">POINT</div>이름 대신 번호만 입력(개인정보) · 10명씩 분할 · 생기부 기재 전 교사 검토 필수. 교육부도 생성형 AI를 '윤문 등 보조 수단'으로 허용하되 최종 책임은 교사에게 있습니다(소속 교육청 지침 확인).</div>
+</div>
+</div>
+</div></section>
+
 <!-- ══════════════════════════════════════ -->
-<!-- S11. ★ 보너스 — 카카오톡 커넥터         -->
+<!-- S12. ★ 보너스 — 카카오톡 커넥터         -->
 <!-- ══════════════════════════════════════ -->
-<section class="section" id="sec11">
+<section class="section" id="sec13">
   <div class="container fade-in">
     <p class="section-label label-practice">선생님 실습</p>
-    <h2 class="section-title">11. ★ 보너스 실습 — 카카오톡 나와의 채팅 연결해 보기</h2>
+    <h2 class="section-title">12. ★ 보너스 실습 — 카카오톡 나와의 채팅 연결해 보기</h2>
     <p class="section-desc">시간 여유가 있을 때 진행합니다. Claude가 만든 내용을 카카오톡으로 바로 받을 수 있습니다.</p>
 
     <div class="info-box" style="margin-bottom:20px;">
@@ -1628,7 +1696,7 @@
 </section>
 
 <!-- ══════════════════════════════════════ -->
-<!-- S12. 마무리                              -->
+<!-- S13. 마무리                              -->
 <!-- ══════════════════════════════════════ -->
 <section class="closing" id="sec12">
   <div class="container">
@@ -1651,6 +1719,12 @@
 </section>
 
 <script>
+function toggleResult(id, btn) {
+  const box = document.getElementById(id);
+  const isOpen = box.style.display === 'block';
+  box.style.display = isOpen ? 'none' : 'block';
+  btn.classList.toggle('open', !isOpen);
+}
 function copyPrompt(id, btn) {
   const text = document.getElementById(id).innerText;
   navigator.clipboard.writeText(text).then(() => {
@@ -1663,7 +1737,7 @@ function copyPrompt(id, btn) {
   });
 }
 
-const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','sec11','sec12'];
+const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','sec11','sec12','sec13'];
 const dots = document.querySelectorAll('.toc-dot');
 
 const observer = new IntersectionObserver((entries) => {
@@ -1696,4 +1770,4 @@ document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
 </script>
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</html>                                                                                                                                                                                                                                                                                                                                                  
