@@ -284,7 +284,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-13</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-17</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v4.html" class="top-nav-btn">1일차 교육</a>
     <a href="two_v4.html" class="top-nav-btn active">2일차 교육</a>
@@ -453,6 +453,61 @@
     </div>
     <div class="info-box" style="background:#D1FAE5;border-left-color:#059669;margin-top:12px;">
       🖥️ <strong>지금 바로 해보기</strong> — 데스크탑 앱을 열고 <strong>Cowork 탭</strong>을 찾아 클릭해 보세요. 오른쪽에 폴더 연결 버튼이 보이면 준비 완료입니다.
+    </div>
+
+    <!-- 다같이 폴더 연결해보기 -->
+    <div class="card" style="margin-top:24px;border:2px solid #A7F3D0;background:#F0FDF4;">
+      <div style="font-size:13px;font-weight:800;color:#065F46;margin-bottom:8px;">🙋 다같이 해보기 — 프로젝트에 폴더 연결하기</div>
+      <div style="font-size:14px;color:#166534;line-height:1.8;">지침(CLAUDE.md)을 만들기 전에, 먼저 Cowork에 폴더를 연결해야 합니다. 다같이 진행해 봅시다.</div>
+      <div class="step-row" style="margin-top:14px;">
+        <div class="step-num" style="background:#059669;">1</div>
+        <div style="font-size:14px;">Cowork 탭 열기</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num" style="background:#059669;">2</div>
+        <div style="font-size:14px;">폴더 연결 버튼 클릭 → 아까 만든 실습 폴더 선택</div>
+      </div>
+      <div class="step-row" style="margin-bottom:0;">
+        <div class="step-num" style="background:#059669;">3</div>
+        <div style="font-size:14px;">화면에 폴더 경로가 표시되면 연결 완료</div>
+      </div>
+    </div>
+
+    <!-- 지침(Custom Instructions) 만들어보기 -->
+    <div class="card" style="margin-top:24px;border:2px solid #DDD6FE;">
+      <h3 style="font-size:1.05rem;font-weight:800;color:#5B21B6;margin-bottom:10px;">📋 지침(Custom Instructions) 만들어보기</h3>
+      <p style="font-size:14px;color:var(--gray);margin-bottom:18px;">Cowork는 연결된 폴더 안의 <strong>CLAUDE.md</strong> 파일을 자동으로 읽고, 대화마다 그 규칙을 그대로 따릅니다. 한 번 만들어두면 매번 같은 주의사항을 반복 설명할 필요가 없습니다 — 오늘 이 수업 자료도 CLAUDE.md로 만들어졌습니다.</p>
+
+      <p style="font-size:13px;font-weight:700;color:#5B21B6;margin-bottom:8px;">📋 지침 예시 — 아래 내용을 먼저 복사하세요</p>
+      <div class="prompt-box">
+        <pre id="prompt-guideline-example">1. 학생 개인정보는 가명으로 입력한다.
+2. Claude가 만든 문서는 사람이 최종 확인한다.
+3. 최종 책임은 작성자에게 있다.
+4. 작업이 끝나면 수정한 파일명을 알려준다.
+5. 작업이 끝나면 카카오톡 나와의 채팅으로 완료 사실을 알려준다.</pre>
+        <button class="copy-btn" onclick="copyPrompt('prompt-guideline-example', this)"><span>복사</span></button>
+      </div>
+
+      <div class="step-row" style="margin-top:22px;">
+        <div class="step-num" style="background:#5B21B6;">1</div>
+        <div style="font-size:14px;">위 <strong>지침 예시 복사</strong> 버튼 클릭</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num" style="background:#5B21B6;">2</div>
+        <div style="font-size:14px;">Cowork 대화창에 <strong>붙여넣기</strong></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num" style="background:#5B21B6;">3</div>
+        <div style="font-size:14px;">이어서 <strong>"이 내용으로 지침을 만들어줘"</strong>라고 요청 → Claude가 CLAUDE.md 파일을 직접 생성</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num" style="background:#5B21B6;">4</div>
+        <div style="font-size:14px;">오른쪽 <strong>지침 칸(파일 패널)</strong>을 열어 CLAUDE.md 안에 내용이 어떻게 들어갔는지 함께 확인</div>
+      </div>
+      <div class="step-row" style="margin-bottom:0;">
+        <div class="step-num" style="background:#5B21B6;">5</div>
+        <div style="font-size:14px;">새 대화를 시작해도 규칙이 자동 적용되는지 확인</div>
+      </div>
     </div>
   </div>
 </section>

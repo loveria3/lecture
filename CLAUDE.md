@@ -33,7 +33,7 @@ HTML 파일 수정 시 해당 파일의 ver-badge 번호를 +1 올린다.
 |------|------|---------------|
 | `index.html` | 홈 (교시별 카드 + 링크, one_v4/two_v4/prompt_v4로 연결) | — |
 | `one_v4.html` | 1일차 교육 자료 (1·2교시) — **현재 연결 파일** | v4-16 |
-| `two_v4.html` | 2일차 교육 자료 (3·4교시) — **현재 연결 파일** | v4-12 |
+| `two_v4.html` | 2일차 교육 자료 (3·4교시) — **현재 연결 파일** | v4-17 |
 | `prompt_v4.html` | 참고 프롬프트 예시집 — **현재 연결 파일** | v4-1 |
 | `one_v3.html` / `two_v3.html` / `prompt_v3.html` | 이전 버전 (index.html 미연결, 참고용) | v3-6 / v3-10 / — |
 | `desktop_install.html` | 데스크탑 앱 설치 가이드 — hwpx.html처럼 새 탭으로 열리는 독립 실습 페이지. two_v4.html sec2 카드에서 연결 | ver-badge 없음 |
@@ -65,7 +65,7 @@ HTML 파일 수정 시 해당 파일의 ver-badge 번호를 +1 올린다.
 ### two_v4.html (섹션 ID: sec0~sec10, TOC 11개 점)
 - sec0: 히어로
 - sec1: 2일차 시간표
-- sec2: 강사 시연 — 데스크탑 앱, 어디에 뭐가 있나? (Skills 사용 전 필수 설정: Code Execution 켜기 포함)
+- sec2: 강사 시연 — 데스크탑 앱, 어디에 뭐가 있나? (Skills 사용 전 필수 설정: Code Execution 켜기 포함 / 데스크탑 설치 가이드 링크 카드 / 다같이 폴더 연결해보기 카드 / 지침(CLAUDE.md·Custom Instructions) 만들어보기 카드 + 복사용 지침 예시)
 - sec3: 강의 — Skills vs MS Office 애드인, 언제 뭘 쓰나?
 - sec4: 강사 시연 — 교무 업무별 Skills 활용 가이드
 - sec5: 선생님 실습 — Skills 활용 · 실제 교무 문서 파일 제작
