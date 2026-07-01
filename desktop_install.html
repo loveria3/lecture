@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude 데스크탑 앱 설치 가이드</title>
+<style>
+  :root {
+    --primary: #5B21B6;
+    --primary-light: #EDE9FE;
+    --accent: #059669;
+    --accent-light: #D1FAE5;
+    --orange: #92400E;
+    --orange-light: #FEF3C7;
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-400: #94A3B8;
+    --gray-600: #475569;
+    --gray-800: #1E293B;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 14.5px;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.7;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    background: linear-gradient(135deg, #4C1D95 0%, #5B21B6 50%, #7C3AED 100%);
+    color: white;
+    padding: 36px 40px 32px;
+  }
+  .page-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .page-header p { opacity: 0.85; font-size: 14px; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 13px; margin-bottom: 16px; transition: color 0.2s;
+  }
+  .back-link:hover { color: white; }
+
+  /* ── Download bar ── */
+  .download-bar {
+    background: white; border-bottom: 1px solid var(--gray-200);
+    padding: 18px 40px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .download-bar .label { font-size: 13px; font-weight: 600; color: var(--gray-600); margin-right: 4px; }
+  .btn-download {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    text-decoration: none; cursor: pointer; transition: all 0.2s; border: none;
+  }
+  .btn-skill { background: linear-gradient(135deg, #5B21B6, #7C3AED); color: white; box-shadow: 0 2px 8px rgba(91,33,182,0.35); }
+  .btn-skill:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(91,33,182,0.4); }
+  .btn-icon { font-size: 16px; }
+  .divider-v { width: 1px; height: 28px; background: var(--gray-200); margin: 0 4px; }
+
+  /* ── Main ── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 40px 40px 60px; }
+
+  /* ── Notice banner ── */
+  .notice-banner {
+    background: linear-gradient(135deg, #FEF3C7, #FEF9C3);
+    border: 1.5px solid #FCD34D;
+    border-radius: var(--radius);
+    padding: 18px 24px;
+    margin-bottom: 32px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .notice-banner .icon { font-size: 22px; flex-shrink: 0; }
+  .notice-banner strong { color: #92400E; display: block; margin-bottom: 4px; font-size: 15px; }
+  .notice-banner p { color: #78350F; font-size: 13.5px; }
+
+  /* ── Section card ── */
+  .section-card { background: white; border-radius: var(--radius); border: 1px solid var(--gray-200); margin-bottom: 32px; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 12px; padding: 20px 28px; border-bottom: 1px solid var(--gray-100); }
+  .section-label { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; }
+  .label-install { background: var(--primary-light); color: var(--primary); }
+  .label-setting { background: var(--accent-light); color: var(--accent); }
+  .label-practice { background: var(--orange-light); color: var(--orange); }
+  .section-header h2 { font-size: 17px; font-weight: 700; }
+  .section-body { padding: 28px; }
+
+  /* ── Steps ── */
+  .steps { display: flex; flex-direction: column; gap: 16px; }
+  .step { display: flex; gap: 16px; align-items: flex-start; }
+  .step-num {
+    flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #5B21B6, #7C3AED); color: white;
+    font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .step-num.green { background: linear-gradient(135deg, #059669, #10B981); }
+  .step-content { flex: 1; padding-top: 5px; }
+  .step-content strong { font-weight: 600; }
+  .step-content .sub {
+    margin-top: 6px; padding: 10px 14px; background: var(--gray-50);
+    border-left: 3px solid var(--primary); border-radius: 0 6px 6px 0;
+    font-size: 13.5px; color: var(--gray-600);
+  }
+  .step-content .sub.green { border-left-color: var(--accent); }
+
+  .info-box {
+    margin-top: 20px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px;
+    padding: 14px 18px; font-size: 13.5px; color: #1E40AF; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .info-box .icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .shot-card {
+    border: 2px solid #FED7AA; background: #FFFBF5; border-radius: var(--radius);
+    padding: 20px; margin-top: 20px;
+  }
+  .shot-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; align-items: center; }
+  .shot-grid img { width: 100%; border-radius: 10px; border: 1.5px solid #FED7AA; box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+
+  /* placeholder shot (no screenshot yet) */
+  .shot-placeholder {
+    background: var(--gray-100); border: 2px dashed var(--gray-200); border-radius: 8px;
+    height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; color: var(--gray-400);
+  }
+  .shot-placeholder .ph-icon { font-size: 32px; opacity: 0.5; }
+  .shot-placeholder p { font-size: 12.5px; }
+
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
+  .checklist li::before {
+    content: ''; width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
+    background: var(--accent) url("data:image/svg+xml,%3Csvg viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L4.5 7.5L11 1' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat;
+  }
+
+  @media (max-width: 800px) {
+    .download-bar { padding: 14px 20px; }
+    .main { padding: 24px 20px 48px; }
+    .page-header { padding: 28px 20px 24px; }
+    .shot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="page-header">
+  <a class="back-link" href="two_v4.html">← 2일차 수업으로 돌아가기</a>
+  <h1>🖥️ Claude 데스크탑 앱 설치 가이드</h1>
+  <p>2일차 실습(Skills)을 위한 사전 설치 · 필수 설정 안내</p>
+</div>
+
+<!-- Download Bar -->
+<div class="download-bar">
+  <span class="label">📦 다운로드</span>
+  <a class="btn-download btn-skill" href="https://claude.ai/download" target="_blank">
+    <span class="btn-icon">⬇️</span> claude.ai/download 바로가기
+  </a>
+  <div class="divider-v"></div>
+  <span style="font-size:12.5px;color:#6B7280;">Windows 10 이상 · macOS 지원 &nbsp;·&nbsp; Claude Pro 사전 가입 필수</span>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- 사전 안내 배너 -->
+  <div class="notice-banner">
+    <span class="icon">📌</span>
+    <div>
+      <strong>개인 노트북 연결이 어려운 경우</strong>
+      <p>수업 현장 PC(강사 데스크탑 등)에서도 아래 순서를 그대로 따라 하면 동일하게 설치·실습할 수 있습니다. 어떤 PC든 <b>Claude 계정으로 로그인</b>만 하면 설정이 그대로 적용됩니다.</p>
+    </div>
+  </div>
+
+  <!-- 설치 단계 -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-label label-install">설치</span>
+      <h2>Claude 데스크탑 앱 설치하기</h2>
+    </div>
+    <div class="section-body">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>claude.ai/download 접속</strong>
+            <div class="sub">위의 <b>⬇️ claude.ai/download 바로가기</b> 버튼을 클릭하거나, 브라우저 주소창에 <code>claude.ai/download</code>를 입력해 접속합니다.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>운영체제에 맞는 설치 파일 다운로드</strong>
+            <div class="sub">현재 PC가 Windows인지 macOS인지 확인 후 해당 설치 파일을 받습니다. (제주고 데스크탑은 대부분 Windows)</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>설치 파일 실행</strong>
+            <div class="sub">다운로드된 설치 파일을 더블클릭하고, 안내 창에서 <b>설치</b>를 눌러 진행합니다. 별도 옵션 선택 없이 기본값으로 완료하면 됩니다.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong>Claude 계정으로 로그인</strong>
+            <div class="sub">설치 완료 후 앱을 실행하면 로그인 화면이 뜹니다. <b>사전 가입해 둔 Claude Pro 계정</b>으로 로그인합니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <div class="shot-grid">
+          <div>
+            <div style="font-size:14px;font-weight:800;color:#92400E;margin-bottom:10px;">🖼️ 설치·로그인 화면 캡처 예정</div>
+            <div style="font-size:13.5px;color:#78350F;line-height:1.9;">
+              다운로드 페이지 → 설치 진행 화면 → 로그인 화면 스크린샷을 이 자리에 넣을 예정입니다.
+            </div>
+          </div>
+          <div class="shot-placeholder">
+            <div class="ph-icon">🖼️</div>
+            <p>설치 단계 스크린샷 추가 예정</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 설치 후 필수 설정 -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-label label-setting">필수 설정</span>
+      <h2>설치 후 반드시 켜야 하는 기능</h2>
+    </div>
+    <div class="section-body">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num green">1</div>
+          <div class="step-content">
+            <strong>설정(⚙️) → 기능 → 코드 실행 및 파일 생성 <span style="color:#059669;">ON</span></strong>
+            <div class="sub green">이 설정이 꺼져 있으면 Skills가 파일(.docx·.xlsx·.pptx·.pdf·.hwpx)을 생성하지 못합니다. 2일차 실습 전 반드시 켜 두어야 합니다.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num green">2</div>
+          <div class="step-content">
+            <strong>Cowork 탭 열기 → 작업 폴더 연결</strong>
+            <div class="sub green">상단 <b>Chat / Claude Code / Cowork</b> 탭 중 <b>Cowork</b>를 클릭하고, 결과물을 저장할 내 컴퓨터 폴더를 연결합니다.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num green">3</div>
+          <div class="step-content">
+            <strong>(선택) 사용자 지정 → 스킬에서 필요한 스킬 확인</strong>
+            <div class="sub green">한글(HWPX) 스킬처럼 별도 업로드가 필요한 스킬은 좌측 사이드바 <b>사용자 지정 → 스킬</b>에서 추가로 등록합니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <div class="shot-grid">
+          <div>
+            <div style="font-size:14px;font-weight:800;color:#92400E;margin-bottom:10px;">⚙️ 실제 설정 화면</div>
+            <div style="font-size:14px;color:#78350F;line-height:2.1;">
+              설정(⚙️) → <strong>기능</strong> → <strong>코드 실행 및 파일 생성</strong><br>
+              → 토글 <span style="background:#059669;color:#fff;padding:3px 10px;border-radius:5px;font-size:13px;font-weight:700;">ON</span>
+            </div>
+          </div>
+          <img src="settings_code_execution.png" alt="클로드 데스크탑 코드 실행 설정 화면">
+        </div>
+      </div>
+
+      <div class="info-box">
+        <span class="icon">💡</span>
+        <div>Free · Pro · Team · Enterprise 플랜 모두 Skills 사용이 가능하지만, <b>코드 실행 및 파일 생성</b> 설정이 켜져 있어야 합니다. 어떤 PC에서 로그인하든 이 설정은 계정 단위로 저장되어 다시 켤 필요는 없습니다 (단, PC가 바뀌면 최초 1회는 확인이 필요합니다).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 설치 완료 체크리스트 -->
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-label label-practice">체크리스트</span>
+      <h2>설치 완료 확인</h2>
+    </div>
+    <div class="section-body">
+      <ul class="checklist">
+        <li>Claude 데스크탑 앱을 설치하고 Pro 계정으로 로그인했다</li>
+        <li>설정 → 기능 → 코드 실행 및 파일 생성을 ON으로 켰다</li>
+        <li>Cowork 탭에서 작업 폴더를 연결했다</li>
+        <li>Cowork 탭에서 "테스트용 텍스트 파일 만들어줘"라고 요청해 실제 파일이 생성되는지 확인했다</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
