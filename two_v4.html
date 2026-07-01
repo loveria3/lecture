@@ -239,7 +239,7 @@
     .card-grid-2, .card-grid-3, .card-grid-4 { gap: 10px !important; }
 
     /* sec3 이후 각 섹션 — 새 페이지에서 시작 */
-    #sec3, #sec4, #sec5, #sec6, #sec7, #sec8 {
+    #sec3, #sec4, #sec6, #sec7, #sec8 {
       break-before: page !important;
       page-break-before: always !important;
     }
@@ -284,7 +284,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-17</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-18</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v4.html" class="top-nav-btn">1일차 교육</a>
     <a href="two_v4.html" class="top-nav-btn active">2일차 교육</a>
@@ -300,13 +300,12 @@
   <div class="toc-dot" title="시간표" onclick="scrollTo(1)"></div>
   <div class="toc-dot" title="데스크탑 메뉴 안내" onclick="scrollTo(2)"></div>
   <div class="toc-dot" title="Skills vs 애드인 비교" onclick="scrollTo(3)"></div>
-  <div class="toc-dot" title="업무별 Skills 가이드" onclick="scrollTo(4)"></div>
-  <div class="toc-dot" title="교무 문서 실습" onclick="scrollTo(5)"></div>
-  <div class="toc-dot" title="한글 공문서 실습" onclick="scrollTo(6)"></div>
-  <div class="toc-dot" title="Claude 애드인" onclick="scrollTo(7)"></div>
-  <div class="toc-dot" title="PPT 플러그인" onclick="scrollTo(8)"></div>
-  <div class="toc-dot" title="Excel 플러그인" onclick="scrollTo(9)"></div>
-  <div class="toc-dot" title="마무리" onclick="scrollTo(10)"></div>
+  <div class="toc-dot" title="업무별 Skills 다같이 실습" onclick="scrollTo(4)"></div>
+  <div class="toc-dot" title="한글 공문서 실습" onclick="scrollTo(5)"></div>
+  <div class="toc-dot" title="Claude 애드인" onclick="scrollTo(6)"></div>
+  <div class="toc-dot" title="PPT 플러그인" onclick="scrollTo(7)"></div>
+  <div class="toc-dot" title="Excel 플러그인" onclick="scrollTo(8)"></div>
+  <div class="toc-dot" title="마무리" onclick="scrollTo(9)"></div>
 </nav>
 
 <!-- S0. 히어로 -->
@@ -356,18 +355,13 @@
           <span>Skills vs MS Office 애드인 — 언제 뭘 쓰나?</span>
         </div>
         <div class="timetable-row">
-          <span class="tt-label" style="background:#8B5CF6;">시연</span>
-          <span class="tt-time">18~26분</span>
-          <span>교무 업무별 Skills 활용 가이드 (Word 직접 시연)</span>
-        </div>
-        <div class="timetable-row">
-          <span class="tt-label" style="background:#A78BFA;">실습</span>
-          <span class="tt-time">26~38분</span>
-          <span>Word Skill — 가정통신문 .docx 파일 직접 제작</span>
+          <span class="tt-label" style="background:#8B5CF6;">시연+실습</span>
+          <span class="tt-time">18~40분</span>
+          <span>교무 업무별 Skills 다같이 실습 (Word·Excel·PPT·PDF)</span>
         </div>
         <div class="timetable-row">
           <span class="tt-label" style="background:#93C5FD;color:var(--dark);">실습★</span>
-          <span class="tt-time">38~50분</span>
+          <span class="tt-time">40~50분</span>
           <span>한글(HWPX) 공문서 실습 (미설치자 귀가 후 진행)</span>
         </div>
       </div>
@@ -625,8 +619,31 @@
 <section class="section" id="sec4" style="background:var(--white);">
   <div class="container fade-in">
     <p class="section-label label-demo">강사 시연</p>
-    <h2 class="section-title">4. 강사 시연 — 교무 업무별 Skills 활용 가이드</h2>
-    <p class="section-desc">업무 유형에 맞는 Skill과 프롬프트를 확인하세요. <strong>강사가 Word Skill을 데스크탑에서 직접 시연합니다.</strong> 나머지 3가지(Excel/PPT/PDF)는 아래 카드를 참고해 이후 실습에서 직접 해보세요. 대괄호 [ ] 부분만 바꾸면 어떤 상황에도 바로 재사용할 수 있습니다.</p>
+    <h2 class="section-title">4. 강사 시연 — 교무 업무별 Skills 다같이 실습</h2>
+    <p class="section-desc">강사가 시연하는 대로 각자 데스크탑 앱에서 <strong>Word · Excel · PPT · PDF Skill을 이 자리에서 직접 만들어봅니다.</strong> 대괄호 [ ] 부분만 바꾸면 어떤 상황에도 바로 재사용할 수 있습니다.</p>
+
+    <!-- 미설치자 행동 지침 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;">
+      <div style="background:linear-gradient(135deg,#1E1B4B,#312E81);border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:700;color:#A5B4FC;letter-spacing:.07em;margin-bottom:10px;">🖥️ 데스크탑 앱 설치 완료</div>
+        <ul style="font-size:14px;line-height:2;color:#E0E7FF;padding-left:18px;margin:0;">
+          <li>아래 채워진 예시를 복사해 데스크탑 앱에 붙여넣습니다.</li>
+          <li>.docx / .xlsx / .pptx / .pdf 파일이 실제로 생성되는 것을 확인합니다.</li>
+          <li>파일을 열어 내용 확인 후 이어서 수정 지시합니다.</li>
+        </ul>
+      </div>
+      <div style="background:#FEF9C3;border:2px solid #FCC419;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:700;color:#92400E;letter-spacing:.07em;margin-bottom:10px;">⚠️ 앱 미설치 — 지금 바로 할 수 있는 것</div>
+        <ul style="font-size:14px;line-height:2;color:#78350F;padding-left:18px;margin:0;">
+          <li><strong>claude.ai 웹</strong>에서 같은 프롬프트를 실행합니다.</li>
+          <li>텍스트로 결과가 나오는 것을 확인합니다.</li>
+          <li>귀가 후 앱 설치 → 동일 프롬프트 실행 → 실제 파일로 바뀌는 것을 직접 비교해 보세요.</li>
+        </ul>
+        <div style="margin-top:10px;font-size:12.5px;color:#92400E;background:rgba(255,255,255,.6);border-radius:6px;padding:8px 10px;">
+          설치 경로: claude.ai → 우측 상단 Download → Claude Desktop
+        </div>
+      </div>
+    </div>
 
     <div style="display:flex;align-items:center;gap:10px;background:#FEF9C3;border-left:4px solid #FCC419;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:24px;font-size:14.5px;color:#92400E;">
       <span style="font-size:18px;flex-shrink:0;">✏️</span>
@@ -823,112 +840,15 @@
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- S4. 실습 1: 학부모 안내 문자 (웜업) -->
-<!-- S5. 실습: Skills 활용 — 실제 교무 문서 파일 제작 -->
-<section class="section" id="sec5" style="background:var(--white);">
-  <div class="container fade-in">
-    <p class="section-label label-practice">선생님 실습</p>
-    <h2 class="section-title">5. 선생님 실습 — Skills 활용 · 실제 교무 문서 파일 제작</h2>
-    <p class="section-desc">클로드 데스크탑 앱에서 Skills를 활용해 실제로 열고 바로 쓸 수 있는 교무 문서 파일을 생성합니다.</p>
-
-
-    <!-- 미설치자 행동 지침 -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;">
-      <div style="background:linear-gradient(135deg,#1E1B4B,#312E81);border-radius:12px;padding:18px 20px;">
-        <div style="font-size:13px;font-weight:700;color:#A5B4FC;letter-spacing:.07em;margin-bottom:10px;">🖥️ 데스크탑 앱 설치 완료</div>
-        <ul style="font-size:14px;line-height:2;color:#E0E7FF;padding-left:18px;margin:0;">
-          <li>아래 채워진 예시를 복사해 데스크탑 앱에 붙여넣습니다.</li>
-          <li>.docx / .xlsx 파일이 실제로 생성되는 것을 확인합니다.</li>
-          <li>파일을 열어 내용 확인 후 이어서 수정 지시합니다.</li>
-        </ul>
-      </div>
-      <div style="background:#FEF9C3;border:2px solid #FCC419;border-radius:12px;padding:18px 20px;">
-        <div style="font-size:13px;font-weight:700;color:#92400E;letter-spacing:.07em;margin-bottom:10px;">⚠️ 앱 미설치 — 지금 바로 할 수 있는 것</div>
-        <ul style="font-size:14px;line-height:2;color:#78350F;padding-left:18px;margin:0;">
-          <li><strong>claude.ai 웹</strong>에서 같은 프롬프트를 실행합니다.</li>
-          <li>텍스트로 결과가 나오는 것을 확인합니다.</li>
-          <li>귀가 후 앱 설치 → 동일 프롬프트 실행 → .docx 파일로 바뀌는 것을 직접 비교해 보세요.</li>
-        </ul>
-        <div style="margin-top:10px;font-size:12.5px;color:#92400E;background:rgba(255,255,255,.6);border-radius:6px;padding:8px 10px;">
-          설치 경로: claude.ai → 우측 상단 Download → Claude Desktop
-        </div>
-      </div>
-    </div>
-
-    <div style="display:flex;align-items:center;gap:10px;background:#FEF9C3;border-left:4px solid #FCC419;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:20px;font-size:14.5px;color:#92400E;">
-      <span style="font-size:18px;flex-shrink:0;">✏️</span>
-      <span>복사 후 <b style="color:#B45309;">[ ] 대괄호만 내 실제 정보로 교체</b>하고 데스크탑 앱에 붙여넣으세요. 파일이 자동으로 저장됩니다.</span>
-    </div>
-
-    <div class="practice-card" style="margin-bottom:20px;">
-      <div class="practice-header">
-        <div class="practice-num" style="background:#2563EB;">02</div>
-        <div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-            <span class="badge" style="background:#2563EB;">Word Skill 실습</span>
-            <span class="time-badge" style="font-size:12px;padding:3px 10px;">12분</span>
-          </div>
-          <h3>가정통신문 .docx 파일 생성</h3>
-        </div>
-      </div>
-      <div class="practice-body">
-        <div class="card-grid-2">
-          <div>
-            <p style="font-size:13px;font-weight:700;color:#2563EB;margin-bottom:8px;">📋 실습 프롬프트 (복사 후 [ ] 교체)</p>
-            <div class="prompt-box">
-              <pre id="prompt-skills-word">[행사명] 가정통신문을 Word 파일로 작성해 줘.
-
-날짜: [발송 날짜]
-대상: [학년] 학생 학부모
-주요 내용:
-- [안내 항목 1]
-- [안내 항목 2]
-- [안내 항목 3]
-형식: A4 1장 이내, 학교명 헤더 포함</pre>
-              <button class="copy-btn" onclick="copyPrompt('prompt-skills-word', this)"><span>복사</span></button>
-            </div>
-          </div>
-          <div>
-            <p style="font-size:13px;font-weight:700;color:#059669;margin-bottom:8px;">✅ 채워진 예시 (그대로 붙여넣어 체험)</p>
-            <div class="prompt-box" style="border-color:#059669;">
-              <pre id="prompt-skills-word-ex">1학기 체육대회 가정통신문을 Word 파일로 작성해 줘.
-
-날짜: 2026년 5월 12일
-대상: 고등학교 2학년 학생 학부모
-주요 내용:
-- 일시: 5월 22일(금) 오전 9시 ~ 오후 2시
-- 준비물: 체육복, 운동화, 개인 물통
-- 응원 참관: 학부모 자유 참석 가능 (외부석 별도 안내)
-형식: A4 1장 이내, 학교명 헤더 포함</pre>
-              <button class="copy-btn" onclick="copyPrompt('prompt-skills-word-ex', this)"><span>복사</span></button>
-            </div>
-          </div>
-        </div>
-        <div class="info-box" style="margin-top:14px;">
-          <strong style="display:block;margin-bottom:6px;">실습 순서</strong>
-          <ol style="padding-left:20px;font-size:14.5px;line-height:2;">
-            <li>클로드 데스크탑 앱을 열고 새 대화창을 시작합니다.</li>
-            <li>위 프롬프트(채워진 예시)를 복사해 붙여넣고 전송합니다.</li>
-            <li>Claude가 .docx 파일을 생성하고 다운로드 링크를 제공합니다.</li>
-            <li>파일을 열어 확인 후 "1번 항목 아래에 행사 취소 시 안내도 추가해 줘." 처럼 수정 요청합니다.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
     <div class="info-box" style="margin-top:24px;">
       <strong style="display:block;margin-bottom:10px;color:var(--purple);">📌 산출물 셀프 체크 — 3교시 마무리 전 확인</strong>
       <div style="line-height:2.2;font-size:14px;color:#334155;">
         □ Skills(Cowork)와 MS Office 애드인의 차이를 설명할 수 있다.<br>
         □ Skills 활성화 방법(설정 → 기능 → 코드 실행 및 파일 생성 ON)을 따라할 수 있다.<br>
-        □ Word Skill로 가정통신문 .docx 파일이 실제로 생성되는 것을 확인했다.<br>
+        □ Word · Excel · PPT · PDF Skill 중 하나 이상으로 실제 파일이 생성되는 것을 확인했다.<br>
         □ 파일을 열어 "○○ 항목도 추가해 줘."처럼 이어서 수정 요청해 봤다.
       </div>
     </div>
-
 
   </div>
 </section>
@@ -938,7 +858,7 @@
 <section class="section" id="sec6" style="background:var(--lgray);">
   <div class="container fade-in">
     <p class="section-label label-practice">선생님 실습</p>
-    <h2 class="section-title">6. 선생님 실습 — 한글(HWPX) 스킬로 공문서 작성해보기</h2>
+    <h2 class="section-title">5. 선생님 실습 — 한글(HWPX) 스킬로 공문서 작성해보기</h2>
     <p class="section-desc">HWPX 스킬을 설치하면 Claude가 보고서·행사계획서 등 한글 공문서를 직접 생성해 줍니다. 아래 실습 페이지에서 샘플 양식을 열고 직접 체험해 보세요.</p>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
@@ -1023,7 +943,7 @@
 <section class="section" id="sec7" style="background:var(--lgray);">
   <div class="container fade-in">
     <p class="section-label label-demo">강사 시연</p>
-    <h2 class="section-title">7. 강사 시연 — MS Office 애드인 통합 활용</h2>
+    <h2 class="section-title">6. 강사 시연 — MS Office 애드인 통합 활용</h2>
     <p class="section-desc">Excel과 PowerPoint 안에서 Claude를 직접 설치하면 현재 파일의 내용을 자동으로 인식해 분석·수정·생성이 가능합니다.</p>
 
     <div class="info-box" style="margin-bottom:20px;">
@@ -1090,7 +1010,7 @@
 <section class="section" id="sec8" style="background:var(--white);">
   <div class="container fade-in">
     <p class="section-label label-practice">선생님 실습</p>
-    <h2 class="section-title">8. 선생님 실습 — PPT 플러그인으로 교육 자료 작성</h2>
+    <h2 class="section-title">7. 선생님 실습 — PPT 플러그인으로 교육 자료 작성</h2>
     <p class="section-desc">PPT 파일을 열어 두고 Claude에 지시하면 슬라이드 내용을 자동으로 생성하거나 개선 제안을 받을 수 있습니다.</p>
     <div style="display:flex;align-items:center;gap:10px;background:#FEF9C3;border-left:4px solid #FCC419;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:16px;font-size:14.5px;color:#92400E;">
       <span style="font-size:18px;flex-shrink:0;">✏️</span>
@@ -1157,7 +1077,7 @@
 <section class="section" id="sec9" style="background:var(--lgray);">
   <div class="container fade-in">
     <p class="section-label label-practice">선생님 실습</p>
-    <h2 class="section-title">9. 선생님 실습 — Excel 플러그인으로 성적·출결 처리</h2>
+    <h2 class="section-title">8. 선생님 실습 — Excel 플러그인으로 성적·출결 처리</h2>
     <p class="section-desc">Excel에 Claude를 연결하면 성적 분석, 출결 현황 정리, 통계 생성을 자연어 지시만으로 처리할 수 있습니다.</p>
 
     <div class="practice-card">
@@ -1245,7 +1165,7 @@ function copyPrompt(id, btn) {
   });
 }
 
-const sections = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10'];
+const sections = ['sec0','sec1','sec2','sec3','sec4','sec6','sec7','sec8','sec9','sec10'];
 const dots = document.querySelectorAll('.toc-dot');
 
 const observer = new IntersectionObserver((entries) => {

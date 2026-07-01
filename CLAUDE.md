@@ -33,7 +33,7 @@ HTML 파일 수정 시 해당 파일의 ver-badge 번호를 +1 올린다.
 |------|------|---------------|
 | `index.html` | 홈 (교시별 카드 + 링크, one_v4/two_v4/prompt_v4로 연결) | — |
 | `one_v4.html` | 1일차 교육 자료 (1·2교시) — **현재 연결 파일** | v4-16 |
-| `two_v4.html` | 2일차 교육 자료 (3·4교시) — **현재 연결 파일** | v4-17 |
+| `two_v4.html` | 2일차 교육 자료 (3·4교시) — **현재 연결 파일** | v4-18 |
 | `prompt_v4.html` | 참고 프롬프트 예시집 — **현재 연결 파일** | v4-1 |
 | `one_v3.html` / `two_v3.html` / `prompt_v3.html` | 이전 버전 (index.html 미연결, 참고용) | v3-6 / v3-10 / — |
 | `desktop_install.html` | 데스크탑 앱 설치 가이드 — hwpx.html처럼 새 탭으로 열리는 독립 실습 페이지. two_v4.html sec2 카드에서 연결 | ver-badge 없음 |
@@ -62,17 +62,17 @@ HTML 파일 수정 시 해당 파일의 ver-badge 번호를 +1 올린다.
 - sec12: ★ 보너스 실습 — 카카오톡 나와의 채팅 연결해 보기
 - sec13: 마무리 (closing)
 
-### two_v4.html (섹션 ID: sec0~sec10, TOC 11개 점)
+### two_v4.html (섹션 ID: sec0~sec4, sec6~sec10 — **sec5는 결번**, TOC 10개 점)
+> sec4에 강사 시연과 선생님 실습을 통합하면서 구 sec5(선생님 실습 — Skills 활용·실제 교무 문서 파일 제작)를 삭제했다. 뒤쪽 섹션들은 id를 그대로 유지하고 화면 표시 번호(h2 텍스트)만 1씩 당겨서 sec5 id는 결번으로 남아있다. index.html의 `two_v4.html#sec6`(한글 실습 바로가기) 앵커는 영향 없음. `sections` JS 배열과 TOC 점 개수도 10개로 수정됨.
 - sec0: 히어로
 - sec1: 2일차 시간표
 - sec2: 강사 시연 — 데스크탑 앱, 어디에 뭐가 있나? (Skills 사용 전 필수 설정: Code Execution 켜기 포함 / 데스크탑 설치 가이드 링크 카드 / 다같이 폴더 연결해보기 카드 / 지침(CLAUDE.md·Custom Instructions) 만들어보기 카드 + 복사용 지침 예시)
 - sec3: 강의 — Skills vs MS Office 애드인, 언제 뭘 쓰나?
-- sec4: 강사 시연 — 교무 업무별 Skills 활용 가이드
-- sec5: 선생님 실습 — Skills 활용 · 실제 교무 문서 파일 제작
-- sec6: 선생님 실습 — 한글(HWPX) 스킬로 공문서 작성해보기 (`hwpx.html` 새 탭 연결)
-- sec7: 강사 시연 — MS Office 애드인 통합 활용
-- sec8: 선생님 실습 — PPT 플러그인으로 교육 자료 작성
-- sec9: 선생님 실습 — Excel 플러그인으로 성적·출결 처리
+- sec4 (표시 "4."): 강사 시연 — 교무 업무별 Skills 다같이 실습 (Word/Excel/PPT/PDF 4개 스킬 시연+실습 통합, 미설치자 안내 박스 + 산출물 셀프체크 포함)
+- sec6 (표시 "5."): 선생님 실습 — 한글(HWPX) 스킬로 공문서 작성해보기 (`hwpx.html` 새 탭 연결)
+- sec7 (표시 "6."): 강사 시연 — MS Office 애드인 통합 활용
+- sec8 (표시 "7."): 선생님 실습 — PPT 플러그인으로 교육 자료 작성
+- sec9 (표시 "8."): 선생님 실습 — Excel 플러그인으로 성적·출결 처리
 - sec10: 마무리 (closing)
 
 ---
