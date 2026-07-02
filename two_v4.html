@@ -284,7 +284,7 @@
 <nav class="top-nav">
   <div class="top-nav-inner">
     <span class="top-nav-logo">Claude AI 연수</span>
-    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-18</span>
+    <span class="ver-badge" title="콘텐츠 버전 — 업로드 확인용">v4-22</span>
     <a href="index.html" class="top-nav-btn">홈</a>
     <a href="one_v4.html" class="top-nav-btn">1일차 교육</a>
     <a href="two_v4.html" class="top-nav-btn active">2일차 교육</a>
@@ -320,7 +320,12 @@
       <span class="hero-badge">클로드 데스크탑 앱 + MS Office 애드인</span>
       <span class="hero-badge">실습 비중 70%+</span>
     </div>
-    <div class="warn-box" style="margin-top:28px;text-align:left;max-width:560px;margin-left:auto;margin-right:auto;">
+    <div style="margin-top:24px;">
+      <a href="https://loveria3.github.io/profile/all.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--dark);padding:14px 30px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);">
+        📂 실습 파일 다운로드 (자료실 바로가기)
+      </a>
+    </div>
+    <div class="warn-box" style="margin-top:20px;text-align:left;max-width:560px;margin-left:auto;margin-right:auto;">
       수업 전 필수 사전 준비: 클로드 데스크탑 앱(Windows 10 이상 / macOS)을 미리 설치해 두세요. (claude.ai/download)
     </div>
   </div>
@@ -492,7 +497,7 @@
       </div>
       <div class="step-row">
         <div class="step-num" style="background:#5B21B6;">3</div>
-        <div style="font-size:14px;">이어서 <strong>"이 내용으로 지침을 만들어줘"</strong>라고 요청 → Claude가 CLAUDE.md 파일을 직접 생성</div>
+        <div style="font-size:14px;">이어서 <strong>"위의 내용을 클로드MD파일에 넣어줘"</strong>라고 요청 → Claude가 CLAUDE.md 파일을 직접 생성</div>
       </div>
       <div class="step-row">
         <div class="step-num" style="background:#5B21B6;">4</div>
@@ -946,6 +951,11 @@
     <h2 class="section-title">6. 강사 시연 — MS Office 애드인 통합 활용</h2>
     <p class="section-desc">Excel과 PowerPoint 안에서 Claude를 직접 설치하면 현재 파일의 내용을 자동으로 인식해 분석·수정·생성이 가능합니다.</p>
 
+    <div class="warn-box" style="margin-bottom:14px;">
+      ⚠️ <strong>사용 전 꼭 확인하세요</strong> — 세 가지가 모두 맞아야 애드인을 쓸 수 있습니다.<br>
+      ① <strong>Claude Pro(유료) 이상 가입</strong> ② <strong>Claude 계정 로그인</strong> 상태 ③ <strong>Excel·PowerPoint가 최신 버전</strong>(웹 버전 또는 최신 Microsoft 365). 오래된 버전(2016·2019 등)에서는 애드인 자체가 설치되지 않습니다.
+    </div>
+
     <div class="info-box" style="margin-bottom:20px;">
       ✅ <strong>Claude 사이트에서 별도 설정 없음</strong> — 커넥터·MCP·플러그인 연결 불필요. Claude 계정 로그인만 하면 됩니다.<br>
       설치는 <strong>Excel 안에서</strong> 바로 할 수 있습니다. "엑셀 안에서 설치하는 앱"이라고 생각하면 됩니다.
@@ -1000,6 +1010,40 @@
             <strong>절약 효과</strong>
             반복적인 데이터 입력·정리 작업을 자연어 지시 하나로 대체할 수 있습니다.
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <div style="font-size:13px;font-weight:700;color:#0F172A;margin-bottom:10px;">📸 설치 화면으로 순서대로 보기 <span style="font-weight:400;color:var(--gray);font-size:12px;">(이미지를 클릭하면 크게 보입니다)</span></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+            <span style="flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--teal);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">1</span>
+            <span style="font-size:12.5px;color:var(--dark);">Excel/PPT [홈] 탭 화면</span>
+          </div>
+          <img src="addin_install/step1.png" alt="1단계: Excel 홈 화면" onclick="openLightbox(this.src)" style="width:100%;border-radius:8px;border:2px solid #E5E7EB;box-shadow:0 2px 8px rgba(0,0,0,.10);cursor:zoom-in;">
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+            <span style="flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--teal);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">2</span>
+            <span style="font-size:12.5px;color:var(--dark);">[추가 기능]에서 "Claude" 검색</span>
+          </div>
+          <img src="addin_install/step2.png" alt="2단계: 추가 기능에서 Claude 검색" onclick="openLightbox(this.src)" style="width:100%;border-radius:8px;border:2px solid #E5E7EB;box-shadow:0 2px 8px rgba(0,0,0,.10);cursor:zoom-in;">
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+            <span style="flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--teal);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">3</span>
+            <span style="font-size:12.5px;color:var(--dark);">"Claude for Microsoft 365" 추가</span>
+          </div>
+          <img src="addin_install/step3.png" alt="3단계: Claude for Microsoft 365 추가" onclick="openLightbox(this.src)" style="width:100%;border-radius:8px;border:2px solid #E5E7EB;box-shadow:0 2px 8px rgba(0,0,0,.10);cursor:zoom-in;">
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+            <span style="flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--teal);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;">4</span>
+            <span style="font-size:12.5px;color:var(--dark);">설치 완료 → 우측 Claude 패널</span>
+          </div>
+          <img src="addin_install/step4.png" alt="4단계: 설치 완료 후 Claude 패널" onclick="openLightbox(this.src)" style="width:100%;border-radius:8px;border:2px solid #8B5CF6;box-shadow:0 2px 8px rgba(91,33,182,.15);cursor:zoom-in;">
         </div>
       </div>
     </div>
@@ -1155,7 +1199,26 @@
   </div>
 </section>
 
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;">
+  <img id="lightbox-img" src="" alt="" style="max-width:92vw;max-height:92vh;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.6);">
+  <button onclick="closeLightbox()" style="position:fixed;top:20px;right:24px;background:none;border:none;color:white;font-size:32px;cursor:pointer;line-height:1;">✕</button>
+</div>
+<style>
+  #lightbox { display:none; }
+  #lightbox.open { display:flex !important; }
+</style>
+
 <script>
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+
 function copyPrompt(id, btn) {
   const text = document.getElementById(id).innerText;
   navigator.clipboard.writeText(text).then(() => {
